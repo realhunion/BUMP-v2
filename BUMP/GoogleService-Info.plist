@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>143063436170-6nkmu9hvlt67upnk702r5m8a3i3jiuol.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.143063436170-6nkmu9hvlt67upnk702r5m8a3i3jiuol</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBWSdfR_ByW1RKHjKptMMk5QF1rBdmlAQ8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>143063436170</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.theBumpInitiative.BUMP</string>
+	<key>PROJECT_ID</key>
+	<string>bump-4d94e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bump-4d94e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:143063436170:ios:d6b08012dbd32526a1d673</string>
+	<key>DATABASE_URL</key>
+	<string>https://bump-4d94e.firebaseio.com</string>
+</dict>
+</plist>
