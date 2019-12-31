@@ -18,7 +18,7 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     deinit {
@@ -28,16 +28,17 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     let incomingTextMessageCellID = "incomingTextMessageCellID"
     let outgoingTextMessageCellID = "outgoingTextMessageCellID"
     
-    var msgFetcher : MessageFetcher?
-    
-    var msgSender : MessageSender?
+    //FIX: better solution??
+    var msgFetcher : MessageFetcher!
+    var msgSender : MessageSender!
     
     var msgArray : [[Message]] = [] // Each item is Msg Group Array.
     
     var chatID : String = "Error Club"
-    var circleName : String = "Error Club"
-    var circleID : String = "Error Club"
     var chatName : String = "Error Club"
+    var circleID : String = "Error Club"
+    var circleName : String = "Error Club"
+    var circleEmoji : String = "🤙"
     
     
     lazy var navBar: UINavigationBar = UINavigationBar()
@@ -71,6 +72,7 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,44 +80,30 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
         self.setupNavBar()
         self.setupSubNavBar()
         
-//        self.setupKeyboardObservers()
+        self.setupKeyboardObservers()
         
-        self.startMessageFetcher()
+        self.setupMessageFetcher()
             
-        self.msgSender = MessageSender(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName)
+        self.setupMessageSender()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        CircleManager.shared.updateFeedLastSeen(chatID: self.chatID)
-        //FIX: doesn't do when resign active screen
-//        self.navigationController?.navigationBar.isHidden = false
-//        navigationController?.setNavigationBarHidden(false, animated: false)
-//        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    
-//    override var inputAccessoryView: UIView? {
-//        return self.inputBarView
-//    }
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    override var canResignFirstResponder: Bool {
-        return true
-    }
     
     
     func shutDown () {
         
         self.inputBarView.shutDown()
         
-        self.msgFetcher?.shutDown()
+        self.msgFetcher.shutDown()
         
         NotificationCenter.default.removeObserver(self)
     }
@@ -125,10 +113,9 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     
     
     
-    // MARK: - Collection View Set-Up
+    // MARK: - Set-Up
     
     var inputBarBottomAnchor: NSLayoutConstraint?
-    
     func setupCollectionView () {
         
         let tapG = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
@@ -177,6 +164,23 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
         collectionView.delegate = self
     }
     
+    func setupMessageSender() {
+        guard msgSender == nil else { return }
+        
+        self.msgSender = MessageSender(chatID: self.chatID)
+    }
+    
+    func setupMessageFetcher() {
+        guard msgFetcher == nil else { return }
+        
+        self.msgFetcher = MessageFetcher(chatID: chatID)
+        self.msgFetcher.delegate = self
+    }
+    
+    
+    
+    //MARK: - Helper Methods
+    
     func scrollToBottom(at position: UICollectionView.ScrollPosition, isAnimated : Bool) {
         guard let lastMsgGroup = msgArray.last else { return }
         
@@ -193,9 +197,5 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
             self.collectionView?.scrollToItem(at: indexPath, at: position, animated: isAnimated)
         }
     }
-    
-
-    
-    
     
 }

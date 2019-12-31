@@ -36,6 +36,7 @@
 		7B7ACA6D235D2E0E00D3E901 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7ACA6B235D2E0E00D3E901 /* Main.storyboard */; };
 		7B7ACA6F235D2E1000D3E901 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B7ACA6E235D2E1000D3E901 /* Assets.xcassets */; };
 		7B7ACA72235D2E1000D3E901 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7ACA70235D2E1000D3E901 /* LaunchScreen.storyboard */; };
+		7B7FA84823BBD899000507D2 /* LaunchMsgSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7FA84723BBD899000507D2 /* LaunchMsgSender.swift */; };
 		7B8D388F23610CBE00A3FCA3 /* MsgCellConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D388E23610CBE00A3FCA3 /* MsgCellConfig.swift */; };
 		7B8D3891236148DC00A3FCA3 /* LaunchCircleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D3890236148DB00A3FCA3 /* LaunchCircleFetcher.swift */; };
 		7B987EA423A80A980040D578 /* LaunchChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B987EA323A80A980040D578 /* LaunchChatVC.swift */; };
@@ -108,6 +109,7 @@
 		7B7ACA6E235D2E1000D3E901 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B7ACA71235D2E1000D3E901 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B7ACA73235D2E1000D3E901 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B7FA84723BBD899000507D2 /* LaunchMsgSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchMsgSender.swift; sourceTree = "<group>"; };
 		7B8D388E23610CBE00A3FCA3 /* MsgCellConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgCellConfig.swift; sourceTree = "<group>"; };
 		7B8D3890236148DB00A3FCA3 /* LaunchCircleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchCircleFetcher.swift; sourceTree = "<group>"; };
 		7B987EA323A80A980040D578 /* LaunchChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchChatVC.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				7B5B9B162365641E0058E305 /* BUMP.entitlements */,
+				7BEA973123B9B4360083C8B7 /* trying.swift */,
 				7BC7C300235FCC0F009D77BF /* Constant.swift */,
 				7B7ACA65235D2E0E00D3E901 /* AppDelegate.swift */,
 				7BC7C30423602859009D77BF /* BUMP.swift */,
@@ -369,7 +372,6 @@
 		7BC7C2D6235FC94B009D77BF /* ChatVC */ = {
 			isa = PBXGroup;
 			children = (
-				7BEA973123B9B4360083C8B7 /* trying.swift */,
 				7B987EA323A80A980040D578 /* LaunchChatVC.swift */,
 				7BC7C2DC235FC94B009D77BF /* ChatVC.swift */,
 				7BC7C2D7235FC94B009D77BF /* ChatVC+DataSource.swift */,
@@ -388,6 +390,7 @@
 				7BC7C2E8235FC94B009D77BF /* Message.swift */,
 				7BC7C2E7235FC94B009D77BF /* MessageFetcher.swift */,
 				7BC7C2E6235FC94B009D77BF /* MessageSender.swift */,
+				7B7FA84723BBD899000507D2 /* LaunchMsgSender.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				7B3E23A723738F5E008DB53F /* UserProfileView.swift in Sources */,
 				7BC7C30723602F36009D77BF /* CircleManager.swift in Sources */,
 				7BC7C2F7235FC94B009D77BF /* ChatVC+NavBar.swift in Sources */,
+				7B7FA84823BBD899000507D2 /* LaunchMsgSender.swift in Sources */,
 				7BC7C2F6235FC94B009D77BF /* ChatVC+MsgFetcher.swift in Sources */,
 				7BC7C2EC235FC94B009D77BF /* InputBarView.swift in Sources */,
 				7BB807B42376CA8100EDBAFD /* UserProfileEditView+ImgPicker.swift in Sources */,

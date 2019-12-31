@@ -101,15 +101,18 @@ class FeedTVC: UITableViewController {
         let feedChat = self.feedChatArray[indexPath.row]
         let chatID = feedChat.chatID
         
+        let circleEmoji = feedChat.circleEmoji
         let circleName = feedChat.circleName
         let circleID = feedChat.circleID
-        let firstMsg = feedChat.getFirstMessage()!
+        let firstMsg = feedChat.getFirstMessage()?.text ?? "🤙"
+        //FIX: make safer
         
-        CircleManager.shared.enterCircle(chatID: chatID, chatName: firstMsg.text, circleID: circleID, circleName: circleName)
+        CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsg, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
         
         
         CircleManager.shared.updateFeedLastSeen(chatID: chatID)
         self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        //FIX: more structure
         
     }
     

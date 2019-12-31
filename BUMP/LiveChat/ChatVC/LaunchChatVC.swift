@@ -11,10 +11,20 @@ import Firebase
 
 class LaunchChatVC : ChatVC {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.inputBarView.inputTextView.becomeFirstResponder()
+    }
+    
+    //MARK: - Setup
+    
+    override func setupMessageSender() {
+        self.msgSender = LaunchMessageSender(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji)
     }
     
     override func setupCollectionView() {
@@ -31,37 +41,21 @@ class LaunchChatVC : ChatVC {
     
     override func followChatButtonTapped() {
         self.followChatButton.isSelected = !self.followChatButton.isSelected
-        
+        //FIX: 
     }
     
     
     
     // MARK: - Send a Message
     
-    var launchMsgSent = false
-    
     @objc override func handleSend() {
         guard let text = inputBarView.inputTextView.text else { return }
         
         inputBarView.prepareForSend()
         
-        if launchMsgSent {
-            
-            self.sendTextMessage(text: text)
-        } else {
-            
-            self.sendLaunchTextMessage(text: text)
-            self.launchMsgSent = true
-        }
+        self.msgSender.sendMsg(text: text)
     }
     
-    func sendLaunchTextMessage(text : String) {
-        
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        self.msgSender?.postLaunchTextToFirebase(text: trimmedText)
-        
-    }
     
     
 }

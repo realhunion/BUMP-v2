@@ -204,9 +204,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
         guard let chatID = response.notification.request.content.userInfo["chatID"] as? String else { return }
         
         //Tweak: start at 0, when tap on notification.
-        let circManager = CircleManager.shared
-        self.bump?.homeTabBarVC.selectedIndex = 0
-        circManager.enterCircle(chatID: chatID, chatName: "Chat Name", circleID: "Free Food", circleName: "Free Food")
+//        let circManager = CircleManager.shared
+//        self.bump?.homeTabBarVC.selectedIndex = 0
+//        circManager.enterCircle(chatID: chatID, chatName: "Chat Name", circleID: "Free Food", circleName: "Free Food")
         
     }
     

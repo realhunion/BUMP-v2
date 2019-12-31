@@ -14,16 +14,22 @@ class MessageSender {
     let db = Firestore.firestore()
     
     var chatID : String
-    var circleID : String
-    var circleName : String
-    init(chatID : String, circleID : String, circleName : String) {
+    init(chatID : String) {
         self.chatID = chatID
-        self.circleID = circleID
-        self.circleName = circleName
     }
     
     deinit {
         print("vv msgSender DE INIT")
+    }
+    
+    
+    
+    //MARK: - Send Msg
+    
+    
+    func sendMsg(text: String) {
+        let trimmedString = text.trimmingCharacters(in: .whitespaces)
+        self.postTextToFirebase(text: trimmedString)
     }
     
     
@@ -45,39 +51,6 @@ class MessageSender {
         
         db.collection("Feed").document(chatID).collection("Messages").document(timestamp).setData(data)
         
-        
-    }
-    
-    func postLaunchTextToFirebase(text : String) {
-        
-        guard let myUser = Auth.auth().currentUser else { return }
-        
-        let myUID = myUser.uid
-        var userName = myUser.displayName ?? myUser.email ?? "Jack Error"
-        
-        if let userFirstName = userName.components(separatedBy: " ").first {
-            userName = userFirstName
-        }
-        
-        
-        let batch = db.batch()
-        
-        let timestamp = generateUniqueTimestamp()
-        
-        let msgRef = db.collection("Feed").document(chatID).collection("Messages").document(timestamp)
-        let msgData = generateMsgDataStrip(text: text, userID: myUID, userName: userName)
-        batch.setData(msgData, forDocument: msgRef)
-        
-        let infoRef = db.collection("Feed").document(chatID)
-        let infoData = [
-            "circleID":circleID,
-            "circleName":circleName,
-            "circleEmoji":"🤙",
-            "timeLaunched": msgData["timestamp"] as Any,
-            ] as [String : Any]
-        batch.setData(infoData, forDocument: infoRef, merge: true)
-        
-        batch.commit()
         
     }
     

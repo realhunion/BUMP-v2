@@ -74,6 +74,7 @@ extension ChatVC {
     @objc func followChatButtonTapped() {
         print("Follow chat button tapped\n")
         self.followChatButton.isSelected = !self.followChatButton.isSelected
+        //FIX:
     }
     
     

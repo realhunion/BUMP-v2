@@ -98,7 +98,10 @@ class MessageFetcher {
     
     
     
-
+    
+    
+    
+    //MARK: - Helper Methods
     
     func inLastXSeconds(xSeconds : Int, timestamp: Timestamp) -> Bool {
         let currentTime = Int64(Date().timeIntervalSince1970)

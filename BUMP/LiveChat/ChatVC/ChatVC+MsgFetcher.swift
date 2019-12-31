@@ -13,14 +13,6 @@ import Firebase
 extension ChatVC : MessageFetcherDelegate {
     
     
-    func startMessageFetcher() {
-        guard msgFetcher == nil else { return }
-        
-        msgFetcher = MessageFetcher(chatID: chatID)
-        msgFetcher!.delegate = self
-    }
-    
-    
     func newMessagesAdded(messages: [Message], initialLoadDone : Bool) {
                 
         guard let myUID = Auth.auth().currentUser?.uid else { return }
