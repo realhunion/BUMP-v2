@@ -93,8 +93,19 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.updateFeedLastSeen()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        
+        self.updateFeedLastSeen()
+    }
+    
+    func updateFeedLastSeen() {
+        CircleManager.shared.updateFeedLastSeen(chatID: chatID)
     }
     
     
@@ -128,7 +139,7 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
         collectionView?.backgroundColor = view.backgroundColor
         collectionView?.contentInset = UIEdgeInsets(top: 44+36+10, left: 0, bottom: 10, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 44+36, left: 0, bottom: 0, right: 0)
-//        collectionView?.keyboardDismissMode = .interactive
+        collectionView?.keyboardDismissMode = .none
         collectionView?.delaysContentTouches = false
         collectionView?.alwaysBounceVertical = true
         collectionView?.isPrefetchingEnabled = false

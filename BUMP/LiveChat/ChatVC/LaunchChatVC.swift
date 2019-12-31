@@ -21,6 +21,20 @@ class LaunchChatVC : ChatVC {
         self.inputBarView.inputTextView.becomeFirstResponder()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    override func updateFeedLastSeen() {
+        guard let msgSndr = self.msgSender as? LaunchMessageSender else { return }
+        print("called sir")
+        if msgSndr.isLaunched {
+            print("called sir u2")
+            super.updateFeedLastSeen()
+        }
+    }
+    
+    
     //MARK: - Setup
     
     override func setupMessageSender() {
@@ -45,16 +59,6 @@ class LaunchChatVC : ChatVC {
     }
     
     
-    
-    // MARK: - Send a Message
-    
-    @objc override func handleSend() {
-        guard let text = inputBarView.inputTextView.text else { return }
-        
-        inputBarView.prepareForSend()
-        
-        self.msgSender.sendMsg(text: text)
-    }
     
     
     

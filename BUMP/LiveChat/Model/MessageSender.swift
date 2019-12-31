@@ -28,8 +28,8 @@ class MessageSender {
     
     
     func sendMsg(text: String) {
-        let trimmedString = text.trimmingCharacters(in: .whitespaces)
-        self.postTextToFirebase(text: trimmedString)
+        print("crr0")
+        self.postTextToFirebase(text: text)
     }
     
     

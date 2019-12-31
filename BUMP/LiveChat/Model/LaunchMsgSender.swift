@@ -28,11 +28,12 @@ class LaunchMessageSender : MessageSender {
     
     
     override func sendMsg(text: String) {
+        print("crr -1")
         if isLaunched {
-            print("cr1 \(isLaunched)")
+            print("crr1 \(isLaunched)")
             self.postTextToFirebase(text: text)
         } else {
-            print("cr2 \(isLaunched)")
+            print("crr2 \(isLaunched)")
             self.postLaunchTextToFirebase(text: text)
             self.isLaunched = true
         }
@@ -68,6 +69,9 @@ class LaunchMessageSender : MessageSender {
             "timeLaunched": msgData["timestamp"] as Any,
             ] as [String : Any]
         batch.setData(infoData, forDocument: infoRef, merge: true)
+        
+        CircleManager.shared.updateFeedLastSeen(chatID: chatID)
+        //FIX: new pathway
         
         batch.commit()
         

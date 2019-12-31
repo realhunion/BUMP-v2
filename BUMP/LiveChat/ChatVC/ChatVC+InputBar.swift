@@ -33,9 +33,11 @@ extension ChatVC {
     
     func sendTextMessage(text : String) {
         
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let formattedText = text.trimmingCharacters(in: .whitespaces)
         
-        self.msgSender?.postTextToFirebase(text: trimmedText)
+        self.msgSender.sendMsg(text: formattedText)
+        
+        
         
     }
     

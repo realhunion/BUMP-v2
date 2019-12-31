@@ -110,9 +110,8 @@ class FeedTVC: UITableViewController {
         CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsg, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
         
         
-        CircleManager.shared.updateFeedLastSeen(chatID: chatID)
-        self.tableView.reloadRows(at: [indexPath], with: .automatic)
-        //FIX: more structure
+//        CircleManager.shared.updateFeedLastSeen(chatID: chatID)
+        //FIX: more structure ?? here put here???
         
     }
     
