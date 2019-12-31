@@ -50,6 +50,8 @@ class InputBarView: UIView {
         
         textView.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         
+        textView.placeholder = "Type a message"
+        
         return textView
     }()
     
@@ -182,10 +184,10 @@ extension InputBarView: UITextFieldDelegate {
 
 
 extension UIButton {
-    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        let relativeFrame = self.bounds
-        let hitTestEdgeInsets = UIEdgeInsets(top: -12, left: -12, bottom: -12, right: -12)
-        let hitFrame = relativeFrame.inset(by: hitTestEdgeInsets)
-        return hitFrame.contains(point)
-    }
+//    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+//        let relativeFrame = self.bounds
+//        let hitTestEdgeInsets = UIEdgeInsets(top: -12, left: -12, bottom: -12, right: -12)
+//        let hitFrame = relativeFrame.inset(by: hitTestEdgeInsets)
+//        return hitFrame.contains(point)
+//    }
 }

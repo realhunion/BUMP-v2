@@ -11,7 +11,7 @@ import UIKit
 import Firebase
 import SwiftEntryKit
 
-class CategoryCVC : UICollectionViewController {
+class SettingsCVC : UICollectionViewController {
     
     var db = Firestore.firestore()
     
@@ -70,25 +70,21 @@ class CategoryCVC : UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "clubCell", for: indexPath) as! ClubCell
         
-        
-        cell.layoutCell()
-        cell.setupXAloneView()
-        
         if indexPath.row == 0 {
-            cell.clubTitleLabel.text = "Silence for 1h"
+            cell.circleTitleLabel.text = "Silence for 1h"
         }
         else if indexPath.row == 1 {
-            cell.clubTitleLabel.text = "Silence for 3h"
+            cell.circleTitleLabel.text = "Silence for 3h"
         }
         else if indexPath.row == 2 {
-            cell.clubTitleLabel.text = "Silence for 12h"
+            cell.circleTitleLabel.text = "Silence for 12h"
         }
         else {
-            cell.clubTitleLabel.text = "UnSilence"
+            cell.circleTitleLabel.text = "UnSilence"
         }
         
         
-        
+        cell.followButton.isHidden = true
         
         return cell
     }
@@ -146,7 +142,7 @@ class CategoryCVC : UICollectionViewController {
 }
 
 
-extension CategoryCVC : UICollectionViewDelegateFlowLayout {
+extension SettingsCVC : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         

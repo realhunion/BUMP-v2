@@ -20,14 +20,16 @@ class FeedChat {
     var chatID : String
     var circleID : String
     var circleName : String
+    var circleEmoji : String
     var myUser : FeedUser
     var userArray : [FeedUser]
     var messageArray : [Message]
-    init(chatID : String, circleID : String, circleName : String, myUser : FeedUser, userArray : [FeedUser], messageArray : [Message]) {
+    init(chatID : String, circleID : String, circleName : String, circleEmoji : String, myUser : FeedUser, userArray : [FeedUser], messageArray : [Message]) {
         
         self.chatID = chatID
         self.circleID = circleID
         self.circleName = circleName
+        self.circleEmoji = circleEmoji
         self.myUser = myUser
         self.userArray = userArray
         self.messageArray = messageArray
@@ -56,13 +58,6 @@ class FeedChat {
         return firstMsg
     }
     
-    
-    func getFollowerArray() -> [String] {
-        
-        let array = userArray.filter({$0.isFollowing == true}).map({$0.userID})
-        return array
-        
-    }
     
     func getTimestampString() -> String {
         

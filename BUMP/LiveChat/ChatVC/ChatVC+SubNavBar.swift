@@ -18,7 +18,7 @@ extension ChatVC {
     
     func setupSubNavBar() {
         
-        let yy = 0.096 * self.view.bounds.width
+        let yy = 0.092 * self.view.bounds.width //0.094
         
         self.view.addSubview(subNavBar)
         //FIX

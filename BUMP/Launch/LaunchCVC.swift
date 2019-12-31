@@ -13,22 +13,23 @@ import SwiftEntryKit
 import QuickLayout
 
 
-class CampusClubsCVC: UICollectionViewController {
+class LaunchCVC: UICollectionViewController {
+    
+    var db = Firestore.firestore()
     
     final let numColumns : Int = 2
     final let gridSpacing : CGFloat = 30.0
     
-    var clubsFetcher : ClubsFetcher?
+    var launchFetcher : LaunchFetcher?
     
-//    var clubInfoDict : [String : ClubInfo] = [:]
-    var clubInfoArray : [ClubInfo] = []
+    var circleArray : [LaunchCircle] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupCollectionView()
         
-        self.setupClubsFetcher()
+        self.setupLaunchFetcher()
         
         let x = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         self.navigationItem.setRightBarButton(x, animated: true)
@@ -37,9 +38,9 @@ class CampusClubsCVC: UICollectionViewController {
     
     func shutDown() {
         
-        self.clubsFetcher?.shutDown()
-        self.clubsFetcher?.delegate = nil
-        self.clubInfoArray = []
+        self.launchFetcher?.shutDown()
+        self.launchFetcher?.delegate = nil
+        self.circleArray = []
         self.collectionView.reloadData()
         
     }
@@ -64,11 +65,11 @@ class CampusClubsCVC: UICollectionViewController {
     }
     
     
-    func setupClubsFetcher() {
+    func setupLaunchFetcher() {
         
-        self.clubsFetcher = ClubsFetcher()
-        self.clubsFetcher?.delegate = self
-        self.clubsFetcher?.monitorCampusClubs()
+        self.launchFetcher = LaunchFetcher()
+        self.launchFetcher?.delegate = self
+        self.launchFetcher?.monitorLaunchCircles()
         
     }
     
@@ -82,49 +83,33 @@ class CampusClubsCVC: UICollectionViewController {
     
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return clubInfoArray.count
+        return circleArray.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "clubCell", for: indexPath) as! ClubCell
         
-        let cInfo = clubInfoArray[indexPath.item]
+        guard let myUID = Auth.auth().currentUser?.uid else { return cell }
         
+        
+        let cInfo = circleArray[indexPath.item]
+        
+        
+        cell.circleTitleLabel.text = cInfo.circleName
+        cell.numMembersLabel.text = "\(cInfo.followerIDArray.count) Members · \(cInfo.circleEmoji)"
+//        cell.numMembersLabel.text = "\(cInfo.circleEmoji) · \(cInfo.followerIDArray.count) Members"
 
-        for s in cell.contentView.subviews {
-            s.removeFromSuperview()
+        cell.followButton.isSelected = cInfo.followerIDArray.contains(myUID)
+        cell.followButtonAction = { [unowned self] in
+            if cell.followButton.isSelected == false {
+                self.followCircle(circleID: cInfo.circleID)
+            } else {
+                self.unFollowCircle(circleID: cInfo.circleID)
+            }
         }
-        
-        cell.layoutCell()
-        
-        cell.clubTitleLabel.text = cInfo.circleID
-        cell.numMembersLabel.text = "\(cInfo.followerIDArray.count) Members"
-        
-        if cInfo.userHereArray.count == 0 {
-            cell.setupXAloneView()
-        } else {
-            cell.usersHereLabel.text = "\(cInfo.userHereArray.count) HERE"
-            cell.setupXView()
-        }
-
-        if cInfo.followerIDArray.contains(Auth.auth().currentUser?.uid ?? "x_x") {
-            cell.followButton.setTitle("F✓", for: .normal)
-            cell.followButton.titleLabel?.font = UIFont.systemFont(ofSize: 11.0, weight: .semibold)
-        } else {
-            cell.followButton.setTitle("Follow", for: .normal)
-            cell.followButton.titleLabel?.font = UIFont.systemFont(ofSize: 11.0, weight: .semibold)
-            cell.followButton.setTitleColor(Constant.oBlue, for: .normal)
-        }
-        
-        
     
         return cell
     }
@@ -133,14 +118,14 @@ class CampusClubsCVC: UICollectionViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cInfo = clubInfoArray[indexPath.item]
+        let cInfo = circleArray[indexPath.item]
         let circleID = cInfo.circleID
-        
+        let circleName = cInfo.circleName
+        let circleEmoji = cInfo.circleEmoji
         
         if LoginManager.shared.isLoggedIn() {
             let c = CircleManager.shared
-            c.launchCircle(circleID: circleID, circleName: circleID)
-            //FIX : circleID & circleName is different
+            c.launchCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
         }
     
         
@@ -150,7 +135,7 @@ class CampusClubsCVC: UICollectionViewController {
 }
 
 
-extension CampusClubsCVC : UICollectionViewDelegateFlowLayout {
+extension LaunchCVC : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -175,45 +160,5 @@ extension CampusClubsCVC : UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: self.gridSpacing/2, left: self.gridSpacing, bottom: self.gridSpacing/2, right: self.gridSpacing)
     }
     
-    
-}
-
-
-
-extension CampusClubsCVC : ClubsFetcherDelegate {
-    
-    func clubUpdated(clubInfo: ClubInfo) {
-        
-        if let index = self.clubInfoArray.firstIndex(where: { (cInfo) -> Bool in
-            return cInfo.circleID == clubInfo.circleID
-        }) {
-            self.clubInfoArray[index] = clubInfo
-        }
-        else {
-            self.clubInfoArray.append(clubInfo)
-            self.sortClubInfoArray()
-        }
-        
-        self.collectionView.reloadData()
-    }
-    
-    func clubRemoved(clubID : String) {
-        self.clubInfoArray.removeAll(where: {$0.circleID == clubID})
-        self.collectionView.reloadData()
-    }
-    
-    
-
-    
-    func sortClubInfoArray() {
-        self.clubInfoArray.sort { (c1, c2) -> Bool in
-            if c1.userHereArray.count == c2.userHereArray.count {
-                return c1.circleID < c2.circleID
-            }
-            else {
-                return c1.userHereArray.count > c2.userHereArray.count
-            }
-        }
-    }
     
 }

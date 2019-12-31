@@ -42,8 +42,8 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     var feedVC = FeedTVC()
-    var campusClubsVC = CampusClubsCVC(collectionViewLayout: UICollectionViewFlowLayout())
-    var categoriesVC = CategoryCVC(collectionViewLayout: UICollectionViewFlowLayout())
+    var campusClubsVC = LaunchCVC(collectionViewLayout: UICollectionViewFlowLayout())
+    var categoriesVC = SettingsCVC(collectionViewLayout: UICollectionViewFlowLayout())
     
     func setupTabBar() {
         

@@ -62,17 +62,16 @@ class CircleManager {
         
     }
     
-    func launchCircle(circleID : String, circleName : String) {
+    func launchCircle(circleID : String, circleName : String, circleEmoji : String) {
         
-//        let chatIDString = "\(Date().timeIntervalSince1970.bitPattern)"
+        
         let chatID = "\(Date().timeIntervalSince1970.bitPattern)"
-        let chatName = "🤙"
         
         let chatVC = LaunchChatVC(collectionViewLayout: UICollectionViewFlowLayout())
         chatVC.chatID = chatID
-        chatVC.circleName = circleName
         chatVC.circleID = circleID
-        chatVC.chatName = chatName
+        chatVC.circleName = circleName
+        chatVC.chatName = circleEmoji
         chatVC.tabBarItem.tag = 0
         
         
@@ -119,7 +118,6 @@ class CircleManager {
         
         db.collection("Feed").document(chatID).collection("Users").document(myUID).setData(payload, merge: true)
         
-        print("tesser 1 set")
         
     }
     

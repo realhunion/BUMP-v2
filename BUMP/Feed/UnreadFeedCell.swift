@@ -42,22 +42,21 @@ class UnreadFeedCell : FeedCell {
         
         
         cardContentView.addSubview(newMessagesLabel)
-        let h : CGFloat = 20.0
         newMessagesLabel.layoutToSuperview(.top, offset: 0)
-        newMessagesLabel.set(.width, of: h)
-        newMessagesLabel.set(.height, of: h)
+        newMessagesLabel.set(.width, of: 20.0)
+        newMessagesLabel.set(.height, of: 20.0)
         newMessagesLabel.layoutToSuperview(.right, offset: 0)
         
-        cardContentView.addSubview(circleIDLabel)
-        circleIDLabel.layout(.top, to: .bottom, of: followButton, offset: 2)
-        circleIDLabel.layout(.top, to: .bottom, of: timeLabel, offset: 2)
-        circleIDLabel.layout(.top, to: .bottom, of: newMessagesLabel, offset: 2)
-        circleIDLabel.layoutToSuperview(.left, offset: 0)
-        circleIDLabel.layoutToSuperview(.right, offset: 0)
+        cardContentView.addSubview(circleTitleLabel)
+        circleTitleLabel.layout(.top, to: .bottom, of: followButton, offset: 2)
+        circleTitleLabel.layout(.top, to: .bottom, of: timeLabel, offset: 2)
+        circleTitleLabel.layout(.top, to: .bottom, of: newMessagesLabel, offset: 2)
+        circleTitleLabel.layoutToSuperview(.left, offset: 0)
+        circleTitleLabel.layoutToSuperview(.right, offset: 0)
         
         
         cardContentView.addSubview(firstMessageLabel)
-        firstMessageLabel.layout(.top, to: .bottom, of: circleIDLabel, offset: 2)
+        firstMessageLabel.layout(.top, to: .bottom, of: circleTitleLabel, offset: 2)
         firstMessageLabel.layoutToSuperview(.left, offset: 0)
         firstMessageLabel.layoutToSuperview(.right, offset: 0)
         firstMessageLabel.layoutToSuperview(.bottom, offset: 0)

@@ -25,7 +25,6 @@ extension ChatVC {
         self.navBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         self.navBar.set(.height, of: 44.0)
         
-        print("vvs \(self.navBar.bounds.origin.y)")
         let v = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
         v.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
         self.view.insertSubview(v, belowSubview: navBar)

@@ -13,7 +13,7 @@ class FeedCell: UITableViewCell {
     
     
     
-    var circleIDLabel : UILabel = {
+    var circleTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0, weight: .semibold)
         label.adjustsFontSizeToFitWidth = false
@@ -48,12 +48,14 @@ class FeedCell: UITableViewCell {
         button.setTitle("Follow chat", for: .normal)
         button.setTitle("F✓", for: .selected)
         
+        button.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        
 //        button.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
         
         return button
     }()
     var followButtonAction : (() -> ())?
-    @IBAction func followButtonTapped(_ sender: UIButton){
+    @IBAction func followButtonTapped(_ sender: UIButton) {
         self.followButtonAction?()
     }
     
@@ -136,15 +138,15 @@ class FeedCell: UITableViewCell {
         timeLabel.layoutToSuperview(.right, offset: 0)
         timeLabel.set(.height, of: 20.0)
         
-        cardContentView.addSubview(circleIDLabel)
-        circleIDLabel.layout(.top, to: .bottom, of: followButton, offset: 2)
-        circleIDLabel.layout(.top, to: .bottom, of: timeLabel, offset: 2)
-        circleIDLabel.layoutToSuperview(.left, offset: 0)
-        circleIDLabel.layoutToSuperview(.right, offset: 0)
+        cardContentView.addSubview(circleTitleLabel)
+        circleTitleLabel.layout(.top, to: .bottom, of: followButton, offset: 2)
+        circleTitleLabel.layout(.top, to: .bottom, of: timeLabel, offset: 2)
+        circleTitleLabel.layoutToSuperview(.left, offset: 0)
+        circleTitleLabel.layoutToSuperview(.right, offset: 0)
         
         
         cardContentView.addSubview(firstMessageLabel)
-        firstMessageLabel.layout(.top, to: .bottom, of: circleIDLabel, offset: 2)
+        firstMessageLabel.layout(.top, to: .bottom, of: circleTitleLabel, offset: 2)
         firstMessageLabel.layoutToSuperview(.left, offset: 0)
         firstMessageLabel.layoutToSuperview(.right, offset: 0)
         firstMessageLabel.layoutToSuperview(.bottom, offset: 0)

@@ -34,10 +34,12 @@ class FeedChatFetcher {
     var chatID : String
     var circleID : String
     var circleName : String
-    init(chatID : String, circleID : String, circleName : String) {
+    var circleEmoji : String
+    init(chatID : String, circleID : String, circleName : String, circleEmoji : String) {
         self.chatID = chatID
         self.circleID = circleID
         self.circleName = circleName
+        self.circleEmoji = circleEmoji
         
     }
     
@@ -64,7 +66,7 @@ class FeedChatFetcher {
         guard let uArray = self.userArray else { return }
         guard let msgArray = self.messageArray else { return }
         
-        let payload = FeedChat(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, myUser: myU, userArray: uArray, messageArray: msgArray)
+        let payload = FeedChat(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, myUser: myU, userArray: uArray, messageArray: msgArray)
         self.delegate?.feedChatUpdated(feedChat: payload)
         
     }
@@ -92,8 +94,6 @@ class FeedChatFetcher {
             if let isFollowing = doc.data()?["isFollowing"] as? Bool {
                 fUser.isFollowing = isFollowing
             }
-            
-            print("myFUser gotten \(uID) \(fUser.lastSeen)")
             
             self.myUser = fUser
             self.triggerUpdate()

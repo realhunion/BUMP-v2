@@ -72,8 +72,7 @@ class FeedTVC: UITableViewController {
         }
         
         
-        
-        cell.circleIDLabel.text = feedChat.circleName
+        cell.circleTitleLabel.text = feedChat.circleEmoji + " · " + feedChat.circleName
         cell.firstMessageLabel.text = feedChat.getFirstMessage()?.text ?? "🤙"
         cell.timeLabel.text = feedChat.getTimestampString()
         

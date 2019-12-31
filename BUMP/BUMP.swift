@@ -37,7 +37,7 @@ class BUMP {
         
         //FIX:
 //        homeTabBarVC.feedVC.shutDown()
-//        homeTabBarVC.feedVC.setupClubsFetcher()
+//        homeTabBarVC.feedVC.setupLaunchFetcher()
         
         homeTabBarVC.selectedIndex = 1
         homeTabBarVC.currentIndex = 1
@@ -82,7 +82,6 @@ class BUMP {
         
         let payload = [ "fcmToken": fcmToken, "typePhone": 1] as [String : Any] //1 is iPhone, 2 is Android
         self.db.collection("User-Base").document(myUID).setData(payload, merge: true) { err in
-            print("poop 2 success : \(err == nil)")
             if let err = err {
                 print("Error writing document: \(err)")
             } else {

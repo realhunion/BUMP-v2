@@ -10,7 +10,7 @@ import SPStorkController
 import Firebase
 import QuickLayout
 
-class ChatVC: UICollectionViewController, UIGestureRecognizerDelegate, SPStorkControllerDelegate {
+class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStorkControllerDelegate {
 //
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        SPStorkController.scrollViewDidScroll(scrollView)
@@ -70,6 +70,7 @@ class ChatVC: UICollectionViewController, UIGestureRecognizerDelegate, SPStorkCo
     }()
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,7 +78,7 @@ class ChatVC: UICollectionViewController, UIGestureRecognizerDelegate, SPStorkCo
         self.setupNavBar()
         self.setupSubNavBar()
         
-        self.setupKeyboardObservers()
+//        self.setupKeyboardObservers()
         
         self.startMessageFetcher()
             
@@ -88,17 +89,26 @@ class ChatVC: UICollectionViewController, UIGestureRecognizerDelegate, SPStorkCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
-//        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        CircleManager.shared.updateFeedLastSeen(chatID: self.chatID)
+//        CircleManager.shared.updateFeedLastSeen(chatID: self.chatID)
         //FIX: doesn't do when resign active screen
-        self.navigationController?.navigationBar.isHidden = false
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+//        self.navigationController?.navigationBar.isHidden = false
+//        navigationController?.setNavigationBarHidden(false, animated: false)
 //        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    
+//    override var inputAccessoryView: UIView? {
+//        return self.inputBarView
+//    }
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    override var canResignFirstResponder: Bool {
+        return true
+    }
     
     
     func shutDown () {
@@ -131,7 +141,7 @@ class ChatVC: UICollectionViewController, UIGestureRecognizerDelegate, SPStorkCo
         collectionView?.backgroundColor = view.backgroundColor
         collectionView?.contentInset = UIEdgeInsets(top: 44+36+10, left: 0, bottom: 10, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 44+36, left: 0, bottom: 0, right: 0)
-        collectionView?.keyboardDismissMode = .none
+//        collectionView?.keyboardDismissMode = .interactive
         collectionView?.delaysContentTouches = false
         collectionView?.alwaysBounceVertical = true
         collectionView?.isPrefetchingEnabled = false
@@ -150,8 +160,7 @@ class ChatVC: UICollectionViewController, UIGestureRecognizerDelegate, SPStorkCo
         collectionView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView!.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         collectionView!.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        collectionView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                                constant: -self.inputBarView.bounds.height).isActive = true
+        collectionView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -self.inputBarView.bounds.height).isActive = true
         
 //        inputBarView.layout(.top, to: .bottom, of: inputBarView, offset: 5)
 //        inputBarView.set(.height, of: 50.0)

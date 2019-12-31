@@ -145,7 +145,6 @@ extension ChatVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellMeta = getSizeForCell(indexPath: indexPath)
-        print("duby -1- \(indexPath.row)")
         return CGSize(width: self.collectionView.bounds.width, height: cellMeta.cellHeight)
     }
     

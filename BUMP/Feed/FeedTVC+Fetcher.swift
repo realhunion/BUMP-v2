@@ -13,8 +13,6 @@ extension FeedTVC : FeedFetcherDelegate {
     
     func feedChatUpdated(feedChat: FeedChat) {
         
-        print("cvs \(feedChat.circleID)")
-        
         self.tableView.performBatchUpdates({
             
             if let index = feedChatArray.firstIndex(where: {$0.chatID == feedChat.chatID}) {
@@ -25,10 +23,10 @@ extension FeedTVC : FeedFetcherDelegate {
                 if let index = feedChatArray.firstIndex(where: {$0.getFirstMessage()!.timestamp.compare(feedChat.getFirstMessage()!.timestamp) == .orderedAscending}) {
                     feedChatArray.insert(feedChat, at: index)
                     self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .left)
-                    } else {
+                } else {
                     feedChatArray.append(feedChat)
                     self.tableView.insertRows(at: [IndexPath(item: feedChatArray.count-1, section: 0)], with: .left)
-                    }
+                }
             }
         })
     }

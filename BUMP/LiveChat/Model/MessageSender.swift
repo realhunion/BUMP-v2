@@ -72,6 +72,7 @@ class MessageSender {
         let infoData = [
             "circleID":circleID,
             "circleName":circleName,
+            "circleEmoji":"🤙",
             "timeLaunched": msgData["timestamp"] as Any,
             ] as [String : Any]
         batch.setData(infoData, forDocument: infoRef, merge: true)

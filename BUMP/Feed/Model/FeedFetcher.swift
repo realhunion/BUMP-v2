@@ -57,9 +57,9 @@ class FeedFetcher {
                     
                     let doc = diff.document
                     let chatID = doc.documentID
-                    if let circleID = doc.data()["circleID"] as? String, let circleName = doc.data()["circleName"] as? String {
+                    if let circleID = doc.data()["circleID"] as? String, let circleName = doc.data()["circleName"] as? String, let circleEmoji = doc.data()["circleEmoji"] as? String {
                         
-                        self.monitorFeedChat(chatID: chatID, circleID: circleID, circleName: circleName)
+                        self.monitorFeedChat(chatID: chatID, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
                         
                     }
                     
@@ -77,9 +77,9 @@ class FeedFetcher {
     }
     
     
-    func monitorFeedChat(chatID: String, circleID: String, circleName: String) {
+    func monitorFeedChat(chatID: String, circleID: String, circleName: String, circleEmoji : String) {
         
-        let fetcher = FeedChatFetcher(chatID: chatID, circleID: circleID, circleName: circleName)
+        let fetcher = FeedChatFetcher(chatID: chatID, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
         fetcher.delegate = self
         fetcher.startMonitor()
         
