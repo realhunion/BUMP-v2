@@ -27,10 +27,10 @@ class BUMP {
         SwiftEntryKit.dismiss(.all, with: nil)
         homeTabBarVC.dismiss(animated: true, completion: nil)
         
-        homeTabBarVC.categoriesVC.navigationController?.popToRootViewController(animated: false)
+        homeTabBarVC.hubVC.navigationController?.popToRootViewController(animated: false)
     
         // scroll to top
-        homeTabBarVC.categoriesVC.collectionView.scrollToTop(false)
+        homeTabBarVC.hubVC.collectionView.scrollToTop(false)
         homeTabBarVC.campusClubsVC.collectionView.scrollToTop(false)
         
         homeTabBarVC.campusClubsVC.collectionView.reloadData()

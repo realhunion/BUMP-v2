@@ -50,8 +50,6 @@ class FeedCell: UITableViewCell {
         
         button.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         
-//        button.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-        
         return button
     }()
     var followButtonAction : (() -> ())?
@@ -118,7 +116,7 @@ class FeedCell: UITableViewCell {
         
         self.selectionStyle = .none
         
-        self.followButton.addTarget(self, action: #selector(followButtonTapped(_:)), for: .touchDown)
+        self.followButton.addTarget(self, action: #selector(followButtonTapped(_:)), for: .touchUpInside)
         
         self.contentView.backgroundColor = UIColor.clear
         self.backgroundColor = UIColor.clear
@@ -164,5 +162,12 @@ class FeedCell: UITableViewCell {
         cardView.layoutToSuperview(.right, offset: -24) //-20
     }
     
+    
+    
+//    override func prepareForReuse() {
+//        for i in self.cardView.subviews {
+//            i.removeFromSuperview()
+//        }
+//    }
     
 }

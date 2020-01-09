@@ -33,7 +33,7 @@ class FeedTVC: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        tableView.backgroundColor = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
+        tableView.backgroundColor = Constant.oGrayLight
     }
     
     

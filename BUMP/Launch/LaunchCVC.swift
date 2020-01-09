@@ -74,9 +74,9 @@ class LaunchCVC: UICollectionViewController {
     }
     
     func setupCollectionView() {
-        self.collectionView!.register(ClubCell.self, forCellWithReuseIdentifier: "clubCell")
+        self.collectionView!.register(CircleCell.self, forCellWithReuseIdentifier: "circleCell")
         
-        self.collectionView.backgroundColor = UIColor(red: 0.94, green: 0.95, blue: 0.96, alpha: 1.0)
+        self.collectionView.backgroundColor = Constant.oGrayLight
         self.collectionView.alwaysBounceVertical = true
     }
 
@@ -90,7 +90,7 @@ class LaunchCVC: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "clubCell", for: indexPath) as! ClubCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "circleCell", for: indexPath) as! CircleCell
         
         guard let myUID = Auth.auth().currentUser?.uid else { return cell }
         
@@ -99,7 +99,8 @@ class LaunchCVC: UICollectionViewController {
         
         
         cell.circleTitleLabel.text = cInfo.circleName
-        cell.numMembersLabel.text = "\(cInfo.followerIDArray.count) Members · \(cInfo.circleEmoji)"
+//        cell.numMembersLabel.text = "\(cInfo.followerIDArray.count) Members · \(cInfo.circleEmoji)"
+        cell.numMembersLabel.text = "\(cInfo.followerIDArray.count) Members"
 //        cell.numMembersLabel.text = "\(cInfo.circleEmoji) · \(cInfo.followerIDArray.count) Members"
 
         cell.followButton.isSelected = cInfo.followerIDArray.contains(myUID)
@@ -110,6 +111,9 @@ class LaunchCVC: UICollectionViewController {
                 self.unFollowCircle(circleID: cInfo.circleID)
             }
         }
+        
+        cell.followButton.setTitle("\(cInfo.circleEmoji) · F✓", for: .selected)
+        cell.followButton.setTitle("\(cInfo.circleEmoji) · Follow", for: .normal)
     
         return cell
     }

@@ -18,7 +18,7 @@ extension ChatVC {
     
     func setupSubNavBar() {
         
-        let yy = 0.092 * self.view.bounds.width //0.094
+//        let yy = 0.092 * self.view.bounds.width //0.094
         
         self.view.addSubview(subNavBar)
         //FIX
@@ -26,9 +26,9 @@ extension ChatVC {
         self.subNavBar.topAnchor.constraint(equalTo: self.navBar.bottomAnchor).isActive = true
         self.subNavBar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         self.subNavBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        self.subNavBar.set(.height, of: yy)
+        self.subNavBar.set(.height, of: subNavBarHeight)
         
-        let size = CGSize(width: self.view.bounds.width, height: yy) //36
+        let size = CGSize(width: self.view.bounds.width, height: subNavBarHeight) //36
         let origin = CGPoint(x: 0, y: self.navBar.frame.maxY)
         let frame = CGRect(origin: origin, size: size)
         

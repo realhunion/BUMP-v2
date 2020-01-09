@@ -32,8 +32,12 @@ class SendSuggestionView: UIView {
     lazy var textField: TextField = {
         let textField = TextField()
         textField.layer.cornerRadius = 6
-        textField.backgroundColor = Constant.coolGray
-        textField.placeholder = "New Clubs, App Improvements, etc."
+        
+        textField.backgroundColor = Constant.oGrayLight
+        let atr = [NSAttributedString.Key.foregroundColor : Constant.textfieldPlaceholderGray]
+        textField.attributedPlaceholder = NSAttributedString(string: "New Clubs, App Improvements, etc.", attributes: atr)
+        
+//        textField.placeholder = "New Clubs, App Improvements, etc."
         textField.textAlignment = NSTextAlignment.center
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 13.0

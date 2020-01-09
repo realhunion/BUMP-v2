@@ -14,24 +14,28 @@ extension ChatVC : MessageFetcherDelegate {
     
     
     func newMessagesAdded(messages: [Message], initialLoadDone : Bool) {
-                
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
-        
-        
-        // smooth initial load of >20 msgs.
         
         if !initialLoadDone {
             
-            for m in messages {
+            //sort by order timestamp
+            let msgs = messages.sorted { (m1, m2) -> Bool in
+                if m1.timestamp.compare(m2.timestamp) == .orderedAscending {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            for m in msgs {
                 let _ = self.insertMsgIntoMsgArray(message: m)
             }
             DispatchQueue.main.async {
+                //FIX: speed it up
                 UIView.transition(with: self.collectionView,
-                                  duration: 0.5,
+                                  duration: 0.4,
                                   options: .transitionCrossDissolve,
                                   animations: { self.collectionView.reloadData() })
                 
-                self.scrollToBottom(at: .bottom, isAnimated: true)
+                self.scrollToBottom(at: .bottom, isAnimated: false)
                 self.inputBarView.isUserInteractionEnabled = true
             }
             

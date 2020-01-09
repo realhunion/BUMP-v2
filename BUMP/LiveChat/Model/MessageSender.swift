@@ -28,7 +28,6 @@ class MessageSender {
     
     
     func sendMsg(text: String) {
-        print("crr0")
         self.postTextToFirebase(text: text)
     }
     

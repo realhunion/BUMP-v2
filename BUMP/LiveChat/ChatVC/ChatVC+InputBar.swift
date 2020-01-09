@@ -37,8 +37,6 @@ extension ChatVC {
         
         self.msgSender.sendMsg(text: formattedText)
         
-        
-        
     }
     
     
@@ -81,7 +79,10 @@ extension ChatVC {
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue ?? 0
         
         inputBarBottomAnchor?.constant = -keyboardFrame!.height + view.safeAreaInsets.bottom
-        collectionView?.contentInset = UIEdgeInsets(top: 44+47+10, left: 0, bottom: self.inputBarHeight + 10, right: 0)
+        collectionView?.contentInset = UIEdgeInsets(top: self.navBarHeight + self.subNavBarHeight + 10,
+                                                    left: 0,
+                                                    bottom: 10 + self.inputBarHeight,
+                                                    right: 0)
         
         UIView.animate(withDuration: keyboardDuration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.view.layoutIfNeeded()
@@ -93,7 +94,10 @@ extension ChatVC {
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue ?? 0
         
         inputBarBottomAnchor?.constant = 0
-        collectionView?.contentInset = UIEdgeInsets(top: 44+47+10, left: 0, bottom: 10, right: 0)
+        collectionView?.contentInset = UIEdgeInsets(top: self.navBarHeight + self.subNavBarHeight + 10,
+                                                    left: 0,
+                                                    bottom: 10,
+                                                    right: 0)
         UIView.animate(withDuration: keyboardDuration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.view.layoutIfNeeded()
             self.scrollToBottom(at: .bottom, isAnimated: true)

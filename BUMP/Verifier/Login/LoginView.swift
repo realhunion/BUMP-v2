@@ -32,7 +32,7 @@ class LoginView: UIView {
     lazy var emailTextField: TextField = {
         let textField = TextField()
         textField.layer.cornerRadius = 6
-        textField.backgroundColor = Constant.textfieldGray
+        textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 11.0
@@ -56,7 +56,7 @@ class LoginView: UIView {
     lazy var passTextField: TextField = {
         let textField = TextField()
         textField.layer.cornerRadius = 6
-        textField.backgroundColor = Constant.textfieldGray
+        textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 11.0

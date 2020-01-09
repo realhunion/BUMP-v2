@@ -19,7 +19,6 @@ struct SettingsCell {
 class SettingsTVC: UITableViewController {
     
     let settingCellArray : [[SettingsCell]] = [
-        [SettingsCell(title: "My Profile", image: nil, disclosureIndicator: true)],
         [SettingsCell(title: "Credits", image: nil, disclosureIndicator: true),
          SettingsCell(title: "Contact Info", image: nil, disclosureIndicator: true),
          SettingsCell(title: "Privacy & Terms Of Use", image: nil, disclosureIndicator: true)],
@@ -100,23 +99,6 @@ class SettingsTVC: UITableViewController {
         let settingsCell = self.settingCellArray[indexPath.section][indexPath.row]
         
         switch settingsCell.title {
-            
-        case "My Profile":
-            
-            let nvc = UINavigationController(rootViewController: self)
-            nvc.view.layer.cornerRadius = 18.0
-            nvc.view.layer.masksToBounds = true
-            var attributes = Constant.fixedPopUpAttributes(heightWidthRatio: 0.9)
-            attributes.precedence = .enqueue(priority: .low)
-            SwiftEntryKit.display(entry: nvc, using: attributes)
-            
-            
-            let vc = UserProfileView(userID: myUID, actionButtonEnabled: true)
-            let atr = Constant.bottomPopUpAttributes
-            DispatchQueue.main.async {
-                SwiftEntryKit.display(entry: vc, using: atr)
-            }
-            
             
         case "Credits":
             let vc = UIViewController()

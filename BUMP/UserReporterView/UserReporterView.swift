@@ -19,7 +19,7 @@ class UserReporterView: UIView {
     lazy var textField: TextField = {
         let textField = TextField()
         textField.layer.cornerRadius = 6
-        textField.backgroundColor = Constant.textfieldGray
+        textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.center
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 13.0

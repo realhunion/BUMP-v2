@@ -13,7 +13,7 @@ class BaseMessageCell: UICollectionViewCell {
     
     lazy var bubbleView: UIImageView = {
         let bubbleView = UIImageView()
-        bubbleView.backgroundColor = Constant.oGray
+        bubbleView.backgroundColor = MsgCellConfig.outBubbleColor
         bubbleView.isUserInteractionEnabled = true
         bubbleView.layer.cornerRadius = 18.0
         bubbleView.layer.masksToBounds = true

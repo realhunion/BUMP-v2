@@ -36,7 +36,7 @@ class SignupView: UIView {
     lazy var nameTextField: TextField = {
         let textField = TextField()
         textField.layer.cornerRadius = 6
-        textField.backgroundColor = Constant.textfieldGray
+        textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left
         textField.adjustsFontSizeToFitWidth = false
         textField.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
@@ -59,7 +59,7 @@ class SignupView: UIView {
     lazy var emailTextField: TextField = {
         let textField = TextField()
         textField.layer.cornerRadius = 6
-        textField.backgroundColor = Constant.textfieldGray
+        textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left
         textField.adjustsFontSizeToFitWidth = true
         textField.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
@@ -82,7 +82,7 @@ class SignupView: UIView {
     lazy var passTextField: TextField = {
         let textField = TextField()
         textField.layer.cornerRadius = 6
-        textField.backgroundColor = Constant.textfieldGray
+        textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left
         textField.adjustsFontSizeToFitWidth = true
         textField.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)

@@ -112,6 +112,16 @@ class CircleManager {
         
     }
     
+    func updateFeedRead(chatID : String) {
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
+        
+        let payload = ["unreadMsgs": 0] as [String:Any]
+        
+        db.collection("Feed").document(chatID).collection("Users").document(myUID).setData(payload, merge: true)
+        
+    }
+    
     func updateFeedIsFollowing(chatID : String, isFollowing : Bool) {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }

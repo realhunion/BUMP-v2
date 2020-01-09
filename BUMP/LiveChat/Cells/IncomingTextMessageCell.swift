@@ -71,7 +71,14 @@ class IncomingTextMessageCell: BaseMessageCell {
         
         if isUserNameEnabled {
             
-            nameLabel.text = message.userName
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = "h:mm a"
+            formatter.amSymbol = "AM"
+            formatter.pmSymbol = "PM"
+            let dateString = formatter.string(from: message.timestamp.dateValue())
+            
+            nameLabel.text = message.userName + " · " + dateString
             
             let usernameFrame = estimateFrameForText(message.userName, textFont: MsgCellConfig.msgFont, maxWidth: MsgCellConfig.maxBubbleWidth)
             

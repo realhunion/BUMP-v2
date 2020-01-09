@@ -23,7 +23,7 @@ extension ChatVC {
         self.navBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         self.navBar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         self.navBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        self.navBar.set(.height, of: 44.0)
+        self.navBar.set(.height, of: self.navBarHeight)
         
         let v = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
         v.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
@@ -69,12 +69,6 @@ extension ChatVC {
     
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func followChatButtonTapped() {
-        print("Follow chat button tapped\n")
-        self.followChatButton.isSelected = !self.followChatButton.isSelected
-        //FIX:
     }
     
     

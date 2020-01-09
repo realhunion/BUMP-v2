@@ -1,5 +1,5 @@
 //
-//  CategoryClubsCVC.swift
+//  HubCVC.swift
 //  BUMP
 //
 //  Created by Hunain Ali on 11/12/19.
@@ -11,17 +11,29 @@ import UIKit
 import Firebase
 import SwiftEntryKit
 
-class SettingsCVC : UICollectionViewController {
+
+struct HubItem {
+    var title : String
+}
+
+class HubCVC : UICollectionViewController {
     
     var db = Firestore.firestore()
     
     final let numColumns : Int = 2
-    final let gridSpacing : CGFloat = 30.0
+    final let gridSpacing : CGFloat = 36.0
+    
+    var hubItemArray = [HubItem(title: "Our Vision for Grinnell"),
+                        HubItem(title: "How To Use"),
+                        HubItem(title: "My Profile"),
+                        HubItem(title: "My Circles"),
+                        HubItem(title: "Silence Mode"),
+                        HubItem(title: "Follow Mode")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView!.register(ClubCell.self, forCellWithReuseIdentifier: "clubCell")
+        self.collectionView!.register(HubCell.self, forCellWithReuseIdentifier: "hubCell")
         
         self.setupCollectionView()
         
@@ -49,7 +61,7 @@ class SettingsCVC : UICollectionViewController {
     }
     func setupCollectionView() {
         
-        self.collectionView.backgroundColor = UIColor(red: 0.94, green: 0.95, blue: 0.96, alpha: 1.0)
+        self.collectionView.backgroundColor = Constant.oGrayLight
         self.collectionView.alwaysBounceVertical = true
     }
     
@@ -64,27 +76,15 @@ class SettingsCVC : UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 4
+        return self.hubItemArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "clubCell", for: indexPath) as! ClubCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hubCell", for: indexPath) as! HubCell
         
-        if indexPath.row == 0 {
-            cell.circleTitleLabel.text = "Silence for 1h"
-        }
-        else if indexPath.row == 1 {
-            cell.circleTitleLabel.text = "Silence for 3h"
-        }
-        else if indexPath.row == 2 {
-            cell.circleTitleLabel.text = "Silence for 12h"
-        }
-        else {
-            cell.circleTitleLabel.text = "UnSilence"
-        }
+        let hubItem = self.hubItemArray[indexPath.row]
         
-        
-        cell.followButton.isHidden = true
+        cell.titleLabel.text = hubItem.title
         
         return cell
     }
@@ -96,53 +96,37 @@ class SettingsCVC : UICollectionViewController {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         
+        let hubItem = self.hubItemArray[indexPath.item]
    
-        if indexPath.row == 0 {
-            let t = Calendar.current.date(byAdding: .hour, value: 1, to: Date())
-            var data : [String : Any] = [:]
-            data["silenceUntil"] = t
-            db.collection("User-Base").document(myUID).setData(data, merge: true) { (err) in
-                self.presentOkView()
-            }
+        if hubItem.title == "Our Vision for Grinnell" {
+            self.presentMyProfile()
         }
-        else if indexPath.row == 1 {
-            let t = Calendar.current.date(byAdding: .hour, value: 3, to: Date())
-            var data : [String : Any] = [:]
-            data["silenceUntil"] = t
-            db.collection("User-Base").document(myUID).setData(data, merge: true) { (err) in
-                self.presentOkView()
-            }
+        else if hubItem.title == "How To Use" {
+            self.presentMyProfile()
         }
-        else if indexPath.row == 2 {
-            let t = Calendar.current.date(byAdding: .hour, value: 12, to: Date())
-            var data : [String : Any] = [:]
-            data["silenceUntil"] = t
-            db.collection("User-Base").document(myUID).setData(data, merge: true) { (err) in
-                self.presentOkView()
-            }
+        else if hubItem.title == "My Profile" {
+            self.presentMyProfile()
         }
-        else {
-            var data : [String : Any] = [:]
-            data["silenceUntil"] = FieldValue.delete()
-            db.collection("User-Base").document(myUID).updateData(data) { (err) in
-                self.presentOkView()
-            }
+        else if hubItem.title == "My Circles" {
+            self.presentMyProfile()
+        }
+        else if hubItem.title == "Silence Mode" {
+            self.presentSilenceMode()
+        }
+        else if hubItem.title == "Follow Mode" {
+            self.presentSilenceMode()
+        }
+        else if hubItem.title == "How To Use" {
+            self.presentSilenceMode()
         }
         
         
-    }
-    
-    func presentOkView() {
-        let alert = UIAlertController(title: "Done", message: "", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-                
-        self.present(alert, animated: true, completion: nil)
     }
     
 }
 
 
-extension SettingsCVC : UICollectionViewDelegateFlowLayout {
+extension HubCVC : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -164,7 +148,7 @@ extension SettingsCVC : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: self.gridSpacing, left: self.gridSpacing, bottom: self.gridSpacing, right: self.gridSpacing)
+        return UIEdgeInsets(top: self.gridSpacing/2, left: self.gridSpacing, bottom: self.gridSpacing/2, right: self.gridSpacing)
     }
     
     

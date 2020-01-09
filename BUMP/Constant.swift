@@ -19,20 +19,16 @@ enum Constant {
         let x = (formatter.string(from: Date()) as NSString) as String
     }
     
-    static func giveTimestamp() {
-        
-    }
-    
     
     static let oBlueLight = UIColor(red:0.10, green:0.68, blue:0.96, alpha:1.0)
     static let oBlue = UIColor(red:0.00, green:0.65, blue:1.00, alpha:1.0)
     
     
     static let oGray = UIColor(red:0.905, green:0.91, blue:0.925, alpha:1.0)
+    static let oGrayLight = UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
+    
     static let oBlack = UIColor(red:0.08, green:0.09, blue:0.10, alpha:1.0)
     
-    static let coolGray = UIColor(red:0.93, green:0.935, blue:0.94, alpha:1.0)
-    static let textfieldGray = UIColor(red:0.93, green:0.94, blue:0.95, alpha:1.0)
     static let textfieldPlaceholderGray = UIColor(red:0.78, green:0.78, blue:0.80, alpha:1.0)
     
     

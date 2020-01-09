@@ -31,6 +31,7 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     //FIX: better solution??
     var msgFetcher : MessageFetcher!
     var msgSender : MessageSender!
+    var chatFollower : ChatFollower!
     
     var msgArray : [[Message]] = [] // Each item is Msg Group Array.
     
@@ -40,14 +41,17 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     var circleName : String = "Error Club"
     var circleEmoji : String = "🤙"
     
-    
+    let navBarHeight : CGFloat = 44.0
     lazy var navBar: UINavigationBar = UINavigationBar()
+    
+    let subNavBarHeight : CGFloat = 34.0 //0.092 * self.view.bounds.width //36.0
     lazy var subNavBar : UIView = UIView()
     
     lazy var followChatButton : UIButton = {
         
+        //FIX: when F chec, make go to the left. align to the left
+        
         let button = UIButton()
-        button.titleLabel?.textAlignment = .right
         button.titleLabel?.font = UIFont.systemFont(ofSize: 10.0, weight: .semibold)
         button.setTitleColor(Constant.oBlue, for: .normal)
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
@@ -83,8 +87,8 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
         self.setupKeyboardObservers()
         
         self.setupMessageFetcher()
-            
         self.setupMessageSender()
+        self.setupChatFollower()
 
     }
     
@@ -94,17 +98,19 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.updateFeedLastSeen()
+        self.updateFeedMsgsRead()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         
-        self.updateFeedLastSeen()
+        self.updateFeedMsgsRead()
     }
     
-    func updateFeedLastSeen() {
+    func updateFeedMsgsRead() {
+        //FIX: what other progression
+        CircleManager.shared.updateFeedRead(chatID: chatID)
         CircleManager.shared.updateFeedLastSeen(chatID: chatID)
     }
     
@@ -137,8 +143,8 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
         view.backgroundColor = UIColor.white
         collectionView?.indicatorStyle = .default
         collectionView?.backgroundColor = view.backgroundColor
-        collectionView?.contentInset = UIEdgeInsets(top: 44+36+10, left: 0, bottom: 10, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 44+36, left: 0, bottom: 0, right: 0)
+        collectionView?.contentInset = UIEdgeInsets(top: navBarHeight+subNavBarHeight+10, left: 0, bottom: 10, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: navBarHeight+subNavBarHeight, left: 0, bottom: 0, right: 0)
         collectionView?.keyboardDismissMode = .none
         collectionView?.delaysContentTouches = false
         collectionView?.alwaysBounceVertical = true
