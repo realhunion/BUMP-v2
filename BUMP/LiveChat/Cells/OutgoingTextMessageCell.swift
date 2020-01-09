@@ -14,6 +14,7 @@ class OutgoingTextMessageCell: BaseMessageCell {
     
     func setupCell(message: Message) {
         
+        
         self.textView.text = message.text
         self.textView.textColor = UIColor.white
         self.bubbleView.backgroundColor = MsgCellConfig.outBubbleColor
@@ -25,9 +26,9 @@ class OutgoingTextMessageCell: BaseMessageCell {
         }
         
         
-        bubbleView.frame = CGRect(x: frame.width - msgFrame.width - 35,
+        bubbleView.frame = CGRect(x: frame.width - msgFrame.width - (MsgCellConfig.horizontalBubblePadding * 2), //35
                                   y: 0,
-                                  width: msgFrame.width + (MsgCellConfig.leftRightBubbleSpacing * 2),
+                                  width: msgFrame.width + (MsgCellConfig.horizontalBubblePadding * 2),
                                   height: frame.size.height).integral
         textView.frame = CGRect(x: 0, y: 0, width: bubbleView.frame.width, height: bubbleView.frame.height)
     

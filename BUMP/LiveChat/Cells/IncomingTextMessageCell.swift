@@ -29,7 +29,7 @@ class IncomingTextMessageCell: BaseMessageCell {
     
     lazy var nameLabel: InsetLabel = {
         let nameLabel = InsetLabel()
-        nameLabel.contentInsets = UIEdgeInsets(top: 0, left: MsgCellConfig.leftRightBubbleSpacing, bottom: 0, right: 0)
+        nameLabel.contentInsets = UIEdgeInsets(top: 0, left: MsgCellConfig.horizontalBubblePadding, bottom: 0, right: 0)
         nameLabel.font = MsgCellConfig.userNameFont
         nameLabel.numberOfLines = 1
         nameLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
@@ -55,7 +55,7 @@ class IncomingTextMessageCell: BaseMessageCell {
         
         if isUserImageEnabled {
             imageView.isHidden = false
-            imageView.frame.origin = CGPoint(x: 10.0, y: frame.height - imageView.frame.height)
+            imageView.frame.origin = CGPoint(x: 0.0, y: frame.height - imageView.frame.height)
             
             let imageRef = Storage.storage().reference(withPath: "User-Profile-Images/\(message.userID).jpg")
             
@@ -83,22 +83,24 @@ class IncomingTextMessageCell: BaseMessageCell {
             let usernameFrame = estimateFrameForText(message.userName, textFont: MsgCellConfig.msgFont, maxWidth: MsgCellConfig.maxBubbleWidth)
             
             nameLabel.frame.size = CGSize(width: MsgCellConfig.maxBubbleWidth, height: usernameFrame.height)
-            nameLabel.frame.origin = CGPoint(x: 10.0 + imageView.bounds.width + 10.0, y: 0)
+            nameLabel.frame.origin = CGPoint(x: 0.0 + imageView.bounds.width + 10.0, y: 0)
             
-            bubbleView.frame = CGRect(x: 10.0 + imageView.bounds.width + 10.0,
+            bubbleView.frame = CGRect(x: 0.0 + imageView.bounds.width + 10.0,
                                       y: nameLabel.frame.height + 0.0,
-                                      width: msgFrame.width + (MsgCellConfig.leftRightBubbleSpacing * 2),
+                                      width: msgFrame.width + (MsgCellConfig.horizontalBubblePadding * 2),
                                       height: frame.size.height - nameLabel.frame.height - 0.0).integral
             textView.frame = CGRect(x: 0, y: 0, width: bubbleView.frame.width, height: bubbleView.frame.height)
             
         }
         else {
-            bubbleView.frame = CGRect(x: 10.0 + imageView.bounds.width + 10.0,
+            bubbleView.frame = CGRect(x: 0.0 + imageView.bounds.width + 10.0,
                                       y: 0,
-                                      width: msgFrame.width + (MsgCellConfig.leftRightBubbleSpacing * 2),
+                                      width: msgFrame.width + (MsgCellConfig.horizontalBubblePadding * 2),
                                       height: frame.size.height).integral
             textView.frame = CGRect(x: 0, y: 0, width: bubbleView.frame.width, height: bubbleView.frame.height)
         }
+        
+        print("hun - \(message.text) - \(imageView.frame.origin.x)")
         
     }
     

@@ -26,8 +26,8 @@ class BaseMessageCell: UICollectionViewCell {
         textView.backgroundColor = .clear
         textView.isEditable = false
         textView.isScrollEnabled = false
-        let x = MsgCellConfig.leftRightBubbleSpacing
-        let y = MsgCellConfig.topBottomBubbleSpacing
+        let x = MsgCellConfig.horizontalBubblePadding
+        let y = MsgCellConfig.verticalBubblePadding
         textView.textContainerInset = UIEdgeInsets(top: y, left: x, bottom: y, right: x)
         textView.textContainer.lineFragmentPadding = 0
         textView.dataDetectorTypes = []
@@ -50,8 +50,8 @@ class BaseMessageCell: UICollectionViewCell {
     }
     
     func setupViews() {
-        backgroundColor = UIColor.white
-        contentView.backgroundColor = UIColor.white
+        backgroundColor = UIColor.orange
+        contentView.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
     }
     
     func prepareViewsForReuse() {}
@@ -66,7 +66,7 @@ class BaseMessageCell: UICollectionViewCell {
 
 
 extension UIViewController {
-    
+    //FIX move to MsgCellConfig as static functino
     func estimateFrameForText(_ text: String, textFont : UIFont, maxWidth : CGFloat = 100000, maxHeight : CGFloat = 100000) -> CGRect {
         let size = CGSize(width: maxWidth, height: maxHeight)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)

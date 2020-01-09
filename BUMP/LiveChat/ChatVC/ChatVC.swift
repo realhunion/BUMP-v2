@@ -135,6 +135,9 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     var inputBarBottomAnchor: NSLayoutConstraint?
     func setupCollectionView () {
         
+        self.collectionView.register(IncomingTextMessageCell.self, forCellWithReuseIdentifier: incomingTextMessageCellID)
+        self.collectionView!.register(OutgoingTextMessageCell.self, forCellWithReuseIdentifier: outgoingTextMessageCellID)
+        
         let tapG = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
         collectionView.addGestureRecognizer(tapG)
         tapG.delegate = self

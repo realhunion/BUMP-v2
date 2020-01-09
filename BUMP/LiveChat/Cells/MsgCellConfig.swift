@@ -16,7 +16,7 @@ enum MsgCellConfig {
     static let userNameColor = UIColor.gray
     
     
-    static let userImageWidth : CGFloat = 25.0
+    static let userImageWidth : CGFloat = 30.0
     
     
     static let inBubbleColor = Constant.oGray
@@ -28,18 +28,29 @@ enum MsgCellConfig {
     static let msgFont = UIFont.preferredFont(forTextStyle: .body)
     //17.0
     
+    
     static let minBubbleWidth : CGFloat = 16.0
     static let maxBubbleWidth : CGFloat = UIScreen.main.bounds.width * 0.6
     
-    static let topBottomBubbleSpacing : CGFloat = 8.0
-    static let leftRightBubbleSpacing : CGFloat = 12.5
+    static let verticalBubblePadding : CGFloat = 8.0
+    static let horizontalBubblePadding : CGFloat = 12.5
     // Distance between text inside bubble & edges of bubble. left right and top bottom.
     
-    static let incomingBubbleMargin : CGFloat = 15.0
-    static let outgoingBubbleMargin : CGFloat = 10.0
+    
+    static let inBubbleMargin : CGFloat = 15.0
+    static let outBubbleMargin : CGFloat = 10.0
     // incoming left margin of bubble.
     // outgoing right margin of bubble.
     
+//    static let bubbleGroupSpacing : CGFloat = 6.0
+    static let bubbleSpacing : CGFloat = 3.5
+    //Bubblespacing is between consecutive bubbles.
+    //bubble group is different bubblegroup of different people.
     
+    static let inBubbleInsets : UIEdgeInsets = UIEdgeInsets(top: 6.0, left: 15.0, bottom: 6.0, right: -15.0)
+    static let outBubbleInsets : UIEdgeInsets = UIEdgeInsets(top: 6.0, left: -10.0, bottom: 6.0, right: 10.0)
+    // remember this is collectionView, not tableview.
+    //think of cells stacked closely together that is overall layout is colletcionvView layout.
+    //spacing of left pushes other side of it to the right.
     
 }

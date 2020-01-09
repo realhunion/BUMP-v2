@@ -45,16 +45,13 @@ extension ChatVC {
         
         
         if myUID != msg.userID {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: incomingTextMessageCellID,
-                                                          for: indexPath) as? IncomingTextMessageCell ?? IncomingTextMessageCell()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: incomingTextMessageCellID, for: indexPath) as! IncomingTextMessageCell
 
             cell.setupCell(message: msg, isUserImageEnabled: userImageEnabled, isUserNameEnabled: userNameEnabled)
             
-            
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: outgoingTextMessageCellID,
-                                                          for: indexPath) as? OutgoingTextMessageCell ?? OutgoingTextMessageCell()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: outgoingTextMessageCellID, for: indexPath) as! OutgoingTextMessageCell
  
             cell.setupCell(message: msg)
             
@@ -75,7 +72,7 @@ extension ChatVC {
         let msg = section[msgIndex]
         
         let msgFrame = estimateFrameForText(msg.text, textFont: MsgCellConfig.msgFont, maxWidth: MsgCellConfig.maxBubbleWidth)
-        let bubbleHeight = msgFrame.height + (MsgCellConfig.topBottomBubbleSpacing * 2)
+        let bubbleHeight = msgFrame.height + (MsgCellConfig.verticalBubblePadding * 2)
         
         guard let myUID = Auth.auth().currentUser?.uid else { return (msg, 0.0, false, false) }
         //FIX: security Auth
@@ -145,20 +142,31 @@ extension ChatVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellMeta = getSizeForCell(indexPath: indexPath)
-        return CGSize(width: self.collectionView.bounds.width, height: cellMeta.cellHeight)
+        return CGSize(width: self.collectionView.frame.width, height: cellMeta.cellHeight)
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 6.0, left: 0.0, bottom: 6.0, right: 0.0)
+//        return UIEdgeInsets(top: 6.0, left: 0.0, bottom: 6.0, right: 0.0)
+        
+        guard let msg = msgArray[section].last else { return UIEdgeInsets.zero}
+//
+        guard let myUID = Auth.auth().currentUser?.uid else { return UIEdgeInsets.zero}
+    
+        if msg.userID == myUID {
+            return MsgCellConfig.outBubbleInsets
+        } else {
+            return MsgCellConfig.inBubbleInsets
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout
         collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-        return 3.5
+        return MsgCellConfig.bubbleSpacing
     }
+    
 
 }
 
