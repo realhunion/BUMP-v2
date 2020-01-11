@@ -108,15 +108,12 @@ class HubCVC : UICollectionViewController {
             self.presentMyProfile()
         }
         else if hubItem.title == "My Circles" {
-            self.presentMyProfile()
+            self.presentMyCircles()
         }
         else if hubItem.title == "Silence Mode" {
             self.presentSilenceMode()
         }
-        else if hubItem.title == "Follow Mode" {
-            self.presentSilenceMode()
-        }
-        else if hubItem.title == "How To Use" {
+        else if hubItem.title == "Settings" {
             self.presentSilenceMode()
         }
         

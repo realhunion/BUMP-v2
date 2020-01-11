@@ -37,18 +37,14 @@ enum MsgCellConfig {
     // Distance between text inside bubble & edges of bubble. left right and top bottom.
     
     
-    static let inBubbleMargin : CGFloat = 15.0
-    static let outBubbleMargin : CGFloat = 10.0
-    // incoming left margin of bubble.
-    // outgoing right margin of bubble.
     
 //    static let bubbleGroupSpacing : CGFloat = 6.0
     static let bubbleSpacing : CGFloat = 3.5
     //Bubblespacing is between consecutive bubbles.
     //bubble group is different bubblegroup of different people.
     
-    static let inBubbleInsets : UIEdgeInsets = UIEdgeInsets(top: 6.0, left: 15.0, bottom: 6.0, right: -15.0)
-    static let outBubbleInsets : UIEdgeInsets = UIEdgeInsets(top: 6.0, left: -10.0, bottom: 6.0, right: 10.0)
+    static let inBubbleMargins : UIEdgeInsets = UIEdgeInsets(top: 6.0, left: 15.0, bottom: 6.0, right: 0)
+    static let outBubbleMargins : UIEdgeInsets = UIEdgeInsets(top: 6.0, left: 0, bottom: 6.0, right: 10.0)
     // remember this is collectionView, not tableview.
     //think of cells stacked closely together that is overall layout is colletcionvView layout.
     //spacing of left pushes other side of it to the right.

@@ -47,7 +47,7 @@ class HubCell: UICollectionViewCell {
     func setupCell() {
         
         self.contentView.backgroundColor = UIColor.white
-        self.contentView.layer.cornerRadius = 16
+        self.contentView.layer.cornerRadius = 12
         self.contentView.layer.masksToBounds = true
         
         

@@ -42,54 +42,57 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     var feedVC = FeedTVC()
-    var campusClubsVC = LaunchCVC(collectionViewLayout: UICollectionViewFlowLayout())
+    var launchVC = LaunchTVC(style: .plain)
+        //UserCirclesTVC()//LaunchCVC(collectionViewLayout: UICollectionViewFlowLayout())
     var hubVC = HubCVC(collectionViewLayout: UICollectionViewFlowLayout())
     
     func setupTabBar() {
         
+//        campusClubsVC.userID = Auth.auth().currentUser!.uid
+        
         feedVC.view.backgroundColor = .white
-        campusClubsVC.view.backgroundColor = .white
+        launchVC.view.backgroundColor = .white
         hubVC.view.backgroundColor = .white
         
         feedVC.title = "Campus"
-        campusClubsVC.title = "Launch"
+        launchVC.title = "Launch"
         hubVC.title = "Bump"
         
         
         let feedNC = UINavigationController(rootViewController: feedVC)
-        let campusClubsNC = UINavigationController(rootViewController: campusClubsVC)
+        let launchNC = UINavigationController(rootViewController: launchVC)
         let hubNC = UINavigationController(rootViewController: hubVC)
         
         feedVC.navigationController?.navigationBar.prefersLargeTitles = true
         feedVC.navigationController?.navigationBar.layoutMargins.left = 30
-        campusClubsVC.navigationController?.navigationBar.prefersLargeTitles = true
-        campusClubsVC.navigationController?.navigationBar.layoutMargins.left = 36
+        launchVC.navigationController?.navigationBar.prefersLargeTitles = true
+        launchVC.navigationController?.navigationBar.layoutMargins.left = 36
         hubVC.navigationController?.navigationBar.prefersLargeTitles = true
         hubVC.navigationController?.navigationBar.layoutMargins.left = 42
         
         feedNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
-        campusClubsNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
+        launchNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
         hubNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
 
         
         let feedImage =  UIImage(named: "campusIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
-        let campusImage = UIImage(named: "launchIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
+        let launchImage = UIImage(named: "launchIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         let categoriesImage = UIImage(named: "hubIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         
         let feedItem = UITabBarItem(title: "Campus", image: feedImage, selectedImage: nil)
-        let campusClubsItem = UITabBarItem(title: "Launch", image: campusImage, selectedImage: nil)
+        let launchItem = UITabBarItem(title: "Launch", image: launchImage, selectedImage: nil)
         let hubItem = UITabBarItem(title: "Bump", image: categoriesImage, selectedImage: nil)
         
         
         feedItem.tag = 0
-        campusClubsItem.tag = 1
+        launchItem.tag = 1
         hubItem.tag = 2
         
         feedVC.tabBarItem = feedItem
-        campusClubsVC.tabBarItem = campusClubsItem
+        launchVC.tabBarItem = launchItem
         hubVC.tabBarItem = hubItem
         
-        let tabBarControllers = [feedNC, campusClubsNC, hubNC]
+        let tabBarControllers = [feedNC, launchNC, hubNC]
         self.viewControllers = tabBarControllers
         self.selectedIndex = currentIndex
         
@@ -100,7 +103,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var currentIndex : Int = Tabs.feed.rawValue
+    var currentIndex : Int = Tabs.launch.rawValue
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         currentIndex = selectedIndex
     }

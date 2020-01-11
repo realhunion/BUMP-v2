@@ -27,6 +27,21 @@ extension HubCVC {
         
     }
     
+    func presentMyCircles() {
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
+        
+        let vc = MyCirclesTVC(style: .grouped)
+        vc.title = "Tap to Join / Leave"
+        
+        vc.modalPresentationStyle = .pageSheet
+        vc.modalPresentationCapturesStatusBarAppearance = true
+        
+        let nvc = UINavigationController(rootViewController: vc)
+        
+        self.present(nvc, animated: true) {}
+        
+    }
     
     
     

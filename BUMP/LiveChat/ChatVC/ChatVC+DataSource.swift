@@ -142,7 +142,16 @@ extension ChatVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellMeta = getSizeForCell(indexPath: indexPath)
-        return CGSize(width: self.collectionView.frame.width, height: cellMeta.cellHeight)
+        //
+        guard let myUID = Auth.auth().currentUser?.uid else { return CGSize.zero}
+        
+        if cellMeta.msg.userID == myUID {
+            //outgoing
+            return CGSize(width: self.collectionView.frame.width - MsgCellConfig.outBubbleMargins.left - MsgCellConfig.outBubbleMargins.right, height: cellMeta.cellHeight)
+        } else {
+            //ingoing
+            return CGSize(width: self.collectionView.frame.width - MsgCellConfig.inBubbleMargins.left - MsgCellConfig.inBubbleMargins.right, height: cellMeta.cellHeight)
+        }
     }
     
     
@@ -154,9 +163,9 @@ extension ChatVC: UICollectionViewDelegateFlowLayout {
         guard let myUID = Auth.auth().currentUser?.uid else { return UIEdgeInsets.zero}
     
         if msg.userID == myUID {
-            return MsgCellConfig.outBubbleInsets
+            return MsgCellConfig.outBubbleMargins
         } else {
-            return MsgCellConfig.inBubbleInsets
+            return MsgCellConfig.inBubbleMargins
         }
     }
     

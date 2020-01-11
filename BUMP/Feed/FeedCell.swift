@@ -16,6 +16,8 @@ class FeedCell: UITableViewCell {
     var circleTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0, weight: .semibold)
+//        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = false
         label.numberOfLines = 1
         label.textColor = UIColor.black
@@ -26,6 +28,8 @@ class FeedCell: UITableViewCell {
     var firstMessageLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
+//        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = false
         label.textColor = UIColor.black
         label.numberOfLines = 3
@@ -46,7 +50,7 @@ class FeedCell: UITableViewCell {
         button.setTitleColor(Constant.oBlue, for: .normal)
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
         button.setTitle("Follow chat", for: .normal)
-        button.setTitle("F✓", for: .selected)
+        button.setTitle("f✓", for: .selected)
         
         button.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         

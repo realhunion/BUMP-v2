@@ -30,10 +30,10 @@ class BUMP {
         homeTabBarVC.hubVC.navigationController?.popToRootViewController(animated: false)
     
         // scroll to top
-        homeTabBarVC.hubVC.collectionView.scrollToTop(false)
-        homeTabBarVC.campusClubsVC.collectionView.scrollToTop(false)
+//        homeTabBarVC.hubVC.collectionView.scrollToTop(false)
+//        homeTabBarVC.campusClubsVC.collectionView.scrollToTop(false)
         
-        homeTabBarVC.campusClubsVC.collectionView.reloadData()
+//        homeTabBarVC.campusClubsVC.collectionView.reloadData()
         
         //FIX:
 //        homeTabBarVC.feedVC.shutDown()
@@ -94,8 +94,8 @@ class BUMP {
     
     func appWillEnterForeground() {
         
-        homeTabBarVC.campusClubsVC.sortClubInfoArray()
-        homeTabBarVC.campusClubsVC.collectionView.reloadData()
+//        homeTabBarVC.campusClubsVC.sortClubInfoArray()
+//        homeTabBarVC.campusClubsVC.collectionView.reloadData()
         
         //FIX:
 //        homeTabBarVC.feedVC.sortClubInfoArray()

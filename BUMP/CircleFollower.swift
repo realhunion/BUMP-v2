@@ -1,15 +1,20 @@
 //
-//  LaunchCVC+Follow.swift
+//  CircleFollower.swift
 //  BUMP
 //
-//  Created by Hunain Ali on 12/30/19.
-//  Copyright © 2019 BUMP. All rights reserved.
+//  Created by Hunain Ali on 1/10/20.
+//  Copyright © 2020 BUMP. All rights reserved.
 //
 
 import Foundation
 import Firebase
 
-extension LaunchCVC {
+class CircleFollower {
+    
+    var db = Firestore.firestore()
+    
+    static let shared = CircleFollower()
+    
     
     func followCircle(circleID : String) {
         
@@ -46,6 +51,7 @@ extension LaunchCVC {
         }
         
     }
+    
     
     
     

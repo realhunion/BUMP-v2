@@ -56,101 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     
-    func topicNotifs() {
-    
-        return
-        
-        let dispatchGroup = DispatchGroup()
-
-        dispatchGroup.enter()
-        var clubArray = [String]()
-        var clubDataDict = [String:[String:Any]]()
-        db.collection("User-Profile").getDocuments { (snap, err) in
-            guard let docs = snap?.documents else { return }
-            clubArray = docs.map({$0.documentID})
-            for doc in docs {
-                print("posty")
-                clubDataDict[doc.documentID] = doc.data()
-            }
-            
-            dispatchGroup.leave()
-        }
-        
-//        return
-//            print("posty1")
-
-
-        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
-            
-            var clubFollowersDict = [String:[String]]()
-            print("i wish -1.555 \(clubArray.count)")
-            let batch = self.db.batch()
-
-            let dispatchGroup1 = DispatchGroup()
-
-            for club in clubArray {
-                print("i wish -1.55 \(club)")
-                dispatchGroup1.enter()
-                self.db.collection("User-Profile").document(club).collection("Following").getDocuments { (snap, err) in
-                    guard let docs = snap?.documents else { return }
-
-                    print("i wish -1 \(docs.map({$0.documentID}))")
-
-                    print("cooleded 1")
-                    for doc in docs {
-//                        let ref = self.db.collection("User-ProfileV1").document(club).collection("Following").document(doc.documentID)
-//                        batch.setData([:], forDocument: ref)
-//                        let ref0 = self.db.collection("User-ProfileV1").document(club)
-//                        batch.setData(clubDataDict[club] ?? [:], forDocument: ref0)
-                        self.db.collection("User-Profile").document(club).collection("Following").document(doc.documentID).delete()
-
-                    }
-                    dispatchGroup1.leave()
-
-                }
-
-            }
-
-            dispatchGroup1.notify(queue: DispatchQueue.main, execute: {
-
-                batch.commit()
-
-            })
-            
-//            let batch = self.db.batch()
-//            for club in clubArray {
-//                let ref = self.db.collection("User-Profile").document(club).collection("Following").document(doc.documentID)
-//                batch.deleteDocument(ref)
-//            }
-            
-            print("i wish 0 \(clubArray.count)")
-        })
-        
-        
-//        let dispatchGroup = DispatchGroup()
-        
-//        dispatchGroup.enter()
-//        var clubArray = [String]()
-//        db.collection("User-Profile").getDocuments { (snap, err) in
-//            guard let docs = snap?.documents else { return }
-//
-//            for doc in docs {
-//
-//                self.db.collection("User-Profile").document(doc.documentID).collection("Following").getDocuments { (snap, err) in
-//                    guard let docs2 = snap?.documents else { return }
-//
-//                    for doc2 in docs2 {
-//                        self.db.collection("User-Profile").document(doc.documentID).collection("Following").document(doc2.documentID).delete()
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-        
-    }
-    
     
     
     
@@ -191,17 +96,15 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     }
     
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
-        
-        
-    }
-    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        print("okr \(response.notification.request.content.userInfo)")
+        guard let chatID = response.notification.request.content.userInfo["chatID"] as? String,
+            let firstMsg = response.notification.request.content.userInfo["firstMsg"] as? String,
+            let circleID = response.notification.request.content.userInfo["circleID"] as? String,
+            let circleName = response.notification.request.content.userInfo["circleName"] as? String,
+            let circleEmoji = response.notification.request.content.userInfo["circleEmoji"] as? String else { return }
         
-        guard let chatID = response.notification.request.content.userInfo["chatID"] as? String else { return }
+        CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsg, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
         
         //Tweak: start at 0, when tap on notification.
 //        let circManager = CircleManager.shared

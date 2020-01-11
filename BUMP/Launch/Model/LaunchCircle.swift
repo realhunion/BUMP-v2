@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class LaunchCircle {
     
@@ -24,7 +25,17 @@ class LaunchCircle {
     
     
     
-    
+    func amFollowing() -> Bool {
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return false }
+        
+        if followerIDArray.contains(myUID) {
+            return true
+        } else {
+            return false
+        }
+        
+    }
     
     
     

@@ -50,8 +50,8 @@ class BaseMessageCell: UICollectionViewCell {
     }
     
     func setupViews() {
-        backgroundColor = UIColor.orange
-        contentView.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
+        backgroundColor = UIColor.white
+        contentView.backgroundColor = UIColor.white
     }
     
     func prepareViewsForReuse() {}

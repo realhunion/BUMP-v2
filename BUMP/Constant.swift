@@ -10,6 +10,11 @@ import UIKit
 import SwiftEntryKit
 
 
+struct defaultsKeys {
+    static let launchSortOption = "launchSortOption"
+}
+
+
 enum Constant {
     
     
