@@ -12,6 +12,23 @@ import UIKit
 class MyCirclesTVC : LaunchTVC {
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.setupDoneButton()
+    }
+    
+    func setupDoneButton() {
+        let btn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonTapped))
+        self.navigationItem.setRightBarButton(btn, animated: true)
+    }
+    
+    @objc func doneButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)

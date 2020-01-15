@@ -100,5 +100,18 @@ extension HubCVC {
     }
     
     
+    func presentHelpline() {
+        
+        let email = "alihunai@grinnell.edu"
+        if let url = URL(string: "mailto:\(email)") {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
+    
     
 }

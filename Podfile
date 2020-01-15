@@ -21,4 +21,6 @@ pod 'QuickLayout', '3.0.0'
 
 pod 'SwiftEntryKit', '1.2.3'
 
+pod 'Tabman', '~> 2.6'
+
 end

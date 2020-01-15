@@ -38,16 +38,17 @@ class CircleManager {
         
         let chatVC = ChatVC(collectionViewLayout: UICollectionViewFlowLayout())
         chatVC.chatID = chatID
-        chatVC.circleName = "\(circleEmoji) · \(circleName) "
+        chatVC.circleName = "\(circleEmoji) · \(circleName)"
         chatVC.circleID = circleID
         chatVC.chatName = firstMsg
         chatVC.circleEmoji = circleEmoji
         
+        chatVC.hidesBottomBarWhenPushed = true
         
         UIApplication.topViewController()?.dismiss(animated: false, completion: nil)
         chatVC.modalPresentationCapturesStatusBarAppearance = true
         
-        chatVC.hidesBottomBarWhenPushed = true
+        (UIApplication.shared.delegate as! AppDelegate).bump?.homeTabBarVC.selectedIndex = 0
         
         UIApplication.topViewController()?.navigationController?.pushViewController(chatVC, animated: true)
         
@@ -56,7 +57,7 @@ class CircleManager {
     func launchCircle(circleID : String, circleName : String, circleEmoji : String) {
         
         
-        let chatID = "\(Date().timeIntervalSince1970.bitPattern)"
+        let chatID = "\(Date().millisecondsSince1970)"
         
         let chatVC = LaunchChatVC(collectionViewLayout: UICollectionViewFlowLayout())
         chatVC.chatID = chatID
@@ -64,19 +65,6 @@ class CircleManager {
         chatVC.circleName = circleName
         chatVC.chatName = circleEmoji
         chatVC.circleEmoji = circleEmoji
-        
-        
-//        UIApplication.topViewController()?.dismiss(animated: false, completion: nil)
-//        let transitionDelegate = SPStorkTransitioningDelegate()
-//        transitionDelegate.showIndicator = false
-//        transitionDelegate.translateForDismiss = 100
-//        
-//        chatVC.modalPresentationStyle = .pageSheet
-//        chatVC.modalPresentationCapturesStatusBarAppearance = true
-//        
-//        chatVC.hidesBottomBarWhenPushed = true
-//        UIApplication.topViewController()?.navigationController?.pushViewController(chatVC, animated: true)
-        
         
         UIApplication.topViewController()?.dismiss(animated: false, completion: nil)
         let transitionDelegate = SPStorkTransitioningDelegate()

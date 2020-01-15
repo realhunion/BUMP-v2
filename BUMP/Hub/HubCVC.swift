@@ -23,12 +23,12 @@ class HubCVC : UICollectionViewController {
     final let numColumns : Int = 2
     final let gridSpacing : CGFloat = 36.0
     
-    var hubItemArray = [HubItem(title: "Our Vision for Grinnell"),
+    var hubItemArray = [HubItem(title: "What BUMP stands for"),
                         HubItem(title: "How To Use"),
                         HubItem(title: "My Profile"),
                         HubItem(title: "My Circles"),
                         HubItem(title: "Silence Mode"),
-                        HubItem(title: "Follow Mode")]
+                        HubItem(title: "Contact Us")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +44,7 @@ class HubCVC : UICollectionViewController {
     
     @objc func settingsTapped() {
         
+        //FIX:
         guard LoginManager.shared.isLoggedIn() else { return }
         
         let settingsVC = SettingsTVC(style: .plain)
@@ -98,23 +99,23 @@ class HubCVC : UICollectionViewController {
         
         let hubItem = self.hubItemArray[indexPath.item]
    
-        if hubItem.title == "Our Vision for Grinnell" {
+        if indexPath.row == 0 {
             self.presentMyProfile()
         }
-        else if hubItem.title == "How To Use" {
+        else if indexPath.row == 1 {
             self.presentMyProfile()
         }
-        else if hubItem.title == "My Profile" {
+        else if indexPath.row == 2 {
             self.presentMyProfile()
         }
-        else if hubItem.title == "My Circles" {
+        else if indexPath.row == 3 {
             self.presentMyCircles()
         }
-        else if hubItem.title == "Silence Mode" {
+        else if indexPath.row == 4 {
             self.presentSilenceMode()
         }
-        else if hubItem.title == "Settings" {
-            self.presentSilenceMode()
+        else if indexPath.row == 5 {
+            self.presentHelpline()
         }
         
         

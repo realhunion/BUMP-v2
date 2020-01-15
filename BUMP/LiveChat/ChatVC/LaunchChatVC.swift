@@ -20,8 +20,6 @@ class LaunchChatVC : ChatVC {
         super.viewDidLoad()
         
         self.setCircleUnLaunched()
-        
-        self.setupBackgroundView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,28 +44,8 @@ class LaunchChatVC : ChatVC {
     override func setupCollectionView() {
         super.setupCollectionView()
         self.collectionView.isScrollEnabled = false
-    }
-    
-    func setupBackgroundView() {
         
-//        let backgroundView = UIView()
-//        self.collectionView.addSubview(backgroundView)
-//        backgroundView.backgroundColor = UIColor.blue.withAlphaComponent(0.4)
-//
-//        backgroundView.layoutToSuperview(.top, offset: 0)
-//        backgroundView.layoutToSuperview(.bottom, offset: 0)
-//        backgroundView.layoutToSuperview(.left, offset: 0)
-//        backgroundView.layoutToSuperview(.right, offset: 0)
-        
-        let v = UILabel()
-        collectionView.addSubview(v)
-        
-        v.layoutToSuperview(.centerX)
-        v.layoutToSuperview(.centerY)
-        
-        v.text = "Send a msg to launch"
-        v.font = UIFont.systemFont(ofSize: 10.0, weight: .medium)
-        
+        self.inputBarView.inputTextView.placeholder = "Send a message to Launch Circle"
     }
     
     

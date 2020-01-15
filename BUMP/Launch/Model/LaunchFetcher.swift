@@ -61,7 +61,7 @@ class LaunchFetcher {
                     
                     let circleID = diff.document.documentID
                     self.deMonitorLaunchCircle(circleID: circleID)
-                    
+                    self.delegate?.launchCircleRemoved(circleID: circleID)
                 }
                 
             }
@@ -93,8 +93,6 @@ class LaunchFetcher {
             self.launchCircleFetcherDict[circleID] = nil
         }
         
-        self.delegate?.launchCircleRemoved(circleID: circleID)
-        
     }
     
     
@@ -111,7 +109,6 @@ extension LaunchFetcher : LaunchCircleFetcherDelegate {
     
     
     func launchCircleUpdated(circleID: String, launchCircle: LaunchCircle) {
-        print("gop 0")
         self.delegate?.launchCircleUpdated(circleID : circleID, launchCircle: launchCircle)
     }
     

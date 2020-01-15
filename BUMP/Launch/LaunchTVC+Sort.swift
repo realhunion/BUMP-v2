@@ -47,21 +47,21 @@ extension LaunchTVC {
     //MARK: - Sort Button Tapped
     
     func setupSortButton() {
-        let btn = UIBarButtonItem(title: "sort", style: .plain, target: self, action: #selector(sortButtonTapped))
+        let btn = UIBarButtonItem(title: "Aa↓", style: .plain, target: self, action: #selector(sortButtonTapped))
         self.navigationItem.setRightBarButton(btn, animated: true)
     }
     
     @objc func sortButtonTapped() {
         
-        let alert = UIAlertController(title: "Sort by", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Sort by:", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "A to Z", style: .default, handler: { (action) in
             UserDefaults.standard.set(LaunchSortOption.aToZ.rawValue, forKey: defaultsKeys.launchSortOption)
             self.sortAToZ()
             self.tableView.reloadData()
         }))
-        alert.addAction(UIAlertAction(title: "My Favorites", style: .default, handler: { (action) in
-            //
-        }))
+//        alert.addAction(UIAlertAction(title: "My Favorites", style: .default, handler: { (action) in
+//            //
+//        }))
         alert.addAction(UIAlertAction(title: "Campus Favorites", style: .default, handler: { (action) in
             UserDefaults.standard.set(LaunchSortOption.campusFav.rawValue, forKey: defaultsKeys.launchSortOption)
             self.sortCampusFav()

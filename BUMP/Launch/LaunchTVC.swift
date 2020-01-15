@@ -65,7 +65,7 @@ class LaunchTVC: UITableViewController {
         
         var followString = "· Join   "
         if c.amFollowing() {
-            followString = "· j✓   "
+            followString = "· ✓"
         }
         let subString = "\(c.followerIDArray.count) members \(followString)"
         let fullRange = (subString as NSString).range(of: subString)
@@ -73,11 +73,10 @@ class LaunchTVC: UITableViewController {
         let attributedString = NSMutableAttributedString(string: subString)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.darkGray, range: fullRange)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: Constant.oBlue, range: followRange)
-//        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .regular), range: followRange)
 
         cell.detailTextLabel?.attributedText = attributedString
         
-        let tapGesture = IndexTapGestureRecognizer(target: self, action: #selector(tappedFollowButton))
+        let tapGesture = IndexTapGestureRecognizer(target: self, action: #selector(followButtonTapped))
         tapGesture.indexPath = indexPath
         cell.detailTextLabel?.isUserInteractionEnabled = true
         cell.detailTextLabel?.addGestureRecognizer(tapGesture)
@@ -129,52 +128,6 @@ class LaunchTVC: UITableViewController {
         CircleManager.shared.launchCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
     }
     
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

@@ -41,20 +41,19 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var feedVC = FeedTVC()
-    var launchVC = LaunchTVC(style: .plain)
-        //UserCirclesTVC()//LaunchCVC(collectionViewLayout: UICollectionViewFlowLayout())
+    var feedVC = FeedTabVC()
+        //FeedTVC()
+    var launchVC = LaunchTVC(style: .grouped)
+        //LaunchTVC(style: .plain)
     var hubVC = HubCVC(collectionViewLayout: UICollectionViewFlowLayout())
     
     func setupTabBar() {
-        
-//        campusClubsVC.userID = Auth.auth().currentUser!.uid
         
         feedVC.view.backgroundColor = .white
         launchVC.view.backgroundColor = .white
         hubVC.view.backgroundColor = .white
         
-        feedVC.title = "Campus"
+        feedVC.title = "Feed"
         launchVC.title = "Launch"
         hubVC.title = "Bump"
         
@@ -63,8 +62,8 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         let launchNC = UINavigationController(rootViewController: launchVC)
         let hubNC = UINavigationController(rootViewController: hubVC)
         
-        feedVC.navigationController?.navigationBar.prefersLargeTitles = true
-        feedVC.navigationController?.navigationBar.layoutMargins.left = 30
+//        feedVC.navigationController?.navigationBar.prefersLargeTitles = true
+//        feedVC.navigationController?.navigationBar.layoutMargins.left = 30
         launchVC.navigationController?.navigationBar.prefersLargeTitles = true
         launchVC.navigationController?.navigationBar.layoutMargins.left = 36
         hubVC.navigationController?.navigationBar.prefersLargeTitles = true
@@ -73,13 +72,12 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         feedNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
         launchNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
         hubNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
-
         
-        let feedImage =  UIImage(named: "campusIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
+        let feedImage =  UIImage(named: "feedIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         let launchImage = UIImage(named: "launchIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         let categoriesImage = UIImage(named: "hubIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         
-        let feedItem = UITabBarItem(title: "Campus", image: feedImage, selectedImage: nil)
+        let feedItem = UITabBarItem(title: "Feed", image: feedImage, selectedImage: nil)
         let launchItem = UITabBarItem(title: "Launch", image: launchImage, selectedImage: nil)
         let hubItem = UITabBarItem(title: "Bump", image: categoriesImage, selectedImage: nil)
         
@@ -103,7 +101,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var currentIndex : Int = Tabs.launch.rawValue
+    var currentIndex : Int = Tabs.hub.rawValue
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         currentIndex = selectedIndex
     }
@@ -111,16 +109,12 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
         
-        if selectedIndex == Tabs.feed.rawValue {
+        if selectedIndex == Tabs.hub.rawValue {
             if !LoginManager.shared.isLoggedIn() {
                 self.selectedIndex = currentIndex
             }
-//            else {
-//                self.feedVC.sortClubInfoArray()
-//                self.feedVC.collectionView.reloadData()
-//                self.feedVC.collectionView.scrollToTop(true)
-//            }
         }
+        
         
         
         

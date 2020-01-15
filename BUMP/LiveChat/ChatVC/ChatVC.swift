@@ -10,11 +10,7 @@ import SPStorkController
 import Firebase
 import QuickLayout
 
-class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStorkControllerDelegate {
-//
-//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        SPStorkController.scrollViewDidScroll(scrollView)
-//    }
+class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkControllerDelegate {
     
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -90,12 +86,10 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
         self.setupMessageSender()
         self.setupChatFollower()
 
+        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         self.updateFeedMsgsRead()
@@ -103,9 +97,11 @@ class ChatVC: SwipeRightToPopViewController, UIGestureRecognizerDelegate, SPStor
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
         
         self.updateFeedMsgsRead()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        self.shutDown()
     }
     
     func updateFeedMsgsRead() {

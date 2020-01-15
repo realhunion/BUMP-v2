@@ -50,7 +50,7 @@ class FeedCell: UITableViewCell {
         button.setTitleColor(Constant.oBlue, for: .normal)
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
         button.setTitle("Follow chat", for: .normal)
-        button.setTitle("f✓", for: .selected)
+        button.setTitle("F✓", for: .selected)
         
         button.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         
@@ -68,8 +68,6 @@ class FeedCell: UITableViewCell {
         label.adjustsFontSizeToFitWidth = false
         label.numberOfLines = 1
         label.textColor = UIColor.darkGray
-        
-//        label.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
         
         return label
     }()

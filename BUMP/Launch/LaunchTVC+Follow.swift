@@ -12,8 +12,7 @@ import Firebase
 extension LaunchTVC {
     
     
-    
-    @objc func tappedFollowButton(sender: IndexTapGestureRecognizer)
+    @objc func followButtonTapped(sender: IndexTapGestureRecognizer)
     {
         guard let indexPath = sender.indexPath else { return }
         

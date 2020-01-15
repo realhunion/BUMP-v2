@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import UIKit
+import SwiftEntryKit
 
 extension ChatVC {
     
@@ -49,6 +50,10 @@ extension ChatVC {
 
             cell.setupCell(message: msg, isUserImageEnabled: userImageEnabled, isUserNameEnabled: userNameEnabled)
             
+            cell.userImageAction = { [unowned self] in
+                self.presentUserProfileView(userID: msg.userID)
+            }
+            
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: outgoingTextMessageCellID, for: indexPath) as! OutgoingTextMessageCell
@@ -59,9 +64,16 @@ extension ChatVC {
         }
     }
     
-//    @objc func cellUserImageTapped() {
-//        
-//    }
+    func presentUserProfileView(userID : String) {
+        
+        self.inputBarView.inputTextView.resignFirstResponder()
+        
+        let vc = UserProfileView(userID: userID, actionButtonEnabled: false)
+        let atr = Constant.bottomPopUpAttributes
+        DispatchQueue.main.async {
+            SwiftEntryKit.display(entry: vc, using: atr)
+        }
+    }
     
     
     func getSizeForCell(indexPath : IndexPath) -> (msg : Message, cellHeight : CGFloat, isUserNameEnabled : Bool, isUserImageEnabled : Bool) {

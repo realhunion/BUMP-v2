@@ -17,7 +17,6 @@ class BUMP {
     var homeTabBarVC : HomeTabBarVC
     init() {
         self.homeTabBarVC = HomeTabBarVC()
-        print("Beauty: \(Auth.auth().currentUser?.isEmailVerified)")
     }
     
     
@@ -91,24 +90,16 @@ class BUMP {
         
     }
     
+
     
-    func appWillEnterForeground() {
-        
-//        homeTabBarVC.campusClubsVC.sortClubInfoArray()
-//        homeTabBarVC.campusClubsVC.collectionView.reloadData()
-        
-        //FIX:
-//        homeTabBarVC.feedVC.sortClubInfoArray()
-//        homeTabBarVC.feedVC.collectionView.reloadData()
-        
-    }
-    
-    func appWillResignActive() {
-        
+    func appDidEnterBackground() {
         SwiftEntryKit.dismiss(.all)
         UIApplication.topViewController()?.dismiss(animated: false, completion: nil)
         UIApplication.topViewController()?.navigationController?.popToRootViewController(animated: false)
-        
+    }
+    
+    func appDidEnterForeground() {
+        UpdateManager.shared.checkForUpdates()
     }
     
     

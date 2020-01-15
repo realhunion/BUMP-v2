@@ -144,6 +144,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Pageboy (3.5.0)
   - Protobuf (3.10.0)
   - QuickLayout (3.0.0)
   - SDWebImage (5.2.3):
@@ -152,6 +153,8 @@ PODS:
   - SPStorkController (1.7.9)
   - SwiftEntryKit (1.2.3):
     - QuickLayout (= 3.0.0)
+  - Tabman (2.7.0):
+    - Pageboy (~> 3.5.0)
 
 DEPENDENCIES:
   - Firebase/Auth
@@ -164,6 +167,7 @@ DEPENDENCIES:
   - QuickLayout (= 3.0.0)
   - SPStorkController
   - SwiftEntryKit (= 1.2.3)
+  - Tabman (~> 2.6)
 
 SPEC REPOS:
   trunk:
@@ -191,11 +195,13 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - Pageboy
     - Protobuf
     - QuickLayout
     - SDWebImage
     - SPStorkController
     - SwiftEntryKit
+    - Tabman
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -222,12 +228,14 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Pageboy: 3794c578aae5fcce06e90b3ed4a0ad6b807d75bb
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   QuickLayout: 07b45a72b10083fee3f095990cfed1c1e7b27f0a
   SDWebImage: 46a7f73228f84ce80990c786e4372cf4db5875ce
   SPStorkController: 36bd84206267232747b19d48852659bd71ede28f
   SwiftEntryKit: 340713c2e4a6662c5149629990bf1088bf5f0389
+  Tabman: d1410767ca481338b8ab1092fff5fe20f4ad226a
 
-PODFILE CHECKSUM: fe37678cd26ca610d81d8625e65aeebdecc5d7f5
+PODFILE CHECKSUM: 8d730f626e50e29a00c06037b8a41190d5c65ab2
 
 COCOAPODS: 1.8.4

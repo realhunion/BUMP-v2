@@ -1,5 +1,5 @@
 //
-//  SwipeRightToPopViewController.swift
+//  SwipeRightToPopCVC.swift
 //  SwipeRightToPopController
 //
 //  Created by Warif Akhand Rishi on 2/19/16.
@@ -27,7 +27,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class SwipeRightToPopViewController: UICollectionViewController {
+class SwipeRightToPopCVC: UICollectionViewController {
     
     var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition!
     var panGestureRecognizer: UIPanGestureRecognizer!
@@ -44,7 +44,7 @@ class SwipeRightToPopViewController: UICollectionViewController {
             return
         }
         
-        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SwipeRightToPopViewController.handlePanGesture(_:)))
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SwipeRightToPopCVC.handlePanGesture(_:)))
         self.view.addGestureRecognizer(panGestureRecognizer)
     }
     
@@ -87,7 +87,7 @@ class SwipeRightToPopViewController: UICollectionViewController {
 }
 
 
-extension SwipeRightToPopViewController: UINavigationControllerDelegate {
+extension SwipeRightToPopCVC: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         

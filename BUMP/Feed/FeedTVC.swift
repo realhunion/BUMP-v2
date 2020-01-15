@@ -16,29 +16,29 @@ class FeedTVC: UITableViewController {
     var feedFetcher : FeedFetcher?
     
     var feedChatArray : [FeedChat] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.setupTableView()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.tableView.backgroundColor = Constant.oGrayLight
+    }
+    
+
+    func setupTableView() {
         tableView.register(FeedCell.self, forCellReuseIdentifier: "feedCell")
         tableView.register(UnreadFeedCell.self, forCellReuseIdentifier: "newFeedCell")
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         
-        self.feedFetcher = FeedFetcher()
-        self.feedFetcher?.startMonitor()
-        self.feedFetcher?.delegate = self
+        tableView.contentInset = UIEdgeInsets(top: 12.0, left: 0, bottom: 12.0, right: 0)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        tableView.backgroundColor = Constant.oGrayLight
-    }
-    
-    
-
-    
     
     
     // MARK: - Table view data source
@@ -114,6 +114,8 @@ class FeedTVC: UITableViewController {
         //FIX: more structure ?? here put here???
         
     }
+    
+    
     
 
 

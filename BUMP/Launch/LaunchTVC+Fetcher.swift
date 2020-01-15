@@ -27,7 +27,6 @@ extension LaunchTVC : LaunchFetcherDelegate {
     func deleteLaunchCircle(circleID : String) {
         
         for section in 0..<self.circleArray.count {
-            
             self.circleArray[section].removeAll(where: {$0.circleID == circleID})
             
         }

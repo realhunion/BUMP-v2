@@ -64,6 +64,7 @@ class LaunchMessageSender : MessageSender {
             "circleName":circleName,
             "circleEmoji":circleEmoji,
             "timeLaunched": msgData["timestamp"] as Any,
+            "firstMsgText": text,
             ] as [String : Any]
         batch.setData(infoData, forDocument: infoRef, merge: true)
         

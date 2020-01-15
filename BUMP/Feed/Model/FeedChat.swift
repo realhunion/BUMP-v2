@@ -21,16 +21,21 @@ class FeedChat {
     var circleID : String
     var circleName : String
     var circleEmoji : String
+    
+    var isMyCircle : Bool
+    
     var myUser : FeedUser
     var userArray : [FeedUser]
     var messageArray : [Message]
-    init(chatID : String, circleID : String, circleName : String, circleEmoji : String, myUser : FeedUser, userArray : [FeedUser], messageArray : [Message]) {
+    
+    init(chatID : String, circleID : String, circleName : String, circleEmoji : String, myUser : FeedUser, isMyCircle : Bool, userArray : [FeedUser], messageArray : [Message]) {
         
         self.chatID = chatID
         self.circleID = circleID
         self.circleName = circleName
         self.circleEmoji = circleEmoji
         self.myUser = myUser
+        self.isMyCircle = isMyCircle
         self.userArray = userArray
         self.messageArray = messageArray
         

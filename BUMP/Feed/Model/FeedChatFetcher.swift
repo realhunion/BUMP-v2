@@ -31,6 +31,9 @@ class FeedChatFetcher {
     
     var userArray : [FeedUser]? = nil
     
+    var isMyCircleListener : ListenerRegistration?
+    var isMyCircle : Bool? = nil
+    
     var chatID : String
     var circleID : String
     var circleName : String
@@ -55,6 +58,7 @@ class FeedChatFetcher {
     
     
     func startMonitor() {
+        self.monitorIsMyCircle()
         self.monitorMyFeedUser()
         self.fetchFeedUsers()
         self.fetchFeedChatMessages()
@@ -62,11 +66,12 @@ class FeedChatFetcher {
     
     func triggerUpdate() {
         
+        guard let isMCircle = self.isMyCircle else { return }
         guard let myU = self.myUser else { return }
         guard let uArray = self.userArray else { return }
         guard let msgArray = self.messageArray else { return }
         
-        let payload = FeedChat(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, myUser: myU, userArray: uArray, messageArray: msgArray)
+        let payload = FeedChat(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, myUser: myU, isMyCircle: isMCircle, userArray: uArray, messageArray: msgArray)
         self.delegate?.feedChatUpdated(feedChat: payload)
         
     }
@@ -75,6 +80,17 @@ class FeedChatFetcher {
     
     //MARK:- Fetchers
     
+    func monitorIsMyCircle() {
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
+         db.collection("User-Profile").document(myUID).collection("Following").document(circleID).addSnapshotListener { (snap, err) in
+            guard let doc = snap else { return }
+            
+            self.isMyCircle = doc.exists
+            self.triggerUpdate()
+        }
+        
+    }
     
     func monitorMyFeedUser() {
         

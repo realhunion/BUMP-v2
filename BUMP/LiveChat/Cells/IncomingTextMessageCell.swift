@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import FirebaseStorage
 import FirebaseAuth
-//import SwiftEntryKit
+import SwiftEntryKit
 
 class IncomingTextMessageCell: BaseMessageCell {
     
@@ -37,6 +37,11 @@ class IncomingTextMessageCell: BaseMessageCell {
         return nameLabel
     }()
     
+    var userImageAction : (() -> ())?
+    @IBAction func userImageTapped(_ sender: UITapGestureRecognizer) {
+        self.userImageAction?()
+    }
+    
     
     func setupCell(message: Message, isUserImageEnabled: Bool, isUserNameEnabled:Bool) {
         
@@ -62,6 +67,9 @@ class IncomingTextMessageCell: BaseMessageCell {
             let placeHolder = UIImage(color: MsgCellConfig.inBubbleColor)
             self.imageView.sd_setImage(with: imageRef, placeholderImage: placeHolder)
             
+            let tap = StringTapGestureRecognizer(target: self, action: #selector(self.userImageTapped))
+            tap.stringTag = message.userID
+            self.imageView.addGestureRecognizer(tap)
         } else {
             imageView.isHidden = true
         }
@@ -103,6 +111,20 @@ class IncomingTextMessageCell: BaseMessageCell {
         print("hun - \(message.text) - \(imageView.frame.origin.x)")
         
     }
+    
+    
+    
+//    @objc func userImageTapped(sender: StringTapGestureRecognizer) {
+//        
+//        guard let userID = sender.stringTag else { return }
+//        
+//        let vc = UserProfileView(userID: userID, actionButtonEnabled: false)
+//        let atr = Constant.centerPopUpAttributes
+//        DispatchQueue.main.async {
+//            SwiftEntryKit.display(entry: vc, using: atr)
+//        }
+//    }
+    
     
     
     override func setupViews() {

@@ -28,31 +28,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.configureMyFirebase()
         Messaging.messaging().delegate = self
         
-//        self.topicNotifs()
-        
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         self.bump = BUMP()
         window?.rootViewController = self.bump?.homeTabBarVC
         window?.makeKeyAndVisible()
         
-        
         return true
     }
     
     
-    func applicationWillResignActive(_ application: UIApplication) {
-        self.bump?.appWillResignActive()
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        self.bump?.appDidEnterBackground()
     }
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        self.bump?.appWillEnterForeground()
-        
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        self.bump?.appDidEnterForeground()
     }
-    
-    
-    // MARK:- Notifications
-    
     
     
     
@@ -77,9 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
-
-
-
 extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     
     func registerForPushNotifications() {
@@ -99,17 +87,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         guard let chatID = response.notification.request.content.userInfo["chatID"] as? String,
-            let firstMsg = response.notification.request.content.userInfo["firstMsg"] as? String,
+            let firstMsgText = response.notification.request.content.userInfo["firstMsgText"] as? String,
             let circleID = response.notification.request.content.userInfo["circleID"] as? String,
             let circleName = response.notification.request.content.userInfo["circleName"] as? String,
             let circleEmoji = response.notification.request.content.userInfo["circleEmoji"] as? String else { return }
         
-        CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsg, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
-        
-        //Tweak: start at 0, when tap on notification.
-//        let circManager = CircleManager.shared
-//        self.bump?.homeTabBarVC.selectedIndex = 0
-//        circManager.enterCircle(chatID: chatID, chatName: "Chat Name", circleID: "Free Food", circleName: "Free Food")
+        //FIX: firstMsg not msgText
+        CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsgText, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
         
     }
     
