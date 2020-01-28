@@ -122,17 +122,17 @@ class SettingsTVC: UITableViewController {
             
             self.navigationController?.pushViewController(vc, animated: true)
             
-        case "Contact Info":
-            let vc = UIViewController()
-            vc.view.backgroundColor = UIColor.white
-            vc.edgesForExtendedLayout = []
-            
-            let infoView = InfoTextView(text: "Hello \(myUsername),\n\nIf you have any questions, concerns, feedback, anything:\nLet us know, we'd love to hear it!\n\ntheBumpInitiative@gmail.com")
-            vc.view.addSubview(infoView)
-            infoView.frame = self.view.frame
-            vc.title = "Contact Info"
-            
-            self.navigationController?.pushViewController(vc, animated: true)
+//        case "Contact Info":
+//            let vc = UIViewController()
+//            vc.view.backgroundColor = UIColor.white
+//            vc.edgesForExtendedLayout = []
+//            
+//            let infoView = InfoTextView(text: "Hello \(myUsername),\n\nIf you have any questions, concerns, feedback, anything:\nLet us know, we'd love to hear it!\n\ntheBumpInitiative@gmail.com")
+//            vc.view.addSubview(infoView)
+//            infoView.frame = self.view.frame
+//            vc.title = "Contact Info"
+//
+//            self.navigationController?.pushViewController(vc, animated: true)
             
         case "Privacy & Terms Of Use":
             let vc = UIViewController()

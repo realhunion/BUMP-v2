@@ -18,7 +18,7 @@ extension UserReporterView {
         
         self.setUIToReporting()
         
-        let data = ["timestamp" : FieldValue.serverTimestamp(),
+        let data = ["timestamp" : Timestamp(date: Date()),
                     "reason": self.textField.text ?? ""] as [String : Any]
         
         let ref = db.collection("Reported-Users").document(self.userID).collection("ReportedBy").document(myUID)

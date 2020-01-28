@@ -59,7 +59,7 @@ class MyCirclesTVC : LaunchTVC {
             CircleFollower.shared.unFollowCircle(circleID: circle.circleID)
         }
         else {
-            CircleFollower.shared.followCircle(circleID: circle.circleID)
+            CircleFollower.shared.followCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
         }
     }
     

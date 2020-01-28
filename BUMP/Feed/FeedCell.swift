@@ -15,7 +15,7 @@ class FeedCell: UITableViewCell {
     
     var circleTitleLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15.0, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .subheadline).pointSize, weight: .semibold)
 //        label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = false
@@ -27,7 +27,7 @@ class FeedCell: UITableViewCell {
     
     var firstMessageLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .subheadline).pointSize, weight: .regular)
 //        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = false
@@ -46,10 +46,10 @@ class FeedCell: UITableViewCell {
     var followButton : UIButton = {
         let button = UIButton()
         button.titleLabel?.textAlignment = .left
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 10.0, weight: .semibold)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .semibold)
         button.setTitleColor(Constant.oBlue, for: .normal)
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
-        button.setTitle("Follow chat", for: .normal)
+        button.setTitle("Follow launch", for: .normal)
         button.setTitle("F✓", for: .selected)
         
         button.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
@@ -64,7 +64,7 @@ class FeedCell: UITableViewCell {
     
     var timeLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .regular)
         label.adjustsFontSizeToFitWidth = false
         label.numberOfLines = 1
         label.textColor = UIColor.darkGray
@@ -139,8 +139,8 @@ class FeedCell: UITableViewCell {
         timeLabel.set(.height, of: 20.0)
         
         cardContentView.addSubview(circleTitleLabel)
-        circleTitleLabel.layout(.top, to: .bottom, of: followButton, offset: 2)
-        circleTitleLabel.layout(.top, to: .bottom, of: timeLabel, offset: 2)
+        circleTitleLabel.layout(.top, to: .bottom, of: followButton, offset: 3)
+        circleTitleLabel.layout(.top, to: .bottom, of: timeLabel, offset: 3)
         circleTitleLabel.layoutToSuperview(.left, offset: 0)
         circleTitleLabel.layoutToSuperview(.right, offset: 0)
         

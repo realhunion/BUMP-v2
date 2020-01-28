@@ -41,14 +41,18 @@ extension LaunchTVC : LaunchFetcherDelegate {
         self.deleteLaunchCircle(circleID: circleID)
         self.insertLaunchCircle(launchCircle: launchCircle)
         
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func launchCircleRemoved(circleID: String) {
         
         self.deleteLaunchCircle(circleID: circleID)
         
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+             self.tableView.reloadData()
+        }
         
     }
     

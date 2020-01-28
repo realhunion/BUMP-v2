@@ -23,7 +23,7 @@ class HubCVC : UICollectionViewController {
     final let numColumns : Int = 2
     final let gridSpacing : CGFloat = 36.0
     
-    var hubItemArray = [HubItem(title: "What BUMP stands for"),
+    var hubItemArray = [HubItem(title: "The Purpose of Bump"),
                         HubItem(title: "How To Use"),
                         HubItem(title: "My Profile"),
                         HubItem(title: "My Circles"),
@@ -100,10 +100,10 @@ class HubCVC : UICollectionViewController {
         let hubItem = self.hubItemArray[indexPath.item]
    
         if indexPath.row == 0 {
-            self.presentMyProfile()
+            UserDefaultsManager.shared.clearAllData()
         }
         else if indexPath.row == 1 {
-            self.presentMyProfile()
+            self.presentIntroInfo()
         }
         else if indexPath.row == 2 {
             self.presentMyProfile()

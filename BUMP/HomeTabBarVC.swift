@@ -43,7 +43,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     var feedVC = FeedTabVC()
         //FeedTVC()
-    var launchVC = LaunchTVC(style: .grouped)
+    var launchVC = LaunchTVC()
         //LaunchTVC(style: .plain)
     var hubVC = HubCVC(collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -62,8 +62,6 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         let launchNC = UINavigationController(rootViewController: launchVC)
         let hubNC = UINavigationController(rootViewController: hubVC)
         
-//        feedVC.navigationController?.navigationBar.prefersLargeTitles = true
-//        feedVC.navigationController?.navigationBar.layoutMargins.left = 30
         launchVC.navigationController?.navigationBar.prefersLargeTitles = true
         launchVC.navigationController?.navigationBar.layoutMargins.left = 36
         hubVC.navigationController?.navigationBar.prefersLargeTitles = true
@@ -109,11 +107,11 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
         
-        if selectedIndex == Tabs.hub.rawValue {
-            if !LoginManager.shared.isLoggedIn() {
-                self.selectedIndex = currentIndex
-            }
-        }
+//        if selectedIndex == Tabs.hub.rawValue {
+//            if !LoginManager.shared.isLoggedIn() {
+//                self.selectedIndex = currentIndex
+//            }
+//        }
         
         
         

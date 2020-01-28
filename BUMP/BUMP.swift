@@ -17,6 +17,9 @@ class BUMP {
     var homeTabBarVC : HomeTabBarVC
     init() {
         self.homeTabBarVC = HomeTabBarVC()
+        
+        AnnouncementsManager.shared.startMonitors()
+        
     }
     
     
@@ -38,8 +41,8 @@ class BUMP {
 //        homeTabBarVC.feedVC.shutDown()
 //        homeTabBarVC.feedVC.setupLaunchFetcher()
         
-        homeTabBarVC.selectedIndex = 1
-        homeTabBarVC.currentIndex = 1
+        homeTabBarVC.selectedIndex = 2
+        homeTabBarVC.currentIndex = 2
         
     }
     

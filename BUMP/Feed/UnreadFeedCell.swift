@@ -35,17 +35,18 @@ class UnreadFeedCell : FeedCell {
         followButton.layoutToSuperview(.left, offset: 0)
         followButton.set(.height, of: 20.0)
         
-        cardContentView.addSubview(timeLabel)
-        timeLabel.layoutToSuperview(.top, offset: 0)
-        timeLabel.set(.height, of: 20.0)
-        timeLabel.layout(.right, to: .left, of: newMessagesLabel, offset: -10)
-        
         
         cardContentView.addSubview(newMessagesLabel)
         newMessagesLabel.layoutToSuperview(.top, offset: 0)
         newMessagesLabel.set(.width, of: 20.0)
         newMessagesLabel.set(.height, of: 20.0)
         newMessagesLabel.layoutToSuperview(.right, offset: 0)
+        
+        cardContentView.addSubview(timeLabel)
+        timeLabel.layoutToSuperview(.top, offset: 0)
+        timeLabel.layout(.right, to: .left, of: newMessagesLabel, offset: -10)
+        timeLabel.set(.height, of: 20.0)
+        
         
         cardContentView.addSubview(circleTitleLabel)
         circleTitleLabel.layout(.top, to: .bottom, of: followButton, offset: 2)

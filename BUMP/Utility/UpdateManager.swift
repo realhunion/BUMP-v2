@@ -55,7 +55,7 @@ class UpdateManager {
     
     func presentForceUpdate(forceVersion : String, appStoreLink : String) {
         
-        let alert = UIAlertController(title: "Critical Update Available", message:"Please update your phone to get the latest & greatest.", preferredStyle: .alert)
+        let alert = MyAlertController(title: "Critical Update Available", message:"It's a make or break type of situation", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
             
             if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
@@ -68,10 +68,7 @@ class UpdateManager {
         alert.addAction(okAction)
         
         SwiftEntryKit.dismiss(.all)
-        UIApplication.topViewController()?.dismiss(animated: true, completion: {
-            UIApplication.topViewController()?.present(alert, animated: true)
-        })
-        
+        MyAlertManager.shared.addToQueue(alert: alert)
         
         
     }
@@ -79,7 +76,7 @@ class UpdateManager {
     func presentRecommendedUpdate(recommendedVersion : String, appStoreLink : String) {
         
         //FIX: pList record checked. so it don't popup over and over again.
-        let alert = UIAlertController(title: "New Update Available", message:"Please update your phone to get the latest & greatest.", preferredStyle: .alert)
+        let alert = MyAlertController(title: "New Update Available", message:"Please update your phone to get the latest & greatest", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
             
             if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
@@ -92,9 +89,7 @@ class UpdateManager {
         alert.addAction(okAction)
         alert.addAction(UIAlertAction(title: "Later", style: .destructive, handler: nil))
         
-        UIApplication.topViewController()?.dismiss(animated: true, completion: {
-            UIApplication.topViewController()?.present(alert, animated: true)
-        })
+        MyAlertManager.shared.addToQueue(alert: alert)
         
     }
     

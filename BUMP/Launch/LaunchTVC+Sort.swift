@@ -12,9 +12,9 @@ import UIKit
 struct LaunchSortOption: OptionSet {
     let rawValue: Int
     
-    static let aToZ = LaunchSortOption(rawValue: 1 << 0)
-    static let myFav = LaunchSortOption(rawValue: 1 << 1)
-    static let campusFav = LaunchSortOption(rawValue: 1 << 2)
+    static let aToZ = LaunchSortOption(rawValue: 0)
+    static let myFav = LaunchSortOption(rawValue: 1)
+    static let campusFav = LaunchSortOption(rawValue: 2)
 }
 
 extension LaunchTVC {
@@ -22,18 +22,18 @@ extension LaunchTVC {
     
     func sortCircleArray() {
         
-        guard let option = UserDefaults.standard.value(forKey: defaultsKeys.launchSortOption) as? LaunchSortOption else {
+        guard let option = UserDefaults.standard.value(forKey: defaultsKeys.launchSortOption) as? Int else {
             self.sortAToZ()
             return
         }
         
-        if option == .aToZ {
+        if option == LaunchSortOption.aToZ.rawValue {
             self.sortAToZ()
         }
-        else if option == .myFav {
+        else if option == LaunchSortOption.myFav.rawValue {
             self.sortMyFav()
         }
-        else if option == .campusFav {
+        else if option == LaunchSortOption.campusFav.rawValue {
             self.sortCampusFav()
         }
         else {
@@ -56,16 +56,27 @@ extension LaunchTVC {
         let alert = UIAlertController(title: "Sort by:", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "A to Z", style: .default, handler: { (action) in
             UserDefaults.standard.set(LaunchSortOption.aToZ.rawValue, forKey: defaultsKeys.launchSortOption)
-            self.sortAToZ()
-            self.tableView.reloadData()
+            
+            DispatchQueue.main.async {
+                self.sortCircleArray()
+                self.tableView.reloadData()
+            }
         }))
-//        alert.addAction(UIAlertAction(title: "My Favorites", style: .default, handler: { (action) in
-//            //
-//        }))
+        alert.addAction(UIAlertAction(title: "My Favorites", style: .default, handler: { (action) in
+            UserDefaults.standard.set(LaunchSortOption.myFav.rawValue, forKey: defaultsKeys.launchSortOption)
+            
+            DispatchQueue.main.async {
+                self.sortCircleArray()
+                self.tableView.reloadData()
+            }
+        }))
         alert.addAction(UIAlertAction(title: "Campus Favorites", style: .default, handler: { (action) in
             UserDefaults.standard.set(LaunchSortOption.campusFav.rawValue, forKey: defaultsKeys.launchSortOption)
-            self.sortCampusFav()
-            self.tableView.reloadData()
+            
+            DispatchQueue.main.async {
+                self.sortCircleArray()
+                self.tableView.reloadData()
+            }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) in
             //
@@ -89,7 +100,24 @@ extension LaunchTVC {
     }
     
     func sortMyFav() {
-        //
+        
+        let dict = UserDefaultsManager.shared.getMyFavLaunchCircles()
+        
+        print("dict dict \(dict)")
+        
+        for section in 0..<self.circleArray.count {
+            
+            self.circleArray[section].sort { (c1, c2) -> Bool in
+                
+                if (dict[c1.circleID] ?? 0) != (dict[c2.circleID] ?? 0) {
+                    return (dict[c1.circleID] ?? 0) > (dict[c2.circleID] ?? 0)
+                }
+                else {
+                    return c1.circleName.lowercased() < c2.circleName.lowercased()
+                }
+                
+            }
+        }
     }
     
     func sortCampusFav() {

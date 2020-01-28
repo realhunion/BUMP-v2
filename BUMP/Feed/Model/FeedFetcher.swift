@@ -35,7 +35,6 @@ class FeedFetcher {
     func shutDown() {
         
         for fetcher in self.feedChatFetcherArray {
-            fetcher.delegate = nil
             fetcher.shutDown()
         }
         self.feedChatFetcherArray = []
@@ -51,7 +50,7 @@ class FeedFetcher {
         self.listener = db.collection("Feed").addSnapshotListener { (snap, err) in
             guard let diffArray = snap?.documentChanges else { return }
             
-            for diff in diffArray {
+            for diff in diffArray.reversed() {
                 
                 if diff.type == .added {
                     

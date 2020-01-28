@@ -15,11 +15,13 @@ class LaunchCircle {
     var circleID : String
     var circleName : String
     var circleEmoji : String
+    var circleDescription : String
     var followerIDArray : [String]
-    init(circleID : String, circleName : String, circleEmoji : String, followerIDArray : [String]) {
+    init(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, followerIDArray : [String]) {
         self.circleID = circleID
         self.circleName = circleName
         self.circleEmoji = circleEmoji
+        self.circleDescription = circleDescription
         self.followerIDArray = followerIDArray
     }
     

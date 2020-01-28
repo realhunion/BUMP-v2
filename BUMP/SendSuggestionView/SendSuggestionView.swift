@@ -154,7 +154,7 @@ extension SendSuggestionView : UITextFieldDelegate {
         let payload = ["userID": currentUser.uid,
                        "userName": currentUser.displayName ?? "X",
                        "suggestion": suggestionText,
-                       "timestamp": FieldValue.serverTimestamp()
+                       "timestamp": Timestamp(date: Date())
             ] as [String : Any]
         
         self.sendButton.isEnabled = false

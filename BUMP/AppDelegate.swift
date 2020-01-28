@@ -43,6 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         self.bump?.appDidEnterForeground()
+        
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
     
     
@@ -87,13 +89,23 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         guard let chatID = response.notification.request.content.userInfo["chatID"] as? String,
-            let firstMsgText = response.notification.request.content.userInfo["firstMsgText"] as? String,
             let circleID = response.notification.request.content.userInfo["circleID"] as? String,
             let circleName = response.notification.request.content.userInfo["circleName"] as? String,
-            let circleEmoji = response.notification.request.content.userInfo["circleEmoji"] as? String else { return }
+            let circleEmoji = response.notification.request.content.userInfo["circleEmoji"] as? String,
+            let firstMsgText = response.notification.request.content.userInfo["firstMsgText"] as? String,
+            let timeLaunched = response.notification.request.content.userInfo["timeLaunched"] as? String else { return }
         
-        //FIX: firstMsg not msgText
+        guard let timeLaunchedDouble = Double(timeLaunched) else { completionHandler(); return }
+        let timeLaunchedDate = Date(timeIntervalSince1970: (timeLaunchedDouble / 1000.0))
+        guard CircleManager.shared.isLaunchedLast24h(timeLaunched: timeLaunchedDate) else {
+            CircleManager.shared.presentNotificationExpired(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+            completionHandler(); return }
+        
+    
         CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsgText, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+        
+        completionHandler()
+        return
         
     }
     

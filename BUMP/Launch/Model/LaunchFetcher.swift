@@ -50,9 +50,9 @@ class LaunchFetcher {
                     
                     let circleID = diff.document.documentID
                     let data = diff.document.data()
-                    if let circleName = data["circleName"] as? String, let circleEmoji = data["circleEmoji"] as? String {
+                    if let circleName = data["circleName"] as? String, let circleEmoji = data["circleEmoji"] as? String, let circleDescription = data["circleDescription"] as? String {
                         
-                        self.monitorLaunchCircle(circleID: circleID, circleName: circleName, circleEmoji : circleEmoji)
+                        self.monitorLaunchCircle(circleID: circleID, circleName: circleName, circleEmoji : circleEmoji, circleDescription : circleDescription)
                         
                     }
                 }
@@ -75,9 +75,9 @@ class LaunchFetcher {
     
     //MARK:- Monitor / DeMonitor Individual Clubs
     
-    func monitorLaunchCircle(circleID : String, circleName : String, circleEmoji : String) {
+    func monitorLaunchCircle(circleID : String, circleName : String, circleEmoji : String, circleDescription : String) {
         
-        let launchCircleFetcher = LaunchCircleFetcher(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+        let launchCircleFetcher = LaunchCircleFetcher(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, circleDescription: circleDescription)
         self.launchCircleFetcherDict[circleID] = launchCircleFetcher
         
         launchCircleFetcher.delegate = self

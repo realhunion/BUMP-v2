@@ -28,10 +28,12 @@ class LaunchCircleFetcher {
     var circleID : String
     var circleName : String
     var circleEmoji : String
-    init(circleID : String, circleName : String, circleEmoji : String) {
+    var circleDescription : String
+    init(circleID : String, circleName : String, circleEmoji : String, circleDescription : String) {
         self.circleID = circleID
         self.circleName = circleName
         self.circleEmoji = circleEmoji
+        self.circleDescription = circleDescription
     }
     
     func shutDown() {
@@ -56,7 +58,7 @@ class LaunchCircleFetcher {
         guard let myFollow = self.myFollow else { return }
         guard let followerIDArray = self.followerIDArray else { return }
         
-        let launchCircle = LaunchCircle(circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, followerIDArray: followerIDArray)
+        let launchCircle = LaunchCircle(circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, circleDescription: self.circleDescription, followerIDArray: followerIDArray)
         self.delegate?.launchCircleUpdated(circleID: self.circleID, launchCircle: launchCircle)
     }
     

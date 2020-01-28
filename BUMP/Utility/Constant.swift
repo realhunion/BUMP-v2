@@ -10,17 +10,28 @@ import UIKit
 import SwiftEntryKit
 
 
-struct defaultsKeys {
-    static let launchSortOption = "launchSortOption"
+
+class StringTapGestureRecognizer: UITapGestureRecognizer {
+    var stringTag: String?
+}
+
+//FIX: UIBUTTON INCREASED TAP RADIUS
+extension UIButton {
+    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let relativeFrame = self.bounds
+        let hitTestEdgeInsets = UIEdgeInsets(top: -16, left: -16, bottom: -16, right: -16)
+        let hitFrame = relativeFrame.inset(by: hitTestEdgeInsets)
+        return hitFrame.contains(point)
+    }
 }
 
 
 extension Date {
-    var millisecondsSince1970:Int64 {
+    var millisecondsSince1970 : Int64 {
         return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
     }
     
-    init(milliseconds:Int64) {
+    init(milliseconds : Int64) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
 }
@@ -28,11 +39,11 @@ extension Date {
 enum Constant {
     
     
-    static func logTimestamp(label:String="") {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "mm:ss.SSS"
-        let x = (formatter.string(from: Date()) as NSString) as String
-    }
+//    static func logTimestamp(label:String="") {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "mm:ss.SSS"
+//        let x = (formatter.string(from: Date()) as NSString) as String
+//    }
     
     
     static let oBlueLight = UIColor(red:0.10, green:0.68, blue:0.96, alpha:1.0)
@@ -111,22 +122,6 @@ enum Constant {
 
         return attributes
     }
-}
-//
-//
-//extension UserDefaults {
-//    
-//    func clearUserDefaults() {
-//        if let bundleID = Bundle.main.bundleIdentifier {
-//            UserDefaults.standard.removePersistentDomain(forName: bundleID)
-//        }
-//    }
-//    
-//}
-//
-//
-class StringTapGestureRecognizer: UITapGestureRecognizer {
-    var stringTag: String?
 }
 //
 //
@@ -378,11 +373,7 @@ class StringTapGestureRecognizer: UITapGestureRecognizer {
 extension UIScrollView {
     func scrollToTop(_ animated: Bool) {
         var topContentOffset: CGPoint
-        if #available(iOS 11.0, *) {
-            topContentOffset = CGPoint(x: -safeAreaInsets.left, y: -safeAreaInsets.top)
-        } else {
-            topContentOffset = CGPoint(x: -contentInset.left, y: -contentInset.top)
-        }
+        topContentOffset = CGPoint(x: -safeAreaInsets.left, y: -safeAreaInsets.top)
         setContentOffset(topContentOffset, animated: animated)
     }
 }

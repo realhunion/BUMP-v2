@@ -94,7 +94,6 @@ class FeedChatFetcher {
     
     func monitorMyFeedUser() {
         
-        print("myFUser \(self.chatID)")
         //FIX: still be able to show TVC even if myUID absent.
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         
@@ -147,6 +146,7 @@ class FeedChatFetcher {
         
         self.messageFetcher = MessageFetcher(chatID: chatID)
         self.messageFetcher?.delegate = self
+        self.messageFetcher?.startMonitor()
         
     }
     
@@ -158,7 +158,8 @@ class FeedChatFetcher {
 
 extension FeedChatFetcher : MessageFetcherDelegate {
     
-    func newMessagesAdded(messages: [Message], initialLoadDone: Bool) {
+    
+    func newMessagesAdded(messages: [Message]) {
         if self.messageArray == nil { self.messageArray = [] }
         self.messageArray?.append(contentsOf: messages)
         self.triggerUpdate()

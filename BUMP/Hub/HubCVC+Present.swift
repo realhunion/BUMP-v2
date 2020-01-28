@@ -10,9 +10,30 @@ import Foundation
 import Firebase
 import UIKit
 import SwiftEntryKit
+import SPStorkController
 
 extension HubCVC {
     
+    
+    func presentIntroInfo() {
+        
+        let vc = IntroInfoVC()
+        vc.title = "Bump: A Run Down"
+        let nvc = UINavigationController(rootViewController: vc)
+        
+        nvc.modalPresentationStyle = .pageSheet
+        nvc.presentationController?.delegate = vc
+        if #available(iOS 13.0, *) {
+            nvc.isModalInPresentation = true
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        
+        UIApplication.topViewController()?.dismiss(animated: false) {}
+        UIApplication.topViewController()?.present(nvc, animated: true) {}
+        
+    }
     
     
     func presentMyProfile() {
@@ -31,7 +52,7 @@ extension HubCVC {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         
-        let vc = MyCirclesTVC(style: .grouped)
+        let vc = MyCirclesTVC()
         vc.title = "Tap to Join / Leave"
         
         vc.modalPresentationStyle = .pageSheet
@@ -104,11 +125,7 @@ extension HubCVC {
         
         let email = "alihunai@grinnell.edu"
         if let url = URL(string: "mailto:\(email)") {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
+            UIApplication.shared.open(url)
         }
     }
     

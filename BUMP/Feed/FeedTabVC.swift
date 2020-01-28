@@ -16,28 +16,33 @@ class FeedTabVC: TabmanViewController {
     var feedFetcher : FeedFetcher?
     
     
-    var viewControllers = [FeedTVC(), FeedTVC(), FeedTVC()]
-    var viewControllerNames = ["Following", "My Circles" ,"Campus"]
+//    var viewControllers = [FeedTVC(style: .plain), FeedTVC(style: .plain), FeedTVC(style: .plain)]
+//    var viewControllerNames = ["Following","My Circles" ,"Campus"]
     
+    var viewControllers = [FeedTVC(style: .plain), FeedTVC(style: .plain)]
+    var viewControllerNames = ["My Circles","Following"]
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.addStatusBarView()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        self.removeStatusBarView()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.setupFeedTab()
-        
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTabBar()
         
         self.setupFeedFetcher()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.setupFeedTab()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.addStatusBarView()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.removeStatusBarView()
     }
     
     
@@ -86,21 +91,20 @@ class FeedTabVC: TabmanViewController {
     func setupFeedTab() {
         self.navigationController?.navigationBar.isHidden = true
         
-        for v in viewControllers {
-            let _ = v.tableView
-        }
+//        for v in viewControllers {
+//            let _ = v.tableView
+//        }
     }
     
-    func setupTabBar() {
-        self.dataSource = self
-        
+    lazy var tabmanBar : TMBar = {
         let bar = TMBar.ButtonBar()
         
         bar.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
         bar.layout.contentMode = .fit
         bar.layout.transitionStyle = .progressive
+//        bar.layout.alignment = .leading
         
-        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0)
+        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 24.0, bottom: 0, right: 24.0)
         
         bar.indicator.overscrollBehavior = .bounce
         bar.indicator.weight = .custom(value: 3.0)
@@ -112,7 +116,12 @@ class FeedTabVC: TabmanViewController {
             button.selectedTintColor = UIColor.systemBlue
         }
         
-        self.addBar(bar, dataSource: self, at: .top)
+        return bar
+    }()
+    func setupTabBar() {
+        self.dataSource = self
+        
+        self.addBar(self.tabmanBar, dataSource: self, at: .top)
     }
 }
 
@@ -123,6 +132,7 @@ extension FeedTabVC: PageboyViewControllerDataSource, TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         let name = viewControllerNames[index]
         let item = TMBarItem(title: name)
+//        item.badgeValue = "1"
         return item
     }
     
@@ -137,7 +147,7 @@ extension FeedTabVC: PageboyViewControllerDataSource, TMBarDataSource {
     }
     
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return .at(index: .init(bitPattern: 1))
+        return .at(index: .init(bitPattern: 0))
     }
     
     func barItem(for tabViewController: TabmanViewController, at index: Int) -> TMBarItemable {

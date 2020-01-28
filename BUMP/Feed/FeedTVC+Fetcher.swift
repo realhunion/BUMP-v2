@@ -17,7 +17,7 @@ extension FeedTVC : FeedFetcherDelegate {
             
             if let index = feedChatArray.firstIndex(where: {$0.chatID == feedChat.chatID}) {
                 feedChatArray[index] = feedChat
-                self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+                self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
             }
             else {
                 if let index = feedChatArray.firstIndex(where: {$0.getFirstMessage()!.timestamp.compare(feedChat.getFirstMessage()!.timestamp) == .orderedAscending}) {

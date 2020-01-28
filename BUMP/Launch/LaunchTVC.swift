@@ -7,16 +7,12 @@
 //
 
 import UIKit
+import QuickLayout
 
-class LaunchTVC: UITableViewController {
+class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    override init(style: UITableView.Style) {
-        super.init(style: .grouped)
-    }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var tableView : UITableView!
     
     
     var launchFetcher : LaunchFetcher?
@@ -32,7 +28,21 @@ class LaunchTVC: UITableViewController {
     }
     
     func setupTableView() {
+        
+        self.tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        
+        self.layoutTableView()
+        
         self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "launchCell")
+    }
+    func layoutTableView() {
+        self.view.addSubview(tableView)
+        tableView.layoutToSuperview(.top, offset: 0)
+        tableView.layoutToSuperview(.left, offset: 0)
+        tableView.layoutToSuperview(.right, offset: 0)
+        tableView.layoutToSuperview(.bottom, offset: 0)
     }
     
     func setupLaunchFetcher() {
@@ -44,16 +54,16 @@ class LaunchTVC: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return circleArray.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return circleArray[section].count
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
@@ -76,10 +86,15 @@ class LaunchTVC: UITableViewController {
 
         cell.detailTextLabel?.attributedText = attributedString
         
-        let tapGesture = IndexTapGestureRecognizer(target: self, action: #selector(followButtonTapped))
+        let tapGesture = IndexTapGestureRecognizer(target: self, action: #selector(joinButtonTapped))
         tapGesture.indexPath = indexPath
         cell.detailTextLabel?.isUserInteractionEnabled = true
         cell.detailTextLabel?.addGestureRecognizer(tapGesture)
+        
+        let tapGesture2 = IndexTapGestureRecognizer(target: self, action: #selector(userImageTapped))
+        tapGesture2.indexPath = indexPath
+        cell.imageView?.isUserInteractionEnabled = true
+        cell.imageView?.addGestureRecognizer(tapGesture2)
         
         return cell
     }
@@ -104,7 +119,7 @@ class LaunchTVC: UITableViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             if self.circleArray[0].isEmpty {
                 return nil
@@ -120,12 +135,12 @@ class LaunchTVC: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.tableView.cellForRow(at: indexPath)?.isSelected = false
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let circle = circleArray[indexPath.section][indexPath.row]
         
         CircleManager.shared.launchCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
+        
     }
     
 

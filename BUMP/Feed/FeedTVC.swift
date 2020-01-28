@@ -17,16 +17,34 @@ class FeedTVC: UITableViewController {
     
     var feedChatArray : [FeedChat] = []
     
-
+    override init(style: UITableView.Style) {
+        super.init(style: style)
+        self.tableView.backgroundColor = Constant.oGrayLight
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupTableView()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.tableView.backgroundColor = Constant.oGrayLight
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.tableView.reloadData()
+        //FIX: pretty expesnvieivivieivieive yes. without, it overlaps cells.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        self.tableView.reloadData()
+    }
+    
+    func shutDown() {
+        self.feedFetcher?.shutDown()
     }
     
 
@@ -80,10 +98,11 @@ class FeedTVC: UITableViewController {
         cell.followButton.isSelected = feedChat.myUser.isFollowing ?? false
         cell.followButtonAction = { [unowned self] in
             
+            CircleManager.shared.updateFeedLastSeen(chatID: feedChat.chatID)
             if cell.followButton.isSelected == false {
-                self.db.collection("Feed").document(feedChat.chatID).collection("Users").document(myUID).setData(["isFollowing":true] as [String:Any], merge: true)
+                ChatFollower.shared.followChat(chatID: feedChat.chatID)
             } else {
-                self.db.collection("Feed").document(feedChat.chatID).collection("Users").document(myUID).setData(["isFollowing":false] as [String:Any], merge: true)
+                ChatFollower.shared.unFollowChat(chatID: feedChat.chatID)
             }
         }
         
@@ -95,8 +114,11 @@ class FeedTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
+        print("loper 000")
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }
+        
+        print("loper 111")
         
         let feedChat = self.feedChatArray[indexPath.row]
         let chatID = feedChat.chatID
