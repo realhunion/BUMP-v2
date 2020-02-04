@@ -9,6 +9,13 @@
 import Foundation
 import FirebaseAuth
 
+
+struct LaunchMember {
+    var userID : String
+//    var userName : String
+    var notifsOn : Bool
+}
+
 class LaunchCircle {
     
     
@@ -16,13 +23,13 @@ class LaunchCircle {
     var circleName : String
     var circleEmoji : String
     var circleDescription : String
-    var followerIDArray : [String]
-    init(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, followerIDArray : [String]) {
+    var memberArray : [LaunchMember]
+    init(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, memberArray : [LaunchMember]) {
         self.circleID = circleID
         self.circleName = circleName
         self.circleEmoji = circleEmoji
         self.circleDescription = circleDescription
-        self.followerIDArray = followerIDArray
+        self.memberArray = memberArray
     }
     
     
@@ -31,7 +38,7 @@ class LaunchCircle {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return false }
         
-        if followerIDArray.contains(myUID) {
+        if memberArray.contains(where: {$0.userID == myUID}) {
             return true
         } else {
             return false

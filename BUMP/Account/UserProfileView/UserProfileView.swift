@@ -98,12 +98,13 @@ public class UserProfileView : UIView {
     public init(userID : String, actionButtonEnabled : Bool = false) {
         super.init(frame: UIScreen.main.bounds)
         
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
+//        guard let myUID = Auth.auth().currentUser?.uid else { return }
         guard userID != "" else { return }
         
         self.userID = userID
         self.actionButtonEnabled = actionButtonEnabled
         
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
         if self.actionButtonEnabled && (userID == myUID) {
             self.actionButton.setTitle("Edit", for: .normal)
         }

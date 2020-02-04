@@ -112,7 +112,7 @@ class HubCVC : UICollectionViewController {
             self.presentMyCircles()
         }
         else if indexPath.row == 4 {
-            self.presentSilenceMode()
+            self.presentSilenceMenu()
         }
         else if indexPath.row == 5 {
             self.presentHelpline()

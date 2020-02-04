@@ -35,7 +35,7 @@ class MyCirclesTVC : LaunchTVC {
         
         let c = circleArray[indexPath.section][indexPath.row]
         
-        cell.detailTextLabel?.text = "\(c.followerIDArray.count) members"
+        cell.detailTextLabel?.text = "\(c.memberArray.count) members"
         cell.detailTextLabel?.textColor = UIColor.darkGray
         
         if c.amFollowing() {

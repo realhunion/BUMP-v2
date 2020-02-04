@@ -16,12 +16,18 @@ class FeedTabVC: TabmanViewController {
     var feedFetcher : FeedFetcher?
     
     
-//    var viewControllers = [FeedTVC(style: .plain), FeedTVC(style: .plain), FeedTVC(style: .plain)]
-//    var viewControllerNames = ["Following","My Circles" ,"Campus"]
+    var viewControllers : [FeedTVC] = [FeedTVC(style: .plain), FeedTVC(style: .plain)]
+    var viewControllerNames : [String] = ["My Chats","Following"]
     
-    var viewControllers = [FeedTVC(style: .plain), FeedTVC(style: .plain)]
-    var viewControllerNames = ["My Circles","Following"]
     
+    func shutDown() {
+        self.feedFetcher?.shutDown()
+        for vc in self.viewControllers {
+            vc.shutDown()
+            vc.feedChatArray = []
+            vc.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,10 +96,6 @@ class FeedTabVC: TabmanViewController {
     
     func setupFeedTab() {
         self.navigationController?.navigationBar.isHidden = true
-        
-//        for v in viewControllers {
-//            let _ = v.tableView
-//        }
     }
     
     lazy var tabmanBar : TMBar = {

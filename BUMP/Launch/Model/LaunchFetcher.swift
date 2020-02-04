@@ -16,6 +16,10 @@ protocol LaunchFetcherDelegate:class {
 
 class LaunchFetcher {
     
+    deinit {
+        print("deinited launchFetcher")
+    }
+    
     var db = Firestore.firestore()
     
     var campusListener : ListenerRegistration?

@@ -21,7 +21,7 @@ class LoginView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Bump Grinnell 2.0"
+        label.text = "Bump Grinnell v2"
         label.textColor = UIColor.darkText
         label.font = UIFont.systemFont(ofSize: 24.0, weight: .bold)
         label.adjustsFontSizeToFitWidth = true

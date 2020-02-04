@@ -15,6 +15,10 @@ protocol LaunchCircleFetcherDelegate : class {
 
 class LaunchCircleFetcher {
     
+    deinit {
+        print("deinited launchCircleFetcher \(circleID)")
+    }
+    
     var db = Firestore.firestore()
     
     var myFollowListener : ListenerRegistration?
@@ -22,8 +26,8 @@ class LaunchCircleFetcher {
     weak var delegate : LaunchCircleFetcherDelegate?
     
     
-    var followerIDArray : [String]? = nil
-    var myFollow : Bool? = nil
+    var memberArray : [LaunchMember]? = nil
+//    var myMember : LaunchMember? = nil
     
     var circleID : String
     var circleName : String
@@ -37,7 +41,7 @@ class LaunchCircleFetcher {
     }
     
     func shutDown() {
-        delegate = nil
+        self.delegate = nil
         if let listenr = self.myFollowListener {
             listenr.remove()
         }
@@ -48,17 +52,16 @@ class LaunchCircleFetcher {
     
     func startMonitors() {
         self.fetchFollowers()
-        self.monitorMyFollow()
     }
     
     func triggerUpdate() {
         
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
+//        guard let myUID = Auth.auth().currentUser?.uid else { return }
         
-        guard let myFollow = self.myFollow else { return }
-        guard let followerIDArray = self.followerIDArray else { return }
+//        guard let myMem = self.myMember else { return }
+        guard let memArray = self.memberArray else { return }
         
-        let launchCircle = LaunchCircle(circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, circleDescription: self.circleDescription, followerIDArray: followerIDArray)
+        let launchCircle = LaunchCircle(circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, circleDescription: self.circleDescription, memberArray: memArray)
         self.delegate?.launchCircleUpdated(circleID: self.circleID, launchCircle: launchCircle)
     }
     
@@ -73,36 +76,60 @@ class LaunchCircleFetcher {
             
             guard let docs = snap?.documents else { return }
             
-            let followerIDArray = docs.map({$0.documentID})
+            var mArray : [LaunchMember] = []
+            for doc in docs {
+                
+                let userID = doc.documentID
+                if let notifsOn = doc.data()["notificationsOn"] as? Bool {
+                    let member = LaunchMember(userID: userID, notifsOn: notifsOn)
+                    mArray.append(member)
+                } else {
+                    let member = LaunchMember(userID: userID, notifsOn: false)
+                    mArray.append(member)
+                }
+                //FIX: not propoer. should contains notifsOn field always.
+            }
             
-            self.followerIDArray = followerIDArray
+            self.memberArray = mArray
             
-            self.triggerUpdate()
+            guard let myUID = Auth.auth().currentUser?.uid else { self.triggerUpdate(); return }
+            
+            self.myFollowListener = self.db.collection("LaunchCircles").document(self.circleID).collection("Followers").document(myUID).addSnapshotListener { (snap, err) in
+                
+                guard let doc = snap else { return }
+                
+                self.memberArray?.removeAll(where: {$0.userID == myUID})
+                
+                if let notifsOn = doc.data()?["notificationsOn"] as? Bool {
+                    let member = LaunchMember(userID: doc.documentID, notifsOn: notifsOn)
+                    self.memberArray?.append(member)
+                }
+                
+                self.triggerUpdate()
+            }
         }
         
     }
     
 
-    func monitorMyFollow() {
-        
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
-        
-        self.myFollowListener = db.collection("LaunchCircles").document(circleID).collection("Followers").document(myUID).addSnapshotListener { (snap, err) in
-            
-            guard let doc = snap else { return }
-            
-            self.myFollow = doc.exists
-            if doc.exists {
-                self.followerIDArray?.removeAll(where: {$0 == myUID})
-                self.followerIDArray?.append(myUID)
-            } else {
-                self.followerIDArray?.removeAll(where: {$0 == myUID})
-            }
-            
-            self.triggerUpdate()
-        }
-        
-    }
+//    func monitorMyFollow() {
+//
+//        guard let myUID = Auth.auth().currentUser?.uid else { return }
+//
+//        self.myFollowListener = db.collection("LaunchCircles").document(circleID).collection("Followers").document(myUID).addSnapshotListener { (snap, err) in
+//
+//            guard let doc = snap else { return }
+//
+//            if let notifsOn = doc.data()?["notificationsOn"] as? Bool {
+//                let member = LaunchMember(userID: doc.documentID, notifsOn: notifsOn)
+//                self.memberArray?.removeAll(where: {$0.userID == myUID})
+//                self.memberArray?.append(member)
+//            }
+//
+//            self.triggerUpdate()
+//        }
+//
+//    }
     
     
 }

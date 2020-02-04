@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         self.registerForPushNotifications()
         
+        self.registerNotificationCategories()
+        
         self.configureMyFirebase()
         Messaging.messaging().delegate = self
         
@@ -72,6 +74,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     
+    //Actionable Push Notification
+    func registerNotificationCategories() {
+        let followAction = UNNotificationAction(identifier: "followAction", title: "Follow Chat", options: UNNotificationActionOptions.foreground)
+        let silenceAction = UNNotificationAction(identifier: "silenceAction", title: "Silence for 1 hour", options: UNNotificationActionOptions.foreground)
+        let contentAddedCategory = UNNotificationCategory(identifier: "launchNotif", actions: [followAction, silenceAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
+        UNUserNotificationCenter.current().setNotificationCategories([contentAddedCategory])
+    }
+    
     func registerForPushNotifications() {
         
         UNUserNotificationCenter.current().delegate = self
@@ -86,6 +96,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     }
     
     
+    
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         guard let chatID = response.notification.request.content.userInfo["chatID"] as? String,
@@ -93,7 +105,20 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
             let circleName = response.notification.request.content.userInfo["circleName"] as? String,
             let circleEmoji = response.notification.request.content.userInfo["circleEmoji"] as? String,
             let firstMsgText = response.notification.request.content.userInfo["firstMsgText"] as? String,
-            let timeLaunched = response.notification.request.content.userInfo["timeLaunched"] as? String else { return }
+            let timeLaunched = response.notification.request.content.userInfo["timeLaunched"] as? String else { completionHandler(); return }
+        
+        
+        if response.actionIdentifier == "followAction" {
+            print("goog follow")
+            CircleFollower.shared.followCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+            return
+        }
+        if response.actionIdentifier == "silenceAction" {
+            print("goog silence")
+            SilenceManager.shared.silenceFor(numHours: 1)
+            completionHandler()
+            return
+        }
         
         guard let timeLaunchedDouble = Double(timeLaunched) else { completionHandler(); return }
         let timeLaunchedDate = Date(timeIntervalSince1970: (timeLaunchedDouble / 1000.0))

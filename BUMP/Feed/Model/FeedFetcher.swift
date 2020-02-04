@@ -25,79 +25,76 @@ class FeedFetcher {
     var delegate : FeedFetcherDelegate?
     
     var db = Firestore.firestore()
+    
     var listener : ListenerRegistration?
     
-    var feedChatFetcherArray : [FeedChatFetcher] = []
+    var feedCircleFetcherArray : [FeedCircleFetcher] = []
     
     init() {
     }
     
     func shutDown() {
         
-        for fetcher in self.feedChatFetcherArray {
-            fetcher.shutDown()
-        }
-        self.feedChatFetcherArray = []
+        self.delegate = nil
         if let listenr = listener {
             listenr.remove()
         }
-        self.delegate = nil
+        for fetcher in self.feedCircleFetcherArray {
+            fetcher.shutDown()
+        }
         
     }
-    
     
     func startMonitor() {
-        self.listener = db.collection("Feed").addSnapshotListener { (snap, err) in
-            guard let diffArray = snap?.documentChanges else { return }
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
+        
+        self.listener = db.collection("User-Profile").document(myUID).collection("Following").addSnapshotListener { (snap, err) in
+            guard let docChanges = snap?.documentChanges else { return }
             
-            for diff in diffArray.reversed() {
+            for diff in docChanges {
                 
                 if diff.type == .added {
-                    
-                    let doc = diff.document
-                    let chatID = doc.documentID
-                    if let circleID = doc.data()["circleID"] as? String, let circleName = doc.data()["circleName"] as? String, let circleEmoji = doc.data()["circleEmoji"] as? String {
-                        
-                        self.monitorFeedChat(chatID: chatID, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
-                        
-                    }
-                    
+                    let circleID = diff.document.documentID
+                    self.monitorFeedCircle(circleID: circleID)
                 }
-                else if diff.type == .removed {
-                    
-                    let doc = diff.document
-                    let chatID = doc.documentID
-                    
-                    self.deMonitorFeedChat(chatID: chatID)
-                    
+                if diff.type == .removed {
+                    let circleID = diff.document.documentID
+                    self.deMonitorFeedCircle(circleID: circleID)
                 }
+                
             }
         }
+        
     }
     
     
-    func monitorFeedChat(chatID: String, circleID: String, circleName: String, circleEmoji : String) {
+    func monitorFeedCircle(circleID : String) {
         
-        let fetcher = FeedChatFetcher(chatID: chatID, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+        let fetcher = FeedCircleFetcher(circleID: circleID)
         fetcher.delegate = self
         fetcher.startMonitor()
         
-        self.feedChatFetcherArray.append(fetcher)
+        self.feedCircleFetcherArray.append(fetcher)
         
     }
     
-    func deMonitorFeedChat(chatID : String) {
+    func deMonitorFeedCircle(circleID : String) {
         
-        let fetcher = self.feedChatFetcherArray.first(where: {$0.chatID == chatID})
-        fetcher?.delegate = nil
-        fetcher?.shutDown()
+        guard let fetcher = self.feedCircleFetcherArray.first(where: {$0.circleID == circleID}) else { return }
+        fetcher.shutDown()
         
-        self.feedChatFetcherArray.removeAll(where: {$0.chatID == chatID})
+        for fetcher in fetcher.feedChatFetcherArray {
+            //FIX: boom. tell jacob.
+            ChatFollower.shared.unFollowChat(chatID: fetcher.chatID)
+            self.delegate?.feedChatRemoved(chatID: fetcher.chatID)
+        }
         
-        self.delegate?.feedChatRemoved(chatID: chatID)
-        
+        self.feedCircleFetcherArray.removeAll(where: {$0.circleID == circleID})
+
         
     }
+
     
     
     
@@ -105,12 +102,16 @@ class FeedFetcher {
 
 
 
-extension FeedFetcher : FeedChatFetcherDelegate {
+extension FeedFetcher : FeedCircleFetcherDelegate {
     
     
     func feedChatUpdated(feedChat: FeedChat) {
         self.delegate?.feedChatUpdated(feedChat: feedChat)
         
+    }
+    
+    func feedChatRemoved(chatID: String) {
+        self.delegate?.feedChatRemoved(chatID: chatID)
     }
     
     

@@ -34,13 +34,15 @@ class CircleManager {
     
     // MARK: Entering Circles
     
-    func presentCircleInfo(circleID : String, circleName : String, circleDescription : String) {
+    func presentCircleInfo(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, memberArray : [LaunchMember]) {
         
         DispatchQueue.main.async {
             let vc = CircleInfoTVC(style: .grouped)
             vc.circleID = circleID
             vc.circleName = circleName
+            vc.circleEmoji = circleEmoji
             vc.circleDescription = circleDescription
+            vc.circleMemberArray = memberArray
             vc.title = circleName
             
             
@@ -59,6 +61,8 @@ class CircleManager {
     }
     
     func enterCircle(chatID : String, firstMsg : String, circleID : String, circleName : String, circleEmoji : String) {
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
         
         DispatchQueue.main.async {
             
@@ -83,6 +87,8 @@ class CircleManager {
     }
     
     func launchCircle(circleID : String, circleName : String, circleEmoji : String) {
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
         
         UserDefaultsManager.shared.tappedLaunchCircle(circleID: circleID) //track
 

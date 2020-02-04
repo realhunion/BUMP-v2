@@ -44,7 +44,7 @@ class NotificationManager {
     func presentEnableNotificationsView() {
         
         
-        let alert = UIAlertController(title: "Join a circle to get notified when someone sends something", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Join a circle to know when someone wants to connect.", message: "", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -82,6 +82,9 @@ class NotificationManager {
     }
     
     
+    
+    
+    // MARK:- Actionable Notifications
     
     
 

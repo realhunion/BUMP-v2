@@ -10,10 +10,24 @@ import UIKit
 import SwiftEntryKit
 
 
+class IndexTapGestureRecognizer: UITapGestureRecognizer {
+    var indexPath: IndexPath?
+}
+
 
 class StringTapGestureRecognizer: UITapGestureRecognizer {
     var stringTag: String?
 }
+
+extension UILabel {
+    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let relativeFrame = self.bounds
+        let hitTestEdgeInsets = UIEdgeInsets(top: -10, left: -4, bottom: -10, right: -10)
+        let hitFrame = relativeFrame.inset(by: hitTestEdgeInsets)
+        return hitFrame.contains(point)
+    }
+}
+
 
 //FIX: UIBUTTON INCREASED TAP RADIUS
 extension UIButton {

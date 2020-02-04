@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 
 struct LaunchSortOption: OptionSet {
@@ -62,14 +63,16 @@ extension LaunchTVC {
                 self.tableView.reloadData()
             }
         }))
-        alert.addAction(UIAlertAction(title: "My Favorites", style: .default, handler: { (action) in
-            UserDefaults.standard.set(LaunchSortOption.myFav.rawValue, forKey: defaultsKeys.launchSortOption)
-            
-            DispatchQueue.main.async {
-                self.sortCircleArray()
-                self.tableView.reloadData()
-            }
-        }))
+        if let myUID = Auth.auth().currentUser?.uid {
+            alert.addAction(UIAlertAction(title: "My Favorites", style: .default, handler: { (action) in
+                UserDefaults.standard.set(LaunchSortOption.myFav.rawValue, forKey: defaultsKeys.launchSortOption)
+                
+                DispatchQueue.main.async {
+                    self.sortCircleArray()
+                    self.tableView.reloadData()
+                }
+            }))
+        }
         alert.addAction(UIAlertAction(title: "Campus Favorites", style: .default, handler: { (action) in
             UserDefaults.standard.set(LaunchSortOption.campusFav.rawValue, forKey: defaultsKeys.launchSortOption)
             
@@ -103,8 +106,6 @@ extension LaunchTVC {
         
         let dict = UserDefaultsManager.shared.getMyFavLaunchCircles()
         
-        print("dict dict \(dict)")
-        
         for section in 0..<self.circleArray.count {
             
             self.circleArray[section].sort { (c1, c2) -> Bool in
@@ -125,7 +126,7 @@ extension LaunchTVC {
         for section in 0..<self.circleArray.count {
             
             self.circleArray[section].sort { (c1, c2) -> Bool in
-                return c1.followerIDArray.count > c2.followerIDArray.count
+                return c1.memberArray.count > c2.memberArray.count
             }
         }
     }

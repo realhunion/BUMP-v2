@@ -51,6 +51,12 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.launchFetcher?.delegate = self
         self.launchFetcher?.monitorLaunchCircles()
     }
+    
+    func shutDown() {
+        self.launchFetcher?.shutDown()
+        self.circleArray = [[], []]
+        self.tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
@@ -73,11 +79,11 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.imageView?.image = self.imageWith(string: c.circleEmoji)
         cell.textLabel?.text = c.circleName
         
-        var followString = "· Join   "
+        var followString = "· Join"
         if c.amFollowing() {
             followString = "· ✓"
         }
-        let subString = "\(c.followerIDArray.count) members \(followString)"
+        let subString = "\(c.memberArray.count) members \(followString)"
         let fullRange = (subString as NSString).range(of: subString)
         let followRange = (subString as NSString).range(of: followString)
         let attributedString = NSMutableAttributedString(string: subString)
@@ -91,7 +97,7 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.isUserInteractionEnabled = true
         cell.detailTextLabel?.addGestureRecognizer(tapGesture)
         
-        let tapGesture2 = IndexTapGestureRecognizer(target: self, action: #selector(userImageTapped))
+        let tapGesture2 = IndexTapGestureRecognizer(target: self, action: #selector(launchEmojiTapped))
         tapGesture2.indexPath = indexPath
         cell.imageView?.isUserInteractionEnabled = true
         cell.imageView?.addGestureRecognizer(tapGesture2)
@@ -133,14 +139,6 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 return "All"
             }
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let circle = circleArray[indexPath.section][indexPath.row]
-        
-        CircleManager.shared.launchCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
-        
     }
     
 

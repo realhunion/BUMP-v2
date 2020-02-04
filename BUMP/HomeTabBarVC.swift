@@ -31,6 +31,10 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func shutDown() {
+        
+        feedTabVC.shutDown()
+//        feedVC.shutDown()
+//        launchVC.
 //        
 //        liveFriendsVC.shutDown()
 //        notificationVC.shutDown()
@@ -41,24 +45,24 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var feedVC = FeedTabVC()
-        //FeedTVC()
+    var feedTabVC = FeedTabVC()
+    
     var launchVC = LaunchTVC()
-        //LaunchTVC(style: .plain)
+    
     var hubVC = HubCVC(collectionViewLayout: UICollectionViewFlowLayout())
     
     func setupTabBar() {
         
-        feedVC.view.backgroundColor = .white
+        feedTabVC.view.backgroundColor = .white
         launchVC.view.backgroundColor = .white
         hubVC.view.backgroundColor = .white
         
-        feedVC.title = "Feed"
+        feedTabVC.title = "Feed"
         launchVC.title = "Launch"
         hubVC.title = "Bump"
         
         
-        let feedNC = UINavigationController(rootViewController: feedVC)
+        let feedNC = UINavigationController(rootViewController: feedTabVC)
         let launchNC = UINavigationController(rootViewController: launchVC)
         let hubNC = UINavigationController(rootViewController: hubVC)
         
@@ -84,7 +88,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         launchItem.tag = 1
         hubItem.tag = 2
         
-        feedVC.tabBarItem = feedItem
+        feedTabVC.tabBarItem = feedItem
         launchVC.tabBarItem = launchItem
         hubVC.tabBarItem = hubItem
         
@@ -99,7 +103,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var currentIndex : Int = Tabs.hub.rawValue
+    var currentIndex : Int = Tabs.launch.rawValue
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         currentIndex = selectedIndex
     }
@@ -107,11 +111,18 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
         
-//        if selectedIndex == Tabs.hub.rawValue {
-//            if !LoginManager.shared.isLoggedIn() {
-//                self.selectedIndex = currentIndex
-//            }
-//        }
+        if selectedIndex == Tabs.feed.rawValue {
+            if !LoginManager.shared.isLoggedIn() {
+                self.selectedIndex = currentIndex
+            }
+        }
+        
+        
+        if selectedIndex == Tabs.hub.rawValue {
+            if !LoginManager.shared.isLoggedIn() {
+                self.selectedIndex = currentIndex
+            }
+        }
         
         
         

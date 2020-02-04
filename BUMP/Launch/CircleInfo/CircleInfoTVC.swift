@@ -10,6 +10,12 @@ import UIKit
 import Firebase
 import SwiftEntryKit
 
+enum CircleInfoSection : String {
+    case options = "Member Options"
+    case description = "Description"
+    case members = "Members"
+}
+
 class CircleInfoTVC: UITableViewController {
     
     
@@ -21,25 +27,56 @@ class CircleInfoTVC: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var db = Firestore.firestore()
     var storageRef = Storage.storage()
     
     var circleID : String!
     var circleName : String!
+    var circleEmoji : String!
     var circleDescription : String!
+    var circleMemberArray : [LaunchMember] = []
     
     var circleMembersFetcher : CircleMembersFetcher?
-    var circleMembers : [UserProfile] = []
+    var memberProfileArray : [UserProfile] = []
+    
+    var sections : [CircleInfoSection] = [.description]
+    
+    
+    
+    lazy var notifsOnSwitcher : UISwitch = {
+        let switchView = UISwitch(frame: .zero)
+        switchView.isEnabled = true
+        switchView.addTarget(self, action: #selector(self.notificationsToggled(_:)), for: .valueChanged)
+        return switchView
+    }()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.circleMembersFetcher = CircleMembersFetcher(circleID: self.circleID)
-        self.circleMembersFetcher?.delegate = self
-        self.circleMembersFetcher?.fetchCircleMembers()
+        self.setupCircleMembersFetcher()
         
         self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "circleInfoCell")
         self.setupDoneButton()
+        
+        self.setupMemberOptionsCell()
+    }
+    
+    func setupCircleMembersFetcher() {
+        
+        self.circleMembersFetcher = CircleMembersFetcher(circleID: self.circleID)
+        self.circleMembersFetcher?.delegate = self
+        //        self.circleMembersFetcher?.fetchAllCircleMembers()
+        self.circleMembersFetcher?.fetchCircleMembers(userIDArray: self.circleMemberArray.map({$0.userID}))
+    }
+    
+    func setupMemberOptionsCell() {
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
+        
+        if let myMember = circleMemberArray.first(where: {$0.userID == myUID}) {
+            self.sections.insert(.options, at: 0)
+            self.notifsOnSwitcher.isOn = myMember.notifsOn
+        }
     }
     
     func setupDoneButton() {
@@ -55,49 +92,56 @@ class CircleInfoTVC: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if self.sections[section] == .options {
             return 1
         }
+        else if self.sections[section] == .description {
+            return 1
+        }
+        else if self.sections[section] == .members {
+            return self.memberProfileArray.count
+        }
         else {
-            return self.circleMembers.count
+            return 0
         }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Description"
-        } else {
-            return "Members"
-        }
+        return self.sections[section].rawValue
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "circleInfoCell", for: indexPath)
-        cell.selectionStyle = .none
-        if indexPath.section == 1 {
-            cell.accessoryType = .disclosureIndicator
-        } else {
-            cell.accessoryType = .none
-        }
         
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                cell.imageView?.image = nil
-                cell.textLabel?.text = self.circleDescription
-                cell.textLabel?.numberOfLines = 99
-            }
+        cell.selectionStyle = .none
+        
+        if self.sections[indexPath.section] == .options {
+            cell.textLabel?.text = "Launch Notifications"
+            cell.detailTextLabel?.text = "Know when someone wants to connect."
+            cell.accessoryView = self.notifsOnSwitcher
+        }
+        else if self.sections[indexPath.section] == .description {
+            cell.accessoryType = .none
+            cell.accessoryView = nil
+            cell.textLabel?.numberOfLines = 99
+            cell.textLabel?.text = self.circleDescription
+            cell.detailTextLabel?.text = nil
             
         }
-        else {
-            let user = self.circleMembers[indexPath.row]
+        else if self.sections[indexPath.section] == .members {
+            let user = self.memberProfileArray[indexPath.row]
+            cell.accessoryType = .disclosureIndicator
+            cell.accessoryView = nil
             cell.textLabel?.text = user.userName
             cell.detailTextLabel?.text = user.userHandle
+            
         }
+        else { }
         
 
         return cell
@@ -106,9 +150,9 @@ class CircleInfoTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard indexPath.section == 1 else { return }
+        guard self.sections[indexPath.section] == .members else { return }
         
-        let user = self.circleMembers[indexPath.row]
+        let user = self.memberProfileArray[indexPath.row]
         
         let vc = UserProfileView(userID: user.userID, actionButtonEnabled: false)
         let atr = Constant.bottomPopUpAttributes
@@ -118,33 +162,4 @@ class CircleInfoTVC: UITableViewController {
     }
     
 
-}
-
-
-extension CircleInfoTVC : CircleMembersFetcherDelegate {
-    
-    func circleMembersFetched(circleMembers: [UserProfile]) {
-        self.circleMembers = circleMembers
-        self.tableView.reloadData()
-//        self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
-    }
-    
-    
-}
-
-extension UIImage{
-    
-    func resizeImageWith(newSize: CGSize) -> UIImage {
-        
-        let horizontalRatio = newSize.width / size.width
-        let verticalRatio = newSize.height / size.height
-        
-        let ratio = max(horizontalRatio, verticalRatio)
-        let newSize = CGSize(width: size.width * ratio, height: size.height * ratio)
-        UIGraphicsBeginImageContextWithOptions(newSize, true, 0)
-        draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: newSize))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
 }

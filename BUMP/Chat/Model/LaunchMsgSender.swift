@@ -68,7 +68,11 @@ class LaunchMessageSender : MessageSender {
             ] as [String : Any]
         batch.setData(infoData, forDocument: infoRef, merge: true)
         
-        batch.commit()
+        batch.commit { (err) in
+            guard err == nil else { return }
+            print("cott -1")
+            CircleAnalytics.shared.circleLaunched(circleID: self.circleID)
+        }
         
     }
     

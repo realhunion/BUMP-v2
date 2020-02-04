@@ -16,8 +16,6 @@ extension UserProfileView : UserProfileFetcherDelegate {
     
     func userProfileUpdated(userID: String, userProfile: UserProfile) {
         
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
-        
         self.userProfile = userProfile
         
         let imageRef = self.storageRef.reference(withPath: userProfile.userImage)
@@ -30,6 +28,8 @@ extension UserProfileView : UserProfileFetcherDelegate {
         
         self.userDescriptionLabel.text = userProfile.userDescription
         
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
         
         if userID != myUID {
             self.optionsButton.isHidden = false

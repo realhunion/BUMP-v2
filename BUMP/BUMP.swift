@@ -18,7 +18,7 @@ class BUMP {
     init() {
         self.homeTabBarVC = HomeTabBarVC()
         
-        AnnouncementsManager.shared.startMonitors()
+//        AnnouncementsManager.shared.startMonitors()
         
     }
     
@@ -30,19 +30,18 @@ class BUMP {
         homeTabBarVC.dismiss(animated: true, completion: nil)
         
         homeTabBarVC.hubVC.navigationController?.popToRootViewController(animated: false)
+        homeTabBarVC.feedTabVC.navigationController?.popToRootViewController(animated: false)
+        homeTabBarVC.launchVC.navigationController?.popToRootViewController(animated: false)
     
-        // scroll to top
-//        homeTabBarVC.hubVC.collectionView.scrollToTop(false)
-//        homeTabBarVC.campusClubsVC.collectionView.scrollToTop(false)
+        homeTabBarVC.launchVC.shutDown()
+        homeTabBarVC.launchVC.setupLaunchFetcher()
         
-//        homeTabBarVC.campusClubsVC.collectionView.reloadData()
+        homeTabBarVC.feedTabVC.shutDown()
+        homeTabBarVC.feedTabVC.setupFeedFetcher()
         
-        //FIX:
-//        homeTabBarVC.feedVC.shutDown()
-//        homeTabBarVC.feedVC.setupLaunchFetcher()
         
-        homeTabBarVC.selectedIndex = 2
-        homeTabBarVC.currentIndex = 2
+        homeTabBarVC.selectedIndex = 1
+        homeTabBarVC.currentIndex = 1
         
     }
     
@@ -103,6 +102,7 @@ class BUMP {
     
     func appDidEnterForeground() {
         UpdateManager.shared.checkForUpdates()
+        AnnouncementsManager.shared.startMonitors()
     }
     
     

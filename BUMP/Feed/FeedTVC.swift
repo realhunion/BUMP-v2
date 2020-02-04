@@ -13,8 +13,6 @@ class FeedTVC: UITableViewController {
     
     var db = Firestore.firestore()
     
-    var feedFetcher : FeedFetcher?
-    
     var feedChatArray : [FeedChat] = []
     
     override init(style: UITableView.Style) {
@@ -36,7 +34,7 @@ class FeedTVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.tableView.reloadData()
-        //FIX: pretty expesnvieivivieivieive yes. without, it overlaps cells.
+        //FIX: pretty expensive, yes. without, it overlaps cells.
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -44,7 +42,7 @@ class FeedTVC: UITableViewController {
     }
     
     func shutDown() {
-        self.feedFetcher?.shutDown()
+//        self.feedFetcher?.shutDown()
     }
     
 
@@ -82,7 +80,7 @@ class FeedTVC: UITableViewController {
         
         let feedChat = self.feedChatArray[indexPath.row]
         
-        let numUnreadMessages = feedChat.getNumUnreadMessages()
+        let numUnreadMessages = feedChat.getMyUserUnreadMsgs()
         if numUnreadMessages != 0 {
             let cell1 = tableView.dequeueReusableCell(withIdentifier: "newFeedCell", for: indexPath) as! UnreadFeedCell
             cell1.newMessagesLabel.text = "\(numUnreadMessages)"
@@ -95,11 +93,11 @@ class FeedTVC: UITableViewController {
         cell.timeLabel.text = feedChat.getTimestampString()
         
         
-        cell.followButton.isSelected = feedChat.myUser.isFollowing ?? false
+        cell.followButton.isSelected = feedChat.isMyUserFollowing()
         cell.followButtonAction = { [unowned self] in
             
-            CircleManager.shared.updateFeedLastSeen(chatID: feedChat.chatID)
             if cell.followButton.isSelected == false {
+                print("banger")
                 ChatFollower.shared.followChat(chatID: feedChat.chatID)
             } else {
                 ChatFollower.shared.unFollowChat(chatID: feedChat.chatID)
@@ -113,12 +111,6 @@ class FeedTVC: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-        print("loper 000")
-        
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
-        
-        print("loper 111")
         
         let feedChat = self.feedChatArray[indexPath.row]
         let chatID = feedChat.chatID
@@ -130,10 +122,6 @@ class FeedTVC: UITableViewController {
         //FIX: make safer
         
         CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsg, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
-        
-        
-//        CircleManager.shared.updateFeedLastSeen(chatID: chatID)
-        //FIX: more structure ?? here put here???
         
     }
     
