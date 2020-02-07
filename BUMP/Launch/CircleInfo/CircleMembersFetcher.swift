@@ -26,13 +26,17 @@ class CircleMembersFetcher {
     
     var fetchedMembersDict : [String:Bool] = [:] //userID : fetched or not
     var memberProfileArray : [UserProfile] = []
-    var memberNotifsOnDict : [String:Bool] = [:]
     
     var circleID : String
     init(circleID : String) {
         self.circleID = circleID
     }
     
+    
+    
+    func shutDown() {
+        self.delegate = nil
+    }
     
     
     func fetchAllCircleMembers() {
@@ -105,6 +109,9 @@ class CircleMembersFetcher {
         
         self.delegate?.circleMembersFetched(profileArray: self.memberProfileArray)
         
+        self.fetchedMembersDict.removeAll()
+        self.memberProfileArray.removeAll()
     }
+    
     
 }

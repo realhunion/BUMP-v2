@@ -49,8 +49,9 @@ class PickCirclesTVC : MyCirclesTVC, UIAdaptivePresentationControllerDelegate {
         return button
     }()
 
+
     
-    override func setupDoneButton() {
+    override func setupBarButtons() {
         self.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     

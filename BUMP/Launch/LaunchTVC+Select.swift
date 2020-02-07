@@ -33,25 +33,22 @@ extension LaunchTVC {
         
         let circle = self.circleArray[indexPath.section][indexPath.row]
         
-        if circle.amFollowing() {
-            CircleFollower.shared.unFollowCircle(circleID: circle.circleID)
-        }
-        else {
+        if !circle.amFollowing() {
             CircleFollower.shared.followCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
+        } else {
+            self.tableView(self.tableView, didSelectRowAt: indexPath)
         }
+        //FIX: currently only does for not joined in. join em.
     }
     
     
-    @objc func launchEmojiTapped(sender: IndexTapGestureRecognizer)
-    {
-        
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         guard LoginManager.shared.isLoggedIn() else { return }
-        
-        guard let indexPath = sender.indexPath else { return }
         
         let circle = self.circleArray[indexPath.section][indexPath.row]
         
         CircleManager.shared.presentCircleInfo(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji, circleDescription: circle.circleDescription, memberArray: circle.memberArray)
     }
+    
     
 }

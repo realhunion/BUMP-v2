@@ -17,7 +17,7 @@ class FeedTabVC: TabmanViewController {
     
     
     var viewControllers : [FeedTVC] = [FeedTVC(style: .plain), FeedTVC(style: .plain)]
-    var viewControllerNames : [String] = ["My Chats","Following"]
+    var viewControllerNames : [String] = ["My Group Chats","Following"]
     
     
     func shutDown() {

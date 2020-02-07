@@ -62,6 +62,7 @@ class BUMP {
         }
         
         self.refreshControllers()
+        UserDefaultsManager.shared.clearAllData()
     }
     
     func logIn() {

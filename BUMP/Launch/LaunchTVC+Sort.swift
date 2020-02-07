@@ -47,11 +47,6 @@ extension LaunchTVC {
     
     //MARK: - Sort Button Tapped
     
-    func setupSortButton() {
-        let btn = UIBarButtonItem(title: "Aa↓", style: .plain, target: self, action: #selector(sortButtonTapped))
-        self.navigationItem.setRightBarButton(btn, animated: true)
-    }
-    
     @objc func sortButtonTapped() {
         
         let alert = UIAlertController(title: "Sort by:", message: nil, preferredStyle: .alert)

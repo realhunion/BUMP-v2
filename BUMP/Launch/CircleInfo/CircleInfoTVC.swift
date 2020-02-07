@@ -11,7 +11,7 @@ import Firebase
 import SwiftEntryKit
 
 enum CircleInfoSection : String {
-    case options = "Member Options"
+    case options = "Options"
     case description = "Description"
     case members = "Members"
 }
@@ -39,7 +39,7 @@ class CircleInfoTVC: UITableViewController {
     var circleMembersFetcher : CircleMembersFetcher?
     var memberProfileArray : [UserProfile] = []
     
-    var sections : [CircleInfoSection] = [.description]
+    var sections : [CircleInfoSection] = [.options, .description, .members]
     
     
     
@@ -58,25 +58,16 @@ class CircleInfoTVC: UITableViewController {
         
         self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "circleInfoCell")
         self.setupDoneButton()
-        
-        self.setupMemberOptionsCell()
     }
     
     func setupCircleMembersFetcher() {
+        
+        self.circleMembersFetcher?.shutDown()
         
         self.circleMembersFetcher = CircleMembersFetcher(circleID: self.circleID)
         self.circleMembersFetcher?.delegate = self
         //        self.circleMembersFetcher?.fetchAllCircleMembers()
         self.circleMembersFetcher?.fetchCircleMembers(userIDArray: self.circleMemberArray.map({$0.userID}))
-    }
-    
-    func setupMemberOptionsCell() {
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
-        
-        if let myMember = circleMemberArray.first(where: {$0.userID == myUID}) {
-            self.sections.insert(.options, at: 0)
-            self.notifsOnSwitcher.isOn = myMember.notifsOn
-        }
     }
     
     func setupDoneButton() {
@@ -97,7 +88,11 @@ class CircleInfoTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.sections[section] == .options {
-            return 1
+            if self.amMember() {
+                return 2
+            } else {
+                return 1
+            }
         }
         else if self.sections[section] == .description {
             return 1
@@ -111,7 +106,22 @@ class CircleInfoTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sections[section].rawValue
+        if self.sections[section] == .options {
+            return self.sections[section].rawValue
+        }
+        else if self.sections[section] == .description {
+            return self.sections[section].rawValue
+        }
+        else if self.sections[section] == .members {
+            if self.circleMemberArray.isEmpty {
+                return nil
+            } else {
+                return self.sections[section].rawValue + " (\(self.circleMemberArray.count))"
+            }
+        }
+        else {
+            return nil
+        }
     }
     
     
@@ -121,22 +131,33 @@ class CircleInfoTVC: UITableViewController {
         cell.selectionStyle = .none
         
         if self.sections[indexPath.section] == .options {
-            cell.textLabel?.text = "Launch Notifications"
-            cell.detailTextLabel?.text = "Know when someone wants to connect."
-            cell.accessoryView = self.notifsOnSwitcher
+            if indexPath.row == 0 {
+                if amMember() {
+                    cell.textLabel?.text = "Leave"
+                    cell.textLabel?.textColor = UIColor.systemPink
+                    cell.accessoryType = .none
+                } else {
+                    cell.textLabel?.text = "Join"
+                    cell.textLabel?.textColor = Constant.oBlue
+                    cell.accessoryType = .none
+                }
+            } else {
+                cell.textLabel?.text = "Launch Notifications"
+                cell.detailTextLabel?.text = "Know when someone wants to connect."
+                cell.accessoryView = self.notifsOnSwitcher
+                if let myMember = circleMemberArray.first(where: {$0.userID == Auth.auth().currentUser?.uid ?? "nil"}) {
+                    self.notifsOnSwitcher.isOn = myMember.notifsOn
+                }
+            }
         }
         else if self.sections[indexPath.section] == .description {
-            cell.accessoryType = .none
-            cell.accessoryView = nil
             cell.textLabel?.numberOfLines = 99
             cell.textLabel?.text = self.circleDescription
-            cell.detailTextLabel?.text = nil
             
         }
         else if self.sections[indexPath.section] == .members {
             let user = self.memberProfileArray[indexPath.row]
             cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = nil
             cell.textLabel?.text = user.userName
             cell.detailTextLabel?.text = user.userHandle
             
@@ -150,15 +171,50 @@ class CircleInfoTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard self.sections[indexPath.section] == .members else { return }
-        
-        let user = self.memberProfileArray[indexPath.row]
-        
-        let vc = UserProfileView(userID: user.userID, actionButtonEnabled: false)
-        let atr = Constant.bottomPopUpAttributes
-        DispatchQueue.main.async {
-            SwiftEntryKit.display(entry: vc, using: atr)
+        if self.sections[indexPath.section] == .members {
+            let user = self.memberProfileArray[indexPath.row]
+            
+            let vc = UserProfileView(userID: user.userID, actionButtonEnabled: false)
+            let atr = Constant.bottomPopUpAttributes
+            DispatchQueue.main.async {
+                SwiftEntryKit.display(entry: vc, using: atr)
+            }
         }
+        
+        else if self.sections[indexPath.section] == .options {
+            guard let myUID = Auth.auth().currentUser?.uid else { return }
+            if self.tableView(tableView, cellForRowAt: indexPath).textLabel?.text == "Join" {
+                CircleFollower.shared.followCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+                self.circleMemberArray.append(LaunchMember(userID: myUID, notifsOn: true))
+                self.tableView.reloadData()
+                self.setupCircleMembersFetcher()
+                
+            }
+            else if self.tableView(tableView, cellForRowAt: indexPath).textLabel?.text == "Leave" {
+                CircleFollower.shared.unFollowCircle(circleID: circleID)
+                self.memberProfileArray.removeAll(where: {$0.userID == myUID})
+                self.circleMemberArray.removeAll(where: {$0.userID == myUID})
+                self.tableView.reloadData()
+                self.setupCircleMembersFetcher()
+                
+                
+            }
+            
+        }
+    }
+    
+    
+    //MARK: - UTility
+    
+    func amMember() -> Bool {
+        
+        guard let myUID = Auth.auth().currentUser?.uid else { return false }
+        if circleMemberArray.contains(where: {$0.userID == myUID}) {
+            return true
+        } else {
+            return false
+        }
+        
     }
     
 

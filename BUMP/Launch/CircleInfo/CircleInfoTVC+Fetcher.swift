@@ -16,7 +16,7 @@ extension CircleInfoTVC : CircleMembersFetcherDelegate {
     
     func circleMembersFetched(profileArray: [UserProfile]) {
         
-        self.sections.append(.members)
+//        self.sections.append(.members)
         self.memberProfileArray = profileArray
         
         self.tableView.reloadData()

@@ -49,7 +49,8 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     var launchVC = LaunchTVC()
     
-    var hubVC = HubCVC(collectionViewLayout: UICollectionViewFlowLayout())
+    var hubVC = HubTVC(style: .grouped)
+        //HubCVC(collectionViewLayout: UICollectionViewFlowLayout())
     
     func setupTabBar() {
         
@@ -69,7 +70,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         launchVC.navigationController?.navigationBar.prefersLargeTitles = true
         launchVC.navigationController?.navigationBar.layoutMargins.left = 36
         hubVC.navigationController?.navigationBar.prefersLargeTitles = true
-        hubVC.navigationController?.navigationBar.layoutMargins.left = 42
+        hubVC.navigationController?.navigationBar.layoutMargins.left = 36
         
         feedNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
         launchNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
@@ -77,7 +78,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         
         let feedImage =  UIImage(named: "feedIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         let launchImage = UIImage(named: "launchIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
-        let categoriesImage = UIImage(named: "hubIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
+        let categoriesImage = UIImage(named: "heartIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         
         let feedItem = UITabBarItem(title: "Feed", image: feedImage, selectedImage: nil)
         let launchItem = UITabBarItem(title: "Launch", image: launchImage, selectedImage: nil)

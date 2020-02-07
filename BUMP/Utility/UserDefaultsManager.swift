@@ -28,6 +28,7 @@ class UserDefaultsManager {
         defaults.removeObject(forKey: "intro1Shown")
         defaults.removeObject(forKey: "intro2Shown")
         defaults.removeObject(forKey: "intro3Shown")
+        defaults.removeObject(forKey: "myFavLaunchCircles")
         
     }
     

@@ -21,7 +21,7 @@ class SendSuggestionView: UIView {
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
-        titleLabel.text = "Send a Suggestion! 🤙"
+        titleLabel.text = "Send a Suggestion! ✊"
         titleLabel.textAlignment = NSTextAlignment.center
         titleLabel.numberOfLines = 1
         titleLabel.adjustsFontSizeToFitWidth = true
@@ -35,7 +35,7 @@ class SendSuggestionView: UIView {
         
         textField.backgroundColor = Constant.oGrayLight
         let atr = [NSAttributedString.Key.foregroundColor : Constant.textfieldPlaceholderGray]
-        textField.attributedPlaceholder = NSAttributedString(string: "New Clubs, App Improvements, etc.", attributes: atr)
+        textField.attributedPlaceholder = NSAttributedString(string: "New Circles, App Features, anything!", attributes: atr)
         
 //        textField.placeholder = "New Clubs, App Improvements, etc."
         textField.textAlignment = NSTextAlignment.center
@@ -136,11 +136,6 @@ extension SendSuggestionView : UITextFieldDelegate {
     
     @objc func sendButtonTapped() {
         
-        guard let currentUser = Auth.auth().currentUser else {
-            SwiftEntryKit.dismiss()
-            return
-        }
-        
         guard let suggestionText = self.textField.text else {
             SwiftEntryKit.dismiss()
             return
@@ -151,9 +146,7 @@ extension SendSuggestionView : UITextFieldDelegate {
             return
         }
         
-        let payload = ["userID": currentUser.uid,
-                       "userName": currentUser.displayName ?? "X",
-                       "suggestion": suggestionText,
+        let payload = ["suggestion": suggestionText,
                        "timestamp": Timestamp(date: Date())
             ] as [String : Any]
         
@@ -166,22 +159,7 @@ extension SendSuggestionView : UITextFieldDelegate {
         
         
     }
-    
-    
-    
-    
-    func lookupUserHandle(userHandle : String, completion:@escaping (_ userID : String?)->Void) {
-        
-        db.collection("User-Handle").document(userHandle).getDocument { (snap, err) in
-            guard let data = snap?.data(), let userID = data["userID"] as? String
-                else { completion(nil); return }
-            
-            
-            completion(userID)
-            
-        }
-        
-    }
+
     
     
     

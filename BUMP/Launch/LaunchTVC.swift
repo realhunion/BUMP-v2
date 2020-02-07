@@ -8,6 +8,7 @@
 
 import UIKit
 import QuickLayout
+import SwiftEntryKit
 
 class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -23,8 +24,52 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         
         self.setupTableView()
-        self.setupSortButton()
+        self.setupBarButtons()
         self.setupLaunchFetcher()
+    }
+    
+    func shutDown() {
+        self.launchFetcher?.shutDown()
+        self.circleArray = [[], []]
+        self.tableView.reloadData()
+    }
+
+    
+    
+    //MARK: - Setup
+    
+    func setupBarButtons() {
+        
+        let btn1 = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        
+        let btn2 = UIBarButtonItem(title: "Aa↓", style: .plain, target: self, action: #selector(sortButtonTapped))
+        self.navigationItem.setRightBarButtonItems([btn1, btn2], animated: true)
+    }
+    
+    @objc func addButtonTapped() {
+        
+        guard LoginManager.shared.isLoggedIn() else { return }
+        
+        let c = SendSuggestionView()
+        
+        var atr = Constant.centerPopUpAttributes
+        
+        let offset = EKAttributes.PositionConstraints.KeyboardRelation.Offset(bottom: 10, screenEdgeResistance: nil)
+        let keyboardRelation = EKAttributes.PositionConstraints.KeyboardRelation.bind(offset: offset)
+        atr.positionConstraints.keyboardRelation = keyboardRelation
+        
+        DispatchQueue.main.async {
+            
+            SwiftEntryKit.display(entry: c, using: atr)
+        }
+        
+    }
+    
+    func setupLaunchFetcher() {
+        
+        self.launchFetcher = LaunchFetcher()
+        self.launchFetcher?.delegate = self
+        self.launchFetcher?.monitorLaunchCircles()
     }
     
     func setupTableView() {
@@ -45,19 +90,8 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.layoutToSuperview(.bottom, offset: 0)
     }
     
-    func setupLaunchFetcher() {
-        
-        self.launchFetcher = LaunchFetcher()
-        self.launchFetcher?.delegate = self
-        self.launchFetcher?.monitorLaunchCircles()
-    }
     
-    func shutDown() {
-        self.launchFetcher?.shutDown()
-        self.circleArray = [[], []]
-        self.tableView.reloadData()
-    }
-
+    
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -71,18 +105,23 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
-        cell.accessoryType = .disclosureIndicator
+        cell.accessoryType = .detailButton
         cell.selectionStyle = .none
         
         let c = circleArray[indexPath.section][indexPath.row]
         
         cell.imageView?.image = self.imageWith(string: c.circleEmoji)
         cell.textLabel?.text = c.circleName
+//        cell.textLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: .medium)
+        
+//        cell.separatorInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
         var followString = "· Join"
         if c.amFollowing() {
             followString = "· ✓"
+            followString = ""
         }
+//        followString = ""
         let subString = "\(c.memberArray.count) members \(followString)"
         let fullRange = (subString as NSString).range(of: subString)
         let followRange = (subString as NSString).range(of: followString)
@@ -97,23 +136,19 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.isUserInteractionEnabled = true
         cell.detailTextLabel?.addGestureRecognizer(tapGesture)
         
-        let tapGesture2 = IndexTapGestureRecognizer(target: self, action: #selector(launchEmojiTapped))
-        tapGesture2.indexPath = indexPath
-        cell.imageView?.isUserInteractionEnabled = true
-        cell.imageView?.addGestureRecognizer(tapGesture2)
-        
         return cell
     }
+    
 
     
     func imageWith(string: String?) -> UIImage? {
-        let frame = CGRect(x: 0, y: 0, width: 120, height: 200)
+        let frame = CGRect(x: 0, y: 0, width: 150, height: 200)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .center
         nameLabel.backgroundColor = .clear
-        nameLabel.textColor = .white
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 80)
-        nameLabel.adjustsFontSizeToFitWidth = true
+        nameLabel.textColor = .black
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 100)
+//        nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.text = string
         UIGraphicsBeginImageContext(frame.size)
         if let currentContext = UIGraphicsGetCurrentContext() {
@@ -130,7 +165,7 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if self.circleArray[0].isEmpty {
                 return nil
             } else {
-                return "My Circles"
+                return "My Group Chats"
             }
         } else {
             if self.circleArray[1].isEmpty {
@@ -153,5 +188,17 @@ class SubtitleTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        self.textLabel?.textColor = UIColor.black
+        self.detailTextLabel?.textColor = UIColor.black
+        self.imageView?.image = nil
+        
+        self.textLabel?.text = ""
+        self.detailTextLabel?.text = ""
+        
+        self.accessoryView = nil
+        self.accessoryType = .none
     }
 }

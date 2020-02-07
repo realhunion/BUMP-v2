@@ -15,13 +15,13 @@ class MyCirclesTVC : LaunchTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupDoneButton()
     }
     
-    func setupDoneButton() {
+    override func setupBarButtons() {
         let btn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonTapped))
         self.navigationItem.setRightBarButton(btn, animated: true)
     }
+    
     
     @objc func doneButtonTapped() {
         self.dismiss(animated: true, completion: nil)

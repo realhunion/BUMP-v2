@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         self.registerForPushNotifications()
         
-        self.registerNotificationCategories()
+        self.registerNotificationActionButtons()
         
         self.configureMyFirebase()
         Messaging.messaging().delegate = self
@@ -75,17 +75,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     
     //Actionable Push Notification
-    func registerNotificationCategories() {
-        let followAction = UNNotificationAction(identifier: "followAction", title: "Follow Chat", options: UNNotificationActionOptions.foreground)
-        let silenceAction = UNNotificationAction(identifier: "silenceAction", title: "Silence for 1 hour", options: UNNotificationActionOptions.foreground)
-        let contentAddedCategory = UNNotificationCategory(identifier: "launchNotif", actions: [followAction, silenceAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
-        UNUserNotificationCenter.current().setNotificationCategories([contentAddedCategory])
+    func registerNotificationActionButtons() {
+        
+        let followAction = UNNotificationAction(identifier: "followAction", title: "Follow Chat", options: UNNotificationActionOptions.init())
+        let silenceAction = UNNotificationAction(identifier: "silenceAction", title: "Silence for 1 hour", options: UNNotificationActionOptions.init())
+        
+        let launchNotifCategory = UNNotificationCategory(identifier: "launchNotif", actions: [followAction, silenceAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
+        
+        
+        let unFollowAction = UNNotificationAction(identifier: "unFollowAction", title: "Unfollow Chat", options: UNNotificationActionOptions.init())
+        
+        let replyNotifCategory = UNNotificationCategory(identifier: "replyNotif", actions: [unFollowAction, silenceAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
+        
+        UNUserNotificationCenter.current().setNotificationCategories([launchNotifCategory, replyNotifCategory])
     }
     
     func registerForPushNotifications() {
         
         UNUserNotificationCenter.current().delegate = self
-       
+        
     }
     
     
@@ -109,29 +117,52 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
         
         
         if response.actionIdentifier == "followAction" {
-            print("goog follow")
-            CircleFollower.shared.followCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
-            return
+            
+            guard let myUID = Auth.auth().currentUser?.uid else { completionHandler(); return }
+            let payload = ["isFollowing" : true, "lastSeen":Timestamp(date: Date()), "unreadMsgs": 0] as [String:Any]
+            db.collection("Feed").document(chatID).collection("Users").document(myUID).setData(payload, merge: true) { (err) in
+                completionHandler()
+                return
+            }
+            
         }
-        if response.actionIdentifier == "silenceAction" {
-            print("goog silence")
-            SilenceManager.shared.silenceFor(numHours: 1)
+        else if response.actionIdentifier == "unFollowAction" {
+            
+            guard let myUID = Auth.auth().currentUser?.uid else { completionHandler(); return }
+            let payload = ["isFollowing" : false, "lastSeen":Timestamp(date: Date()), "unreadMsgs": 0] as [String:Any]
+            db.collection("Feed").document(chatID).collection("Users").document(myUID).setData(payload, merge: true) { (err) in
+                completionHandler()
+                return
+            }
+            
+        }
+        else if response.actionIdentifier == "silenceAction" {
+            
+            guard let myUID = Auth.auth().currentUser?.uid else { completionHandler(); return }
+            let t = Calendar.current.date(byAdding: .hour, value: 1, to: Date())
+            var data : [String : Any] = [:]
+            data["silenceUntil"] = t
+            self.db.collection("User-Base").document(myUID).setData(data, merge: true) { (err) in
+                completionHandler()
+                return
+            }
+            
+        }
+        else {
+            
+            guard let timeLaunchedDouble = Double(timeLaunched) else { completionHandler(); return }
+            let timeLaunchedDate = Date(timeIntervalSince1970: (timeLaunchedDouble / 1000.0))
+            guard CircleManager.shared.isLaunchedLast24h(timeLaunched: timeLaunchedDate) else {
+                CircleManager.shared.presentNotificationExpired(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+                completionHandler(); return }
+            
+            
+            CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsgText, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+            
             completionHandler()
             return
+            
         }
-        
-        guard let timeLaunchedDouble = Double(timeLaunched) else { completionHandler(); return }
-        let timeLaunchedDate = Date(timeIntervalSince1970: (timeLaunchedDouble / 1000.0))
-        guard CircleManager.shared.isLaunchedLast24h(timeLaunched: timeLaunchedDate) else {
-            CircleManager.shared.presentNotificationExpired(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
-            completionHandler(); return }
-        
-    
-        CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsgText, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
-        
-        completionHandler()
-        return
-        
     }
     
     

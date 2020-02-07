@@ -21,7 +21,9 @@ extension UserProfileView {
         let keyboardRelation = EKAttributes.PositionConstraints.KeyboardRelation.bind(offset: offset)
         atr.positionConstraints.keyboardRelation = keyboardRelation
         
-        SwiftEntryKit.display(entry: v, using: atr)
+        DispatchQueue.main.async {
+            SwiftEntryKit.display(entry: v, using: atr)
+        }
         
     }
     
@@ -41,7 +43,10 @@ extension UserProfileView {
             let keyboardRelation = EKAttributes.PositionConstraints.KeyboardRelation.bind(offset: offset)
             atr.positionConstraints.keyboardRelation = keyboardRelation
             
-            SwiftEntryKit.display(entry: v, using: atr)
+            DispatchQueue.main.async {
+                SwiftEntryKit.display(entry: v, using: atr)
+            }
+            
         }
         
     }
