@@ -13,6 +13,8 @@ class FeedTVC: UITableViewController {
     
     var db = Firestore.firestore()
     
+    var feedFetcher : FeedFetcher?
+    
     var feedChatArray : [FeedChat] = []
     
     override init(style: UITableView.Style) {
@@ -28,6 +30,7 @@ class FeedTVC: UITableViewController {
         super.viewDidLoad()
         
         self.setupTableView()
+        self.setupFeedFetcher()
     }
     
     
@@ -42,7 +45,7 @@ class FeedTVC: UITableViewController {
     }
     
     func shutDown() {
-//        self.feedFetcher?.shutDown()
+        self.feedFetcher?.shutDown()
     }
     
 

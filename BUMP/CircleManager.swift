@@ -91,7 +91,7 @@ class CircleManager {
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         
         UserDefaultsManager.shared.tappedLaunchCircle(circleID: circleID) //track
-
+        
         DispatchQueue.main.async {
             
             let chatID = "\(Date().millisecondsSince1970)"

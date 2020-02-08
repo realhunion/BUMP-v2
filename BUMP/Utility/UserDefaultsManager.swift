@@ -82,6 +82,8 @@ class UserDefaultsManager {
     func tappedLaunchCircle(circleID : String) {
         let defaults = UserDefaults.standard
         
+        //Track Fav Circles
+        
         var dict = UserDefaultsManager.shared.getMyFavLaunchCircles()
         
         var totalTaps = 1
@@ -91,6 +93,15 @@ class UserDefaultsManager {
         
         dict[circleID] = totalTaps
         defaults.set(dict, forKey: "myFavLaunchCircles")
+        
+        
+        //Last Time Launched Circle
+        
+        var array = UserDefaultsManager.shared.getLastLaunchTimesArray()
+        
+        array.insert(Date(), at: 0)
+        defaults.set(dict, forKey: "myFavLaunchCircles")
+        
         
     }
     
@@ -107,7 +118,33 @@ class UserDefaultsManager {
     
     
     
-    // MARK: - Track
+    // MARK: - Circle Limit
+    
+    func getLastLaunchTimesArray() -> [Date] {
+        let defaults = UserDefaults.standard
+        
+        guard let array = defaults.dictionary(forKey: "lastLaunchTimes") as? [Date] else {
+            return []
+        }
+        
+        return array
+    }
+    
+//    func canLaunchCircle() -> Bool {
+//        
+//        let lastLaunchTimesArray = self.getLastLaunchTimesArray()
+//        
+//        if lastLaunchTimesArray.count < 3 {
+//            return true
+//        } else {
+////            return false
+//            //check if last inside three
+//            if lastLaunchTimesArray[0].compare(lastLaunchTimesArray[2]) == .orderedAscending {
+//                
+//            }
+//        }
+//        
+//    }
     
     
     

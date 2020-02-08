@@ -45,7 +45,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var feedTabVC = FeedTabVC()
+    var feedTabVC = FeedTVC(style: .grouped)
     
     var launchVC = LaunchTVC()
     
@@ -54,11 +54,11 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     func setupTabBar() {
         
-        feedTabVC.view.backgroundColor = .white
+//        feedTabVC.view.backgroundColor = .white
         launchVC.view.backgroundColor = .white
         hubVC.view.backgroundColor = .white
         
-        feedTabVC.title = "Feed"
+        feedTabVC.title = "My Chats"
         launchVC.title = "Create new chat"
         hubVC.title = "Bump"
         
@@ -67,6 +67,8 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         let launchNC = UINavigationController(rootViewController: launchVC)
         let hubNC = UINavigationController(rootViewController: hubVC)
 
+        feedTabVC.navigationController?.navigationBar.prefersLargeTitles = true
+        feedTabVC.navigationController?.navigationBar.layoutMargins.left = 36
         launchVC.navigationController?.navigationBar.prefersLargeTitles = true
         launchVC.navigationController?.navigationBar.layoutMargins.left = 36
         hubVC.navigationController?.navigationBar.prefersLargeTitles = true
@@ -80,7 +82,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         let launchImage = UIImage(named: "launchIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         let categoriesImage = UIImage(named: "heartIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         
-        let feedItem = UITabBarItem(title: "Feed", image: feedImage, selectedImage: nil)
+        let feedItem = UITabBarItem(title: "Chats", image: feedImage, selectedImage: nil)
         let launchItem = UITabBarItem(title: "Create", image: launchImage, selectedImage: nil)
         let hubItem = UITabBarItem(title: "Bump", image: categoriesImage, selectedImage: nil)
         

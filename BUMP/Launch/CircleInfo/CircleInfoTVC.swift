@@ -142,8 +142,8 @@ class CircleInfoTVC: UITableViewController {
                     cell.accessoryType = .none
                 }
             } else {
-                cell.textLabel?.text = "Launch Notifications"
-                cell.detailTextLabel?.text = "Know when someone wants to connect."
+                cell.textLabel?.text = "Notifications"
+                cell.detailTextLabel?.text = "Know whenever this chat created."
                 cell.accessoryView = self.notifsOnSwitcher
                 if let myMember = circleMemberArray.first(where: {$0.userID == Auth.auth().currentUser?.uid ?? "nil"}) {
                     self.notifsOnSwitcher.isOn = myMember.notifsOn

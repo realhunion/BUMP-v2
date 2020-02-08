@@ -32,7 +32,10 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func shutDown() {
         self.launchFetcher?.shutDown()
         self.circleArray = [[], []]
-        self.tableView.reloadData()
+
+        NotificationCenter.default.removeObserver(self)
+        
+                self.tableView.reloadData()
     }
 
     
@@ -113,16 +116,13 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         cell.imageView?.image = self.imageWith(string: c.circleEmoji)
         cell.textLabel?.text = c.circleName
-//        cell.textLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: .medium)
         
-//        cell.separatorInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
         var followString = "· Join"
         if c.amFollowing() {
-            followString = "· ✓"
             followString = ""
         }
-//        followString = ""
+        
         let subString = "\(c.memberArray.count) members \(followString)"
         let fullRange = (subString as NSString).range(of: subString)
         let followRange = (subString as NSString).range(of: followString)

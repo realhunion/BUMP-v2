@@ -38,15 +38,6 @@ class UpdateManager {
                 }
                 
             }
-            
-            if let recommendedVersion = doc.data()?["recommendedUpdate"] as? String{
-                
-                if version < recommendedVersion {
-                    self.presentRecommendedUpdate(recommendedVersion: recommendedVersion, appStoreLink: appStoreLink)
-                    return
-                }
-                
-            }
         }
     }
     
@@ -73,24 +64,6 @@ class UpdateManager {
         
     }
     
-    func presentRecommendedUpdate(recommendedVersion : String, appStoreLink : String) {
-        
-        //FIX: pList record checked. so it don't popup over and over again.
-        let alert = MyAlertController(title: "New Update Available", message:"Please update your phone to get the latest & greatest", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
-            
-            if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
-                    if success {
-                        print("\(url) launced successfully")
-                    }})
-            }
-        }
-        alert.addAction(okAction)
-        alert.addAction(UIAlertAction(title: "Later", style: .destructive, handler: nil))
-        
-        MyAlertManager.shared.addToQueue(alert: alert)
-        
-    }
+
     
 }

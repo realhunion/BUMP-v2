@@ -59,8 +59,10 @@ class AnnouncementsManager {
                         let msgType = doc.data()["msgType"] as? String else { continue }
                     
                     
-                    if let seen = doc.data()["seen"] as? Bool, seen {
-                        continue
+                    if let seen = doc.data()["seen"] as? Bool {
+                        if seen {
+                            continue
+                        }
                     }
                     
                     if msgType == "ban" {
@@ -83,10 +85,11 @@ class AnnouncementsManager {
         
         let alert = MyAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            print("seen 3")
             self.db.collection("AnnouncementsToUser").document(myUID).collection("Announcements").document(announcementID).setData(["seen":true], merge: true)
         }))
-//        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
-        MyAlertManager.shared.addToQueue(alert: alert)
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+//        MyAlertManager.shared.addToQueue(alert: alert)
         
     }
     
@@ -96,10 +99,11 @@ class AnnouncementsManager {
         
         let alert = MyAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            (UIApplication.shared.delegate as! AppDelegate).bump?.logOut()
         }))
         
-//        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
-        MyAlertManager.shared.addToQueue(alert: alert)
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+//        MyAlertManager.shared.addToQueue(alert: alert)
         
     }
         
@@ -109,7 +113,7 @@ class AnnouncementsManager {
     
     
         
-        //MARK: - Announvements ALL
+        //MARK: - Announcements ALL
         
         
         func fetchAllAnnouncements() {

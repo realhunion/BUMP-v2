@@ -11,6 +11,12 @@ import Foundation
 extension FeedTVC : FeedFetcherDelegate {
     
     
+    func setupFeedFetcher() {
+        self.feedFetcher = FeedFetcher()
+        self.feedFetcher?.startMonitor()
+        self.feedFetcher?.delegate = self
+    }
+    
     func feedChatUpdated(feedChat: FeedChat) {
         
         self.tableView.performBatchUpdates({
