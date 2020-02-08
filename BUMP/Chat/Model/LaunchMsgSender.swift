@@ -70,8 +70,7 @@ class LaunchMessageSender : MessageSender {
         
         batch.commit { (err) in
             guard err == nil else { return }
-            print("cott -1")
-            CircleAnalytics.shared.circleLaunched(circleID: self.circleID)
+            
         }
         
     }

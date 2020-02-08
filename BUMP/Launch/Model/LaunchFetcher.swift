@@ -38,6 +38,7 @@ class LaunchFetcher {
         }
         
         launchCircleFetcherDict.forEach({$0.value.shutDown()})
+        launchCircleFetcherDict.removeAll()
     }
     
     

@@ -134,7 +134,9 @@ class HubTVC: UITableViewController {
             self.presentIntroInfo()
             
         case "How To Use":
-            self.presentIntroInfo()
+//            self.presentIntroInfo()
+            NotificationManager.shared.presentEnableNotificationsView()
+            //FIX:
             
         case "Helpline":
             self.presentHelpline()

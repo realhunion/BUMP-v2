@@ -89,7 +89,6 @@
 		7BF983A123DF817600884F96 /* MyAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF983A023DF817500884F96 /* MyAlertManager.swift */; };
 		7BF9FCA2239C8C1A00296903 /* FeedTVC+Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9FCA1239C8C1A00296903 /* FeedTVC+Fetcher.swift */; };
 		7BF9FCA4239CD42500296903 /* FeedChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9FCA3239CD42500296903 /* FeedChat.swift */; };
-		7BFCB90F23E8F1EE002B645E /* CircleAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFCB90E23E8F1EE002B645E /* CircleAnalytics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -179,7 +178,6 @@
 		7BF983A023DF817500884F96 /* MyAlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAlertManager.swift; sourceTree = "<group>"; };
 		7BF9FCA1239C8C1A00296903 /* FeedTVC+Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedTVC+Fetcher.swift"; sourceTree = "<group>"; };
 		7BF9FCA3239CD42500296903 /* FeedChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedChat.swift; sourceTree = "<group>"; };
-		7BFCB90E23E8F1EE002B645E /* CircleAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAnalytics.swift; sourceTree = "<group>"; };
 		7C67870F4061021A61E909A6 /* Pods-BUMP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BUMP.release.xcconfig"; path = "Target Support Files/Pods-BUMP/Pods-BUMP.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -453,7 +451,6 @@
 		7BC9ECAB23CEA63300683B58 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				7BFCB90E23E8F1EE002B645E /* CircleAnalytics.swift */,
 				7BC7C300235FCC0F009D77BF /* Constant.swift */,
 				7BEA973123B9B4360083C8B7 /* SwipeRightToPopCVC.swift */,
 				7B77BF22237642B500AD59B1 /* NotificationManager.swift */,
@@ -643,7 +640,6 @@
 				7BC7C30723602F36009D77BF /* CircleManager.swift in Sources */,
 				7BA1F58723C8F3980053E799 /* LaunchTVC.swift in Sources */,
 				7BC7C2F7235FC94B009D77BF /* ChatVC+NavBar.swift in Sources */,
-				7BFCB90F23E8F1EE002B645E /* CircleAnalytics.swift in Sources */,
 				7B7FA84823BBD899000507D2 /* LaunchMsgSender.swift in Sources */,
 				7BC7C2F6235FC94B009D77BF /* ChatVC+MsgFetcher.swift in Sources */,
 				7BC7C2EC235FC94B009D77BF /* InputBarView.swift in Sources */,

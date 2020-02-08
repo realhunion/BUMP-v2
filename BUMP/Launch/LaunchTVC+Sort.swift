@@ -24,7 +24,7 @@ extension LaunchTVC {
     func sortCircleArray() {
         
         guard let option = UserDefaults.standard.value(forKey: defaultsKeys.launchSortOption) as? Int else {
-            self.sortAToZ()
+            self.sortMyFav()
             return
         }
         

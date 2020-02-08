@@ -45,6 +45,7 @@ class LaunchCircleFetcher {
         if let listenr = self.myFollowListener {
             listenr.remove()
         }
+        self.memberArray = nil
     }
     
     
@@ -70,15 +71,17 @@ class LaunchCircleFetcher {
     
     //MARK: - Fetchers
     
+    
+    
     func fetchFollowers() {
-        
+
         db.collection("LaunchCircles").document(circleID).collection("Followers").getDocuments { (snap, err) in
-            
+
             guard let docs = snap?.documents else { return }
-            
+
             var mArray : [LaunchMember] = []
             for doc in docs {
-                
+
                 let userID = doc.documentID
                 if let notifsOn = doc.data()["notificationsOn"] as? Bool {
                     let member = LaunchMember(userID: userID, notifsOn: notifsOn)
@@ -89,26 +92,26 @@ class LaunchCircleFetcher {
                 }
                 //FIX: not propoer. should contains notifsOn field always.
             }
-            
+
             self.memberArray = mArray
-            
+
             guard let myUID = Auth.auth().currentUser?.uid else { self.triggerUpdate(); return }
-            
+
             self.myFollowListener = self.db.collection("LaunchCircles").document(self.circleID).collection("Followers").document(myUID).addSnapshotListener { (snap, err) in
-                
+
                 guard let doc = snap else { return }
-                
+
                 self.memberArray?.removeAll(where: {$0.userID == myUID})
-                
+
                 if let notifsOn = doc.data()?["notificationsOn"] as? Bool {
                     let member = LaunchMember(userID: doc.documentID, notifsOn: notifsOn)
                     self.memberArray?.append(member)
                 }
-                
+
                 self.triggerUpdate()
             }
         }
-        
+
     }
     
 

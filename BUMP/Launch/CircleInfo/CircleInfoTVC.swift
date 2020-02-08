@@ -184,19 +184,28 @@ class CircleInfoTVC: UITableViewController {
         else if self.sections[indexPath.section] == .options {
             guard let myUID = Auth.auth().currentUser?.uid else { return }
             if self.tableView(tableView, cellForRowAt: indexPath).textLabel?.text == "Join" {
-                CircleFollower.shared.followCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
-                self.circleMemberArray.append(LaunchMember(userID: myUID, notifsOn: true))
-                self.tableView.reloadData()
-                self.setupCircleMembersFetcher()
+                
+                    NotificationManager.shared.isEnabled { (isEnabled) in
+                        guard isEnabled else { return }
+                        CircleFollower.shared.followCircle(circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji)
+                        DispatchQueue.main.async {
+                            self.circleMemberArray.append(LaunchMember(userID: myUID, notifsOn: true))
+                            self.tableView.reloadData()
+                            self.setupCircleMembersFetcher()
+                        }
+                        
+                    }
+                
+                //FIX: make more simple
                 
             }
             else if self.tableView(tableView, cellForRowAt: indexPath).textLabel?.text == "Leave" {
-                CircleFollower.shared.unFollowCircle(circleID: circleID)
+                
+                CircleFollower.shared.unFollowCircle(circleID: self.circleID)
                 self.memberProfileArray.removeAll(where: {$0.userID == myUID})
                 self.circleMemberArray.removeAll(where: {$0.userID == myUID})
                 self.tableView.reloadData()
                 self.setupCircleMembersFetcher()
-                
                 
             }
             

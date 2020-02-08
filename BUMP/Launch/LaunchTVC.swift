@@ -12,6 +12,7 @@ import SwiftEntryKit
 
 class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    private let refreshControl = UIRefreshControl()
     
     var tableView : UITableView!
     

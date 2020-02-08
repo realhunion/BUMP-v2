@@ -59,14 +59,14 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         hubVC.view.backgroundColor = .white
         
         feedTabVC.title = "Feed"
-        launchVC.title = "Launch"
+        launchVC.title = "Create new chat"
         hubVC.title = "Bump"
         
         
         let feedNC = UINavigationController(rootViewController: feedTabVC)
         let launchNC = UINavigationController(rootViewController: launchVC)
         let hubNC = UINavigationController(rootViewController: hubVC)
-        
+
         launchVC.navigationController?.navigationBar.prefersLargeTitles = true
         launchVC.navigationController?.navigationBar.layoutMargins.left = 36
         hubVC.navigationController?.navigationBar.prefersLargeTitles = true
@@ -81,7 +81,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         let categoriesImage = UIImage(named: "heartIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         
         let feedItem = UITabBarItem(title: "Feed", image: feedImage, selectedImage: nil)
-        let launchItem = UITabBarItem(title: "Launch", image: launchImage, selectedImage: nil)
+        let launchItem = UITabBarItem(title: "Create", image: launchImage, selectedImage: nil)
         let hubItem = UITabBarItem(title: "Bump", image: categoriesImage, selectedImage: nil)
         
         
