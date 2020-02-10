@@ -31,6 +31,7 @@ class FeedTVC: UITableViewController {
         
         self.setupTableView()
         self.setupFeedFetcher()
+        
     }
     
     

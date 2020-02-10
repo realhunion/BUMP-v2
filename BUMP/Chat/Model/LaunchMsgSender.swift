@@ -32,6 +32,7 @@ class LaunchMessageSender : MessageSender {
             self.postTextToFirebase(text: text)
         } else {
             self.postLaunchTextToFirebase(text: text)
+            UserDefaultsManager.shared.launchedLaunchCircle(circleID: circleID)
             self.isLaunched = true
         }
     }

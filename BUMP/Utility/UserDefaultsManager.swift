@@ -30,6 +30,7 @@ class UserDefaultsManager {
         defaults.removeObject(forKey: "intro3Shown")
         defaults.removeObject(forKey: "myFavLaunchCircles")
         
+        defaults.removeObject(forKey: "lastLaunchTimes")
     }
     
     
@@ -93,16 +94,7 @@ class UserDefaultsManager {
         
         dict[circleID] = totalTaps
         defaults.set(dict, forKey: "myFavLaunchCircles")
-        
-        
-        //Last Time Launched Circle
-        
-        var array = UserDefaultsManager.shared.getLastLaunchTimesArray()
-        
-        array.insert(Date(), at: 0)
-        defaults.set(dict, forKey: "myFavLaunchCircles")
-        
-        
+    
     }
     
     func getMyFavLaunchCircles() -> [String:Int] {
@@ -118,33 +110,30 @@ class UserDefaultsManager {
     
     
     
-    // MARK: - Circle Limit
+    // MARK: - Circle Launch Limit
+    
+    func launchedLaunchCircle(circleID : String) {
+        let defaults = UserDefaults.standard
+        
+        //Last Time Launched Circle
+        
+        var array = UserDefaultsManager.shared.getLastLaunchTimesArray()
+        
+        array.removeAll(where: {$0.timeIntervalSinceNow < -3600}) // resets every 1h. only keep track last 1h.
+        
+        array.insert(Date(), at: 0)
+        defaults.set(array, forKey: "lastLaunchTimes")
+    }
     
     func getLastLaunchTimesArray() -> [Date] {
         let defaults = UserDefaults.standard
         
-        guard let array = defaults.dictionary(forKey: "lastLaunchTimes") as? [Date] else {
+        guard let array = defaults.value(forKey: "lastLaunchTimes") as? [Date] else {
             return []
         }
         
         return array
     }
-    
-//    func canLaunchCircle() -> Bool {
-//        
-//        let lastLaunchTimesArray = self.getLastLaunchTimesArray()
-//        
-//        if lastLaunchTimesArray.count < 3 {
-//            return true
-//        } else {
-////            return false
-//            //check if last inside three
-//            if lastLaunchTimesArray[0].compare(lastLaunchTimesArray[2]) == .orderedAscending {
-//                
-//            }
-//        }
-//        
-//    }
     
     
     

@@ -12,7 +12,16 @@ import Firebase
 extension LaunchTVC {
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        guard LoginManager.shared.isLoggedIn() else { return }
+        
+        let circle = self.circleArray[indexPath.section][indexPath.row]
+        
+        CircleManager.shared.presentCircleInfo(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji, circleDescription: circle.circleDescription, memberArray: circle.memberArray)
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard LoginManager.shared.isLoggedIn() else { return }
         
@@ -42,13 +51,7 @@ extension LaunchTVC {
     }
     
     
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        guard LoginManager.shared.isLoggedIn() else { return }
-        
-        let circle = self.circleArray[indexPath.section][indexPath.row]
-        
-        CircleManager.shared.presentCircleInfo(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji, circleDescription: circle.circleDescription, memberArray: circle.memberArray)
-    }
+
     
     
 }

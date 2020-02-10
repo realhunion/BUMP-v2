@@ -12,9 +12,9 @@ import QuickLayout
 
 class LaunchChatVC : ChatVC {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,13 @@ class LaunchChatVC : ChatVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        self.inputBarView.inputTextView.becomeFirstResponder()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         self.inputBarView.inputTextView.becomeFirstResponder()
     }
     

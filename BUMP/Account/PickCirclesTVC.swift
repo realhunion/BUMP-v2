@@ -59,27 +59,27 @@ class PickCirclesTVC : MyCirclesTVC, UIAdaptivePresentationControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    override func layoutTableView() {
-        
-        self.view.backgroundColor = .white
-        
-        self.view.addSubview(doneButton)
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-
-
-        doneButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20).isActive = true
-        doneButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
-        doneButton.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
-        doneButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-
-        tableView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        tableView!.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
-        tableView!.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        tableView!.bottomAnchor.constraint(equalTo: doneButton.topAnchor, constant: -20).isActive = true
-        
-    }
+//    override func layoutTableView() {
+//        
+//        self.view.backgroundColor = .white
+//        
+//        self.view.addSubview(doneButton)
+//        doneButton.translatesAutoresizingMaskIntoConstraints = false
+//        self.view.addSubview(tableView)
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//
+//
+//        doneButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20).isActive = true
+//        doneButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
+//        doneButton.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+//        doneButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+//
+//        tableView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        tableView!.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+//        tableView!.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+//        tableView!.bottomAnchor.constraint(equalTo: doneButton.topAnchor, constant: -20).isActive = true
+//        
+//    }
     
     
     

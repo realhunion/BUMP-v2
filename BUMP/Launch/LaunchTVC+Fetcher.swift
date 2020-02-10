@@ -12,6 +12,8 @@ import Foundation
 
 extension LaunchTVC : LaunchFetcherDelegate {
     
+    
+    //MARK: - Internal Methods
 
     func insertLaunchCircle(launchCircle : LaunchCircle) {
         var section = 0
@@ -34,7 +36,7 @@ extension LaunchTVC : LaunchFetcherDelegate {
     
     
     
-    
+    //MARK: - Delegate Methods
     
     func launchCircleUpdated(circleID: String, launchCircle: LaunchCircle) {
         
@@ -42,6 +44,7 @@ extension LaunchTVC : LaunchFetcherDelegate {
         self.insertLaunchCircle(launchCircle: launchCircle)
         
         DispatchQueue.main.async {
+            self.refreshControl?.endRefreshing()
             self.tableView.reloadData()
         }
     }
@@ -51,7 +54,8 @@ extension LaunchTVC : LaunchFetcherDelegate {
         self.deleteLaunchCircle(circleID: circleID)
         
         DispatchQueue.main.async {
-             self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+            self.tableView.reloadData()
         }
         
     }

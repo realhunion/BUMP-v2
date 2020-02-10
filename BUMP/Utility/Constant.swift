@@ -53,11 +53,7 @@ extension Date {
 enum Constant {
     
     
-//    static func logTimestamp(label:String="") {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "mm:ss.SSS"
-//        let x = (formatter.string(from: Date()) as NSString) as String
-//    }
+    static let missionStatement = "This 4 year experience could be so much better. We hope Bump fosters inclusive communities for Grinnellians to find meaningful connections."
     
     
     static let oBlueLight = UIColor(red:0.10, green:0.68, blue:0.96, alpha:1.0)

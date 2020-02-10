@@ -47,7 +47,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     var feedTabVC = FeedTVC(style: .grouped)
     
-    var launchVC = LaunchTVC()
+    var launchVC = LaunchTVC(style: .grouped)
     
     var hubVC = HubTVC(style: .grouped)
         //HubCVC(collectionViewLayout: UICollectionViewFlowLayout())

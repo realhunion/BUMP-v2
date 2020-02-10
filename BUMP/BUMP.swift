@@ -104,6 +104,7 @@ class BUMP {
     func appDidEnterForeground() {
         UpdateManager.shared.checkForUpdates()
         AnnouncementsManager.shared.startMonitors()
+//        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
     }
     
     

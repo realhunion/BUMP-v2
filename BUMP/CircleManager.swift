@@ -75,8 +75,6 @@ class CircleManager {
             
             chatVC.hidesBottomBarWhenPushed = true
             
-            chatVC.modalPresentationCapturesStatusBarAppearance = true
-            
             (UIApplication.shared.delegate as! AppDelegate).bump?.homeTabBarVC.selectedIndex = 0
             
 
@@ -88,32 +86,37 @@ class CircleManager {
     
     func launchCircle(circleID : String, circleName : String, circleEmoji : String) {
         
+        guard self.canLaunchCircle() else { return }
+        
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         
         UserDefaultsManager.shared.tappedLaunchCircle(circleID: circleID) //track
         
+        let chatID = "\(Date().millisecondsSince1970)"
+        
+        let chatVC = LaunchChatVC(collectionViewLayout: UICollectionViewFlowLayout())
+        chatVC.chatID = chatID
+        chatVC.circleID = circleID
+        chatVC.circleName = circleName
+        chatVC.chatName = circleEmoji
+        chatVC.circleEmoji = circleEmoji
+        
+        let transitionDelegate = SPStorkTransitioningDelegate()
+        transitionDelegate.showIndicator = false
+        transitionDelegate.translateForDismiss = 100
+        
+//        chatVC.transitioningDelegate = transitionDelegate
+//        chatVC.modalPresentationStyle = .custom
+//        chatVC.modalPresentationCapturesStatusBarAppearance = true
+        
         DispatchQueue.main.async {
-            
-            let chatID = "\(Date().millisecondsSince1970)"
-            
-            let chatVC = LaunchChatVC(collectionViewLayout: UICollectionViewFlowLayout())
-            chatVC.chatID = chatID
-            chatVC.circleID = circleID
-            chatVC.circleName = circleName
-            chatVC.chatName = circleEmoji
-            chatVC.circleEmoji = circleEmoji
-            
-            let transitionDelegate = SPStorkTransitioningDelegate()
-            transitionDelegate.showIndicator = false
-            transitionDelegate.translateForDismiss = 100
-
-            chatVC.transitioningDelegate = transitionDelegate
-            chatVC.modalPresentationStyle = .custom
-            chatVC.modalPresentationCapturesStatusBarAppearance = true
-            
             UIApplication.topViewController()?.dismiss(animated: true)
-            UIApplication.topViewController()?.present(chatVC, animated: true) { }
             
+            chatVC.hidesBottomBarWhenPushed = true
+            //(UIApplication.shared.delegate as! AppDelegate).bump?.homeTabBarVC.selectedIndex = 0
+            UIApplication.topViewController()?.navigationController?.pushViewController(chatVC, animated: true)
+            
+            //            UIApplication.topViewController()?.present(chatVC, animated: true) { }
             
         }
         
@@ -123,6 +126,35 @@ class CircleManager {
     
     
     // MARK: - Tool Checks
+    
+    func canLaunchCircle() -> Bool { // based off last launches
+        
+        let maxPerHour = 999
+        //FIX:
+        
+        let lastLaunchTimesArray = UserDefaultsManager.shared.getLastLaunchTimesArray()
+        
+        if lastLaunchTimesArray.count < maxPerHour {
+            return true
+        } else {
+            print("juice \(lastLaunchTimesArray[0].timeIntervalSinceNow)")
+            if lastLaunchTimesArray[maxPerHour-1].timeIntervalSinceNow < -3600 {
+                return true
+            } else {
+                self.presentLaunchLimitReached(limitPerHour : 3)
+                return false
+            }
+        }
+    }
+    
+    func presentLaunchLimitReached(limitPerHour : Int) {
+        let alert = UIAlertController(title: "Sorry, can only create \(limitPerHour) new chats per hour.", message: "This is to hedge against spam from the bad actors.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+        }
+    }
     
     func isLaunchedLast24h(timeLaunched : Date) -> Bool {
         if let diff = Calendar.current.dateComponents([.hour], from: timeLaunched, to: Date()).hour, diff < 24 {
@@ -140,7 +172,9 @@ class CircleManager {
         }
         alert.addAction(okAction)
         alert.addAction(relaunchAction)
-        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+        }
     }
     
     

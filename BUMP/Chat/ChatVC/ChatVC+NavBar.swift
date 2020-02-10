@@ -16,7 +16,7 @@ extension ChatVC {
     func setupNavBar() {
         
         //FIX: v View v View
-        self.navigationController?.navigationBar.isHidden = true
+//        self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     
         

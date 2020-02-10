@@ -18,15 +18,10 @@ struct SettingsCell {
 
 class HubTVC: UITableViewController {
     
-//    let settingCellArray : [[SettingsCell]] = [
-//        [SettingsCell(title: "Credits", image: nil, disclosureIndicator: true),
-//         SettingsCell(title: "Contact Info", image: nil, disclosureIndicator: true),
-//         SettingsCell(title: "Privacy & Terms Of Use", image: nil, disclosureIndicator: true)],
-//        [SettingsCell(title: "Log Out", image: nil, disclosureIndicator: false)]
-//    ]
     
     let settingCellArray : [[SettingsCell]] = [
         
+        [SettingsCell(title: Constant.missionStatement, image: nil, disclosureIndicator: false)],
         [SettingsCell(title: "My Profile", image: nil, disclosureIndicator: true),
          SettingsCell(title: "My Circles", image: nil, disclosureIndicator: true),
          SettingsCell(title: "Silence Mode", image: nil, disclosureIndicator: true)],
@@ -73,15 +68,18 @@ class HubTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Account"
+            return "The Mission"
         }
         else if section == 1 {
-            return "THIS THING"
+            return "Account"
         }
         else if section == 2 {
-            return "info"
+            return "THIS THING"
         }
         else if section == 3 {
+            return "info"
+        }
+        else if section == 4 {
             return "shall you choose"
         }
         else {
@@ -102,7 +100,14 @@ class HubTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath)
         cell.selectionStyle = .none
         
-        cell.textLabel?.text = self.settingCellArray[indexPath.section][indexPath.row].title
+        
+        if indexPath.section == 0 {
+            cell.detailTextLabel?.text = self.settingCellArray[indexPath.section][indexPath.row].title
+            cell.detailTextLabel?.textAlignment = .center
+            cell.detailTextLabel?.numberOfLines = 99
+        } else {
+            cell.textLabel?.text = self.settingCellArray[indexPath.section][indexPath.row].title
+        }
         
         if self.settingCellArray[indexPath.section][indexPath.row].disclosureIndicator {
             cell.accessoryType = .disclosureIndicator

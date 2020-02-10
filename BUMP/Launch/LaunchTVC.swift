@@ -10,11 +10,7 @@ import UIKit
 import QuickLayout
 import SwiftEntryKit
 
-class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    private let refreshControl = UIRefreshControl()
-    
-    var tableView : UITableView!
+class LaunchTVC: UITableViewController {
     
     
     var launchFetcher : LaunchFetcher?
@@ -24,9 +20,12 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupTableView()
         self.setupBarButtons()
         self.setupLaunchFetcher()
+        
+        self.setupRefreshControl()
+        
+        self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "launchCell")
     }
     
     func shutDown() {
@@ -35,12 +34,32 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         NotificationCenter.default.removeObserver(self)
         
-                self.tableView.reloadData()
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.launchFetcher?.shutDown()
+        self.setupLaunchFetcher()
     }
 
     
     
     //MARK: - Setup
+    
+    func setupRefreshControl() {
+//        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh", attributes: [:])
+//        self.tableView.refreshControl = self.refreshControl
+//        let rControl = UIRefreshControl()
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action:  #selector(didRefreshControl), for: .valueChanged)
+
+    }
+    
+    @objc func didRefreshControl() {
+        
+        self.refreshLaunchFetcher()
+    }
     
     func setupBarButtons() {
         
@@ -76,38 +95,25 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.launchFetcher?.monitorLaunchCircles()
     }
     
-    func setupTableView() {
-        
-        self.tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        
-        self.layoutTableView()
-        
-        self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "launchCell")
-    }
-    func layoutTableView() {
-        self.view.addSubview(tableView)
-        tableView.layoutToSuperview(.top, offset: 0)
-        tableView.layoutToSuperview(.left, offset: 0)
-        tableView.layoutToSuperview(.right, offset: 0)
-        tableView.layoutToSuperview(.bottom, offset: 0)
+    func refreshLaunchFetcher() {
+        self.launchFetcher?.shutDown()
+        self.setupLaunchFetcher()
     }
     
     
     
     // MARK: - Table view data source
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return circleArray.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return circleArray[section].count
     }
 
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
         cell.accessoryType = .detailButton
         cell.selectionStyle = .none
@@ -161,7 +167,7 @@ class LaunchTVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             if self.circleArray[0].isEmpty {
                 return nil

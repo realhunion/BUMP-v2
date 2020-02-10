@@ -90,6 +90,9 @@ class CircleMembersFetcher {
                 self.memberProfileArray.append(uProfile)
                 
                 self.triggerUpdate()
+            } else {
+                self.fetchedMembersDict[userID] = true
+                self.triggerUpdate()
             }
             
             
