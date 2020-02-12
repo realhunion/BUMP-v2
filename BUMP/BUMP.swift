@@ -17,9 +17,6 @@ class BUMP {
     var homeTabBarVC : HomeTabBarVC
     init() {
         self.homeTabBarVC = HomeTabBarVC()
-        
-//        AnnouncementsManager.shared.startMonitors()
-        
     }
     
     
@@ -30,14 +27,14 @@ class BUMP {
         homeTabBarVC.dismiss(animated: true, completion: nil)
         
         homeTabBarVC.hubVC.navigationController?.popToRootViewController(animated: false)
-        homeTabBarVC.feedTabVC.navigationController?.popToRootViewController(animated: false)
+        homeTabBarVC.feedTVC.navigationController?.popToRootViewController(animated: false)
         homeTabBarVC.launchVC.navigationController?.popToRootViewController(animated: false)
     
         homeTabBarVC.launchVC.shutDown()
         homeTabBarVC.launchVC.setupLaunchFetcher()
         
-        homeTabBarVC.feedTabVC.shutDown()
-        homeTabBarVC.feedTabVC.setupFeedFetcher()
+        homeTabBarVC.feedTVC.shutDown()
+        homeTabBarVC.feedTVC.setupFeedFetcher()
         
         
         homeTabBarVC.selectedIndex = 1
@@ -72,6 +69,8 @@ class BUMP {
         }
         
         self.refreshControllers()
+        
+        LoginManager.shared.isLoggedIn()
         
     }
     

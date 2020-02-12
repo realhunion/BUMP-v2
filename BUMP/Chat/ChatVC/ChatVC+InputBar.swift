@@ -78,7 +78,7 @@ extension ChatVC {
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue ?? 0
         
         inputBarBottomAnchor?.constant = -keyboardFrame!.height + view.safeAreaInsets.bottom
-        collectionView?.contentInset = UIEdgeInsets(top: self.navBarHeight + self.subNavBarHeight + 10,
+        collectionView?.contentInset = UIEdgeInsets(top: self.navBarHeight + 10,
                                                     left: 0,
                                                     bottom: 10 + self.inputBarHeight,
                                                     right: 0)
@@ -93,7 +93,7 @@ extension ChatVC {
         let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue ?? 0
         
         inputBarBottomAnchor?.constant = 0
-        collectionView?.contentInset = UIEdgeInsets(top: self.navBarHeight + self.subNavBarHeight + 10,
+        collectionView?.contentInset = UIEdgeInsets(top: self.navBarHeight + 10,
                                                     left: 0,
                                                     bottom: 10,
                                                     right: 0)

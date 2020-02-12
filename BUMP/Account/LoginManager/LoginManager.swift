@@ -20,7 +20,7 @@ class LoginManager {
     func isLoggedIn() -> Bool {
         
         guard let user = Auth.auth().currentUser else {
-            //self.presentSignupVC()
+            //self.presentSignupVC() //FIX: this
             self.presentLoginVC(email: "alihunai@grinnell.edu", pass: "password")
             return false
         }
@@ -35,11 +35,11 @@ class LoginManager {
             self.presentUserProfileEditView(userName: user.displayName, userHandle: user.email)
             return false
         }
-        else if !UserDefaultsManager.shared.isPickCirclesShown() {
-            UserDefaultsManager.shared.setPickCirclesShown(shown: true)
-            self.presentPickCircles()
-            return false
-        }
+//        else if !UserDefaultsManager.shared.isPickCirclesShown() {
+//            UserDefaultsManager.shared.setPickCirclesShown(shown: true)
+//            self.presentPickCircles()
+//            return false
+//        }
         else if !UserDefaultsManager.shared.isIntroInfoShown() {
             UserDefaultsManager.shared.setIntroInfoShown(shown: true)
             self.presentIntroInfo()
@@ -50,6 +50,10 @@ class LoginManager {
         }
     }
     
+    
+    
+    
+    //MARK: - Present
     
     func presentLoginVC(email : String? = nil, pass: String? = nil) {
         

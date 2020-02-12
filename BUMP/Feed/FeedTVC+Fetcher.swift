@@ -19,6 +19,8 @@ extension FeedTVC : FeedFetcherDelegate {
     
     func feedChatUpdated(feedChat: FeedChat) {
         
+        self.backgroundLabel.isHidden = true
+        
         self.tableView.performBatchUpdates({
             
             if let index = feedChatArray.firstIndex(where: {$0.chatID == feedChat.chatID}) {

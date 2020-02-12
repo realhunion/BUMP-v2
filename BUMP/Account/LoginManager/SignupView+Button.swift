@@ -42,7 +42,7 @@ extension SignupView {
             let dispatchGroup = DispatchGroup()
             
             dispatchGroup.enter()
-            self.db.collection("User-Profile").document(user.uid).setData(["userName":name, "userHandle":email, ], completion: { (err) in
+            self.db.collection("User-Profile").document(user.uid).setData(["userName":name, "userHandle":email, "userDescription":email], completion: { (err) in
                 dispatchGroup.leave()
             })
             
@@ -63,7 +63,7 @@ extension SignupView {
                 self.signupButton.setTitle("Sign up!", for: .normal)
                 self.signupButton.isEnabled = false
                 
-                let alert = UIAlertController(title: "Email Sent!", message: "Check your inbox to verify account.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Email Sent!", message: "Check your inbox to verify you are a Grinnell Student.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (act) in
                     LoginManager.shared.presentLoginVC(email: email, pass: pass)
                 }))

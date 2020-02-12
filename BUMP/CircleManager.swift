@@ -101,6 +101,8 @@ class CircleManager {
         chatVC.chatName = circleEmoji
         chatVC.circleEmoji = circleEmoji
         
+        chatVC.title = circleName
+        
         let transitionDelegate = SPStorkTransitioningDelegate()
         transitionDelegate.showIndicator = false
         transitionDelegate.translateForDismiss = 100

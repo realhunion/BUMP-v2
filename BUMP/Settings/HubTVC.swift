@@ -22,8 +22,9 @@ class HubTVC: UITableViewController {
     let settingCellArray : [[SettingsCell]] = [
         
         [SettingsCell(title: Constant.missionStatement, image: nil, disclosureIndicator: false)],
-        [SettingsCell(title: "My Profile", image: nil, disclosureIndicator: true),
-         SettingsCell(title: "My Circles", image: nil, disclosureIndicator: true),
+        
+         [SettingsCell(title: "My Profile", image: nil, disclosureIndicator: true),
+          SettingsCell(title: "My Circles", image: nil, disclosureIndicator: true),
          SettingsCell(title: "Silence Mode", image: nil, disclosureIndicator: true)],
         
         [SettingsCell(title: "What is Bump?", image: nil, disclosureIndicator: true),
@@ -34,10 +35,6 @@ class HubTVC: UITableViewController {
          SettingsCell(title: "Credits", image: nil, disclosureIndicator: true)
         ],
         [SettingsCell(title: "Log Out", image: nil, disclosureIndicator: false)]
-        
-        //        [SettingsCell(title: "Rules of Bumpland", image: nil, disclosureIndicator: true),
-        //         SettingsCell(title: "Credits", image: nil, disclosureIndicator: true),
-//         SettingsCell(title: "Log Out", image: nil, disclosureIndicator: false)]
     ]
     
     
@@ -102,10 +99,13 @@ class HubTVC: UITableViewController {
         
         
         if indexPath.section == 0 {
-            cell.detailTextLabel?.text = self.settingCellArray[indexPath.section][indexPath.row].title
-            cell.detailTextLabel?.textAlignment = .center
-            cell.detailTextLabel?.numberOfLines = 99
-        } else {
+            cell.textLabel?.text = self.settingCellArray[indexPath.section][indexPath.row].title
+            cell.textLabel?.textColor = Constant.oBlue
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .semibold)
+            cell.textLabel?.textAlignment = .center
+            cell.textLabel?.numberOfLines = 99
+        }
+        else {
             cell.textLabel?.text = self.settingCellArray[indexPath.section][indexPath.row].title
         }
         
@@ -136,12 +136,10 @@ class HubTVC: UITableViewController {
             self.presentSilenceMenu()
             
         case "What is Bump?":
-            self.presentIntroInfo()
+            self.presentWhatIsBump()
             
         case "How To Use":
-//            self.presentIntroInfo()
-            NotificationManager.shared.presentEnableNotificationsView()
-            //FIX:
+            self.presentHowToUse()
             
         case "Helpline":
             self.presentHelpline()

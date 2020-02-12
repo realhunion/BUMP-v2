@@ -30,6 +30,9 @@
 		7B485C1F23EF5A0F00E756CC /* TermsInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B485C1E23EF5A0F00E756CC /* TermsInfoVC.swift */; };
 		7B4E0D372380EAA90076B987 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B4E0D362380EAA80076B987 /* Credits.rtf */; };
 		7B4E0D392380F1540076B987 /* TermsAndConditions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B4E0D382380F1540076B987 /* TermsAndConditions.rtf */; };
+		7B4E1F7123F2276D003CDA41 /* CreditsInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4E1F7023F2276D003CDA41 /* CreditsInfoVC.swift */; };
+		7B4E1F7523F22AD9003CDA41 /* WhatIsBump.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B4E1F7423F22AD9003CDA41 /* WhatIsBump.rtf */; };
+		7B4E1F7723F22AE5003CDA41 /* HowToUse.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B4E1F7623F22AE5003CDA41 /* HowToUse.rtf */; };
 		7B567BD923D8006500054EEC /* IntroInfo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7B567BD823D8006500054EEC /* IntroInfo.rtf */; };
 		7B581AD02378AA7D00196797 /* SignupView+Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B581ACF2378AA7D00196797 /* SignupView+Button.swift */; };
 		7B581AD323790BEB00196797 /* HubTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B581AD223790BEB00196797 /* HubTVC.swift */; };
@@ -115,6 +118,9 @@
 		7B485C1E23EF5A0F00E756CC /* TermsInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsInfoVC.swift; sourceTree = "<group>"; };
 		7B4E0D362380EAA80076B987 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		7B4E0D382380F1540076B987 /* TermsAndConditions.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TermsAndConditions.rtf; sourceTree = "<group>"; };
+		7B4E1F7023F2276D003CDA41 /* CreditsInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsInfoVC.swift; sourceTree = "<group>"; };
+		7B4E1F7423F22AD9003CDA41 /* WhatIsBump.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = WhatIsBump.rtf; sourceTree = "<group>"; };
+		7B4E1F7623F22AE5003CDA41 /* HowToUse.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = HowToUse.rtf; sourceTree = "<group>"; };
 		7B567BD823D8006500054EEC /* IntroInfo.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = IntroInfo.rtf; sourceTree = "<group>"; };
 		7B581ACF2378AA7D00196797 /* SignupView+Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignupView+Button.swift"; sourceTree = "<group>"; };
 		7B581AD223790BEB00196797 /* HubTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubTVC.swift; sourceTree = "<group>"; };
@@ -215,8 +221,6 @@
 				7B3E23A523738F38008DB53F /* UserProfileView */,
 				7BB807AD2376CA8100EDBAFD /* UserProfileEditor */,
 				7B03507223D7C9720094AF3D /* PickCirclesTVC.swift */,
-				7B03507423D7D7870094AF3D /* IntroInfoVC.swift */,
-				7B485C1E23EF5A0F00E756CC /* TermsInfoVC.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -288,10 +292,15 @@
 				7B37C29623CA8B910085CA03 /* MyCirclesTVC.swift */,
 				7B581AD223790BEB00196797 /* HubTVC.swift */,
 				7BCD74E523EA22EF00E55E48 /* HubTVC+Present.swift */,
-				7BCD74E923EA293B00E55E48 /* InfoTextView.swift */,
 				7B4E0D362380EAA80076B987 /* Credits.rtf */,
 				7B4E0D382380F1540076B987 /* TermsAndConditions.rtf */,
 				7B567BD823D8006500054EEC /* IntroInfo.rtf */,
+				7B4E1F7423F22AD9003CDA41 /* WhatIsBump.rtf */,
+				7B4E1F7623F22AE5003CDA41 /* HowToUse.rtf */,
+				7B03507423D7D7870094AF3D /* IntroInfoVC.swift */,
+				7B485C1E23EF5A0F00E756CC /* TermsInfoVC.swift */,
+				7B4E1F7023F2276D003CDA41 /* CreditsInfoVC.swift */,
+				7BCD74E923EA293B00E55E48 /* InfoTextView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -523,6 +532,8 @@
 				7B7ACA72235D2E1000D3E901 /* LaunchScreen.storyboard in Resources */,
 				7BC7C2C6235FB8A7009D77BF /* GoogleService-Info.plist in Resources */,
 				7B7ACA6F235D2E1000D3E901 /* Assets.xcassets in Resources */,
+				7B4E1F7523F22AD9003CDA41 /* WhatIsBump.rtf in Resources */,
+				7B4E1F7723F22AE5003CDA41 /* HowToUse.rtf in Resources */,
 				7B4E0D392380F1540076B987 /* TermsAndConditions.rtf in Resources */,
 				7B7ACA6D235D2E0E00D3E901 /* Main.storyboard in Resources */,
 				7B567BD923D8006500054EEC /* IntroInfo.rtf in Resources */,
@@ -609,6 +620,7 @@
 				7B41FE852398C74E00630D6F /* FeedTVC.swift in Sources */,
 				7B03507523D7D7870094AF3D /* IntroInfoVC.swift in Sources */,
 				7B0D65372377860500489C37 /* LoginView+Button.swift in Sources */,
+				7B4E1F7123F2276D003CDA41 /* CreditsInfoVC.swift in Sources */,
 				7BC7C2EE235FC94B009D77BF /* IncomingTextMessageCell.swift in Sources */,
 				7B77BF21237642A800AD59B1 /* LoginManager.swift in Sources */,
 				7B3E23AD2373909E008DB53F /* UserProfileView+Button.swift in Sources */,

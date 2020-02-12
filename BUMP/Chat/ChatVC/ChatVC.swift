@@ -75,6 +75,7 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.setupCollectionView()
         self.setupNavBar()
         self.setupSubNavBar()
@@ -93,6 +94,8 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
         super.viewDidAppear(animated)
         
         self.updateFeedMsgsRead()
+        
+        self.inputBarView.inputTextView.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,8 +165,8 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
         view.backgroundColor = UIColor.white
         collectionView?.indicatorStyle = .default
         collectionView?.backgroundColor = view.backgroundColor
-        collectionView?.contentInset = UIEdgeInsets(top: navBarHeight+subNavBarHeight+10, left: 0, bottom: 10, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: navBarHeight+subNavBarHeight, left: 0, bottom: 0, right: 0)
+        collectionView?.contentInset = UIEdgeInsets(top: navBarHeight+10, left: 0, bottom: 10, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: navBarHeight, left: 0, bottom: 0, right: 0)
         collectionView?.keyboardDismissMode = .none
         collectionView?.delaysContentTouches = false
         collectionView?.alwaysBounceVertical = true
@@ -171,6 +174,7 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         
+//        self.inputBarView.inputTextView.becomeFirstResponder()
         
         self.view.addSubview(inputBarView)
 

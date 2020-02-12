@@ -13,28 +13,6 @@ import Firebase
 extension HubTVC {
     
     
-    
-    func presentIntroInfo() {
-        
-        let vc = IntroInfoVC()
-        vc.title = "Bump: A Run Down"
-        let nvc = UINavigationController(rootViewController: vc)
-        
-        nvc.modalPresentationStyle = .pageSheet
-        nvc.presentationController?.delegate = vc
-        if #available(iOS 13.0, *) {
-            nvc.isModalInPresentation = true
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        DispatchQueue.main.async {
-            self.present(nvc, animated: true, completion: nil)
-        }
-        
-    }
-    
-    
     func presentMyProfile() {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }
@@ -139,31 +117,21 @@ extension HubTVC {
     
     func presentCredits() {
         
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.white
-//        vc.edgesForExtendedLayout = []
-
-        if let rtfPath = Bundle.main.url(forResource: "Credits", withExtension: "rtf") {
-            do {
-                let attributedStringWithRtf: NSAttributedString = try NSAttributedString(url: rtfPath, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.rtf], documentAttributes: nil)
-
-                let infoView = InfoTextView(text: "Credits")
-                infoView.textView.attributedText = attributedStringWithRtf
-                vc.view.addSubview(infoView)
-                infoView.frame = vc.view.frame
-                vc.title = "Credits"
-
-            } catch let error {
-                print("Got an error \(error)")
-            }
+        let vc = CreditsInfoVC()
+        vc.title = "Credits"
+        let nvc = UINavigationController(rootViewController: vc)
+        
+        nvc.modalPresentationStyle = .pageSheet
+        nvc.presentationController?.delegate = vc
+        if #available(iOS 13.0, *) {
+            nvc.isModalInPresentation = true
+        } else {
+            // Fallback on earlier versions
         }
-
+        
         DispatchQueue.main.async {
-//            let nvc = UINavigationController(rootViewController: vc)
-//            nvc.modalPresentationStyle = .pageSheet
-//            SwiftEntryKit.display(entry: nvc, using: Constant.fixedPopUpAttributes(heightWidthRatio: 0.9))
-//            self.present(nvc, animated: true, completion: nil)
-//            self.navigationController?.pushViewController(vc, animated: true)
+            UIApplication.topViewController()?.dismiss(animated: false) {}
+            UIApplication.topViewController()?.present(nvc, animated: true) {}
         }
         
     }
@@ -171,27 +139,63 @@ extension HubTVC {
     
     func presentTerms() {
         
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.white
-        vc.edgesForExtendedLayout = []
+        let vc = TermsInfoVC()
+        vc.title = "Rules of Bumpland"
+        let nvc = UINavigationController(rootViewController: vc)
         
-        if let rtfPath = Bundle.main.url(forResource: "TermsAndConditions", withExtension: "rtf") {
-            do {
-                let attributedStringWithRtf: NSAttributedString = try NSAttributedString(url: rtfPath, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.rtf], documentAttributes: nil)
-                
-                let infoView = InfoTextView(text: "Privacy")
-                infoView.textView.attributedText = attributedStringWithRtf
-                vc.view.addSubview(infoView)
-                infoView.frame = self.view.frame
-                vc.title = "Rules of Bumpland"
-                
-            } catch let error {
-                print("Got an error \(error)")
-            }
+        nvc.modalPresentationStyle = .pageSheet
+        nvc.presentationController?.delegate = vc
+        if #available(iOS 13.0, *) {
+            nvc.isModalInPresentation = true
+        } else {
+            // Fallback on earlier versions
         }
         
         DispatchQueue.main.async {
-            SwiftEntryKit.display(entry: vc, using: Constant.fixedPopUpAttributes(heightWidthRatio: 0.9))
+            UIApplication.topViewController()?.dismiss(animated: false) {}
+            UIApplication.topViewController()?.present(nvc, animated: true) {}
+        }
+    }
+    
+    
+    func presentWhatIsBump() {
+        
+        let vc = WhatisBumpInfoVC()
+        vc.title = "What is Bump?"
+        let nvc = UINavigationController(rootViewController: vc)
+        
+        nvc.modalPresentationStyle = .pageSheet
+        nvc.presentationController?.delegate = vc
+        if #available(iOS 13.0, *) {
+            nvc.isModalInPresentation = true
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.dismiss(animated: false) {}
+            UIApplication.topViewController()?.present(nvc, animated: true) {}
+        }
+    }
+    
+    
+    func presentHowToUse() {
+        
+        let vc = HowToUseInfoVC()
+        vc.title = "How To Use"
+        let nvc = UINavigationController(rootViewController: vc)
+        
+        nvc.modalPresentationStyle = .pageSheet
+        nvc.presentationController?.delegate = vc
+        if #available(iOS 13.0, *) {
+            nvc.isModalInPresentation = true
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.dismiss(animated: false) {}
+            UIApplication.topViewController()?.present(nvc, animated: true) {}
         }
     }
     

@@ -28,11 +28,12 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         self.tabBar.isTranslucent = false
         self.tabBar.backgroundColor = .white
         self.tabBar.barTintColor = .white
+        
     }
     
     func shutDown() {
         
-        feedTabVC.shutDown()
+        feedTVC.shutDown()
 //        feedVC.shutDown()
 //        launchVC.
 //        
@@ -45,30 +46,31 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var feedTabVC = FeedTVC(style: .grouped)
+    var feedTVC = FeedTVC(style: .grouped)
     
     var launchVC = LaunchTVC(style: .grouped)
     
     var hubVC = HubTVC(style: .grouped)
-        //HubCVC(collectionViewLayout: UICollectionViewFlowLayout())
     
     func setupTabBar() {
+        
+        //FIX: circle INFO large title adjustfonttoFItWidth do it.
         
 //        feedTabVC.view.backgroundColor = .white
         launchVC.view.backgroundColor = .white
         hubVC.view.backgroundColor = .white
         
-        feedTabVC.title = "My Chats"
-        launchVC.title = "Create new chat"
+        feedTVC.title = "My Chats"
+        launchVC.title = "Start chat"
         hubVC.title = "Bump"
         
         
-        let feedNC = UINavigationController(rootViewController: feedTabVC)
+        let feedNC = UINavigationController(rootViewController: feedTVC)
         let launchNC = UINavigationController(rootViewController: launchVC)
         let hubNC = UINavigationController(rootViewController: hubVC)
 
-        feedTabVC.navigationController?.navigationBar.prefersLargeTitles = true
-        feedTabVC.navigationController?.navigationBar.layoutMargins.left = 36
+        feedTVC.navigationController?.navigationBar.prefersLargeTitles = true
+        feedTVC.navigationController?.navigationBar.layoutMargins.left = 36
         launchVC.navigationController?.navigationBar.prefersLargeTitles = true
         launchVC.navigationController?.navigationBar.layoutMargins.left = 36
         hubVC.navigationController?.navigationBar.prefersLargeTitles = true
@@ -78,20 +80,19 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         launchNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
         hubNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
         
-        let feedImage =  UIImage(named: "feedIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
-        let launchImage = UIImage(named: "launchIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
+        let feedImage =  UIImage(named: "chatIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
+        let launchImage = UIImage(named: "peopleIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         let categoriesImage = UIImage(named: "heartIcon")!.resizedImage(newSize: CGSize(width: 30, height: 30))
         
         let feedItem = UITabBarItem(title: "Chats", image: feedImage, selectedImage: nil)
-        let launchItem = UITabBarItem(title: "Create", image: launchImage, selectedImage: nil)
+        let launchItem = UITabBarItem(title: "Start", image: launchImage, selectedImage: nil)
         let hubItem = UITabBarItem(title: "Bump", image: categoriesImage, selectedImage: nil)
-        
         
         feedItem.tag = 0
         launchItem.tag = 1
         hubItem.tag = 2
         
-        feedTabVC.tabBarItem = feedItem
+        feedTVC.tabBarItem = feedItem
         launchVC.tabBarItem = launchItem
         hubVC.tabBarItem = hubItem
         

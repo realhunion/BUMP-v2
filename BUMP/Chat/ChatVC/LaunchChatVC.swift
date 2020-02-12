@@ -22,15 +22,14 @@ class LaunchChatVC : ChatVC {
         self.setCircleUnLaunched()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.inputBarView.inputTextView.becomeFirstResponder()
-    }
+    
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.inputBarView.inputTextView.becomeFirstResponder()
     }
     
@@ -44,25 +43,6 @@ class LaunchChatVC : ChatVC {
     
     //MARK: - Setup
     
-    override func setupInputBar() {
-        super.setupInputBar()
-//        self.inputBarView.emojiButton.setTitle("🤙", for: .normal)
-        
-//        self.inputBarView.inputTextView.placeholder = "Send a message to launch"
-        
-//        let v = UIView()
-////        v.text = "Send a message to launch circle"
-//        v.backgroundColor = UIColor.systemPink.withAlphaComponent(0.22)
-//        let gradient = CAGradientLayer()
-//
-//        gradient.frame = collectionView.bounds
-//        gradient.colors = [UIColor.white.cgColor, UIColor.black.cgColor]
-//
-//        v.layer.insertSublayer(gradient, at: 0)
-//        v.translatesAutoresizingMaskIntoConstraints = false
-//        self.collectionView.backgroundView = v
-    }
-    
     override func setupMessageSender() {
         self.msgSender = LaunchMessageSender(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji)
     }
@@ -71,13 +51,6 @@ class LaunchChatVC : ChatVC {
         super.setupCollectionView()
         self.collectionView.isScrollEnabled = false
         
-    }
-    
-    
-    //MARK: - Navigattion Buttons
-    
-    override func backButtonTapped() {
-        self.dismiss(animated: true) {}
     }
     
     
@@ -111,7 +84,6 @@ class LaunchChatVC : ChatVC {
         }
         
         super.handleHeyButton()
-        
         
     }
     

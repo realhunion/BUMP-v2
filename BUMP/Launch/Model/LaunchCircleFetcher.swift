@@ -57,9 +57,6 @@ class LaunchCircleFetcher {
     
     func triggerUpdate() {
         
-//        guard let myUID = Auth.auth().currentUser?.uid else { return }
-        
-//        guard let myMem = self.myMember else { return }
         guard let memArray = self.memberArray else { return }
         
         let launchCircle = LaunchCircle(circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, circleDescription: self.circleDescription, memberArray: memArray)
@@ -113,26 +110,6 @@ class LaunchCircleFetcher {
         }
 
     }
-    
-
-//    func monitorMyFollow() {
-//
-//        guard let myUID = Auth.auth().currentUser?.uid else { return }
-//
-//        self.myFollowListener = db.collection("LaunchCircles").document(circleID).collection("Followers").document(myUID).addSnapshotListener { (snap, err) in
-//
-//            guard let doc = snap else { return }
-//
-//            if let notifsOn = doc.data()?["notificationsOn"] as? Bool {
-//                let member = LaunchMember(userID: doc.documentID, notifsOn: notifsOn)
-//                self.memberArray?.removeAll(where: {$0.userID == myUID})
-//                self.memberArray?.append(member)
-//            }
-//
-//            self.triggerUpdate()
-//        }
-//
-//    }
     
     
 }

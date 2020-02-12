@@ -39,10 +39,9 @@ class LaunchTVC: UITableViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.launchFetcher?.shutDown()
-        self.setupLaunchFetcher()
+//        self.refreshLaunchFetcher()
     }
-
+    
     
     
     //MARK: - Setup
@@ -199,6 +198,7 @@ class SubtitleTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         self.textLabel?.textColor = UIColor.black
+        self.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         self.detailTextLabel?.textColor = UIColor.black
         self.imageView?.image = nil
         

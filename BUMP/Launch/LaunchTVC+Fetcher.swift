@@ -13,28 +13,6 @@ import Foundation
 extension LaunchTVC : LaunchFetcherDelegate {
     
     
-    //MARK: - Internal Methods
-
-    func insertLaunchCircle(launchCircle : LaunchCircle) {
-        var section = 0
-        if !launchCircle.amFollowing() {
-            section = 1
-        }
-        
-        self.circleArray[section].append(launchCircle)
-        
-        self.sortCircleArray()
-    }
-    
-    func deleteLaunchCircle(circleID : String) {
-        
-        for section in 0..<self.circleArray.count {
-            self.circleArray[section].removeAll(where: {$0.circleID == circleID})
-            
-        }
-    }
-    
-    
     
     //MARK: - Delegate Methods
     
@@ -59,6 +37,32 @@ extension LaunchTVC : LaunchFetcherDelegate {
         }
         
     }
+    
+    
+    
+    
+    //MARK: - Internal Insertion Methods
+
+    func insertLaunchCircle(launchCircle : LaunchCircle) {
+        var section = 0
+        if !launchCircle.amFollowing() {
+            section = 1
+        }
+        
+        self.circleArray[section].append(launchCircle)
+        
+        self.sortCircleArray()
+    }
+    
+    func deleteLaunchCircle(circleID : String) {
+        
+        for section in 0..<self.circleArray.count {
+            self.circleArray[section].removeAll(where: {$0.circleID == circleID})
+            
+        }
+    }
+    
+
     
     
 }

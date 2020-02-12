@@ -32,6 +32,19 @@ class FeedTVC: UITableViewController {
         self.setupTableView()
         self.setupFeedFetcher()
         
+        self.setupBackgroundView()
+    }
+    
+    var backgroundLabel : UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.systemGray
+        label.numberOfLines = 2
+        label.text = "Chats last 24h."
+        label.textAlignment = .center
+        return label
+    }()
+    func setupBackgroundView() {
+        self.tableView.backgroundView = self.backgroundLabel
     }
     
     
@@ -42,7 +55,8 @@ class FeedTVC: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.tableView.reloadData()
+        self.tableView.reloadData()
+        //FIX: pretty expensive, yes. without, it overlaps cells.
     }
     
     func shutDown() {
@@ -85,7 +99,7 @@ class FeedTVC: UITableViewController {
         let feedChat = self.feedChatArray[indexPath.row]
         
         let numUnreadMessages = feedChat.getMyUserUnreadMsgs()
-        if numUnreadMessages != 0 {
+        if 0 < numUnreadMessages {
             let cell1 = tableView.dequeueReusableCell(withIdentifier: "newFeedCell", for: indexPath) as! UnreadFeedCell
             cell1.newMessagesLabel.text = "\(numUnreadMessages)"
             cell = cell1
@@ -101,7 +115,6 @@ class FeedTVC: UITableViewController {
         cell.followButtonAction = { [unowned self] in
             
             if cell.followButton.isSelected == false {
-                print("banger")
                 ChatFollower.shared.followChat(chatID: feedChat.chatID)
             } else {
                 ChatFollower.shared.unFollowChat(chatID: feedChat.chatID)
