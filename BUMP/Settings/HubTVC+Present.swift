@@ -25,26 +25,6 @@ extension HubTVC {
         
     }
     
-    func presentMyCircles() {
-        
-        let vc = MyCirclesTVC()
-        vc.title = "Tap to Join / Leave"
-        
-        DispatchQueue.main.async {
-            if #available(iOS 13.0, *) {
-                let nvc = UINavigationController(rootViewController: vc)
-                nvc.navigationBar.prefersLargeTitles = false
-                vc.modalPresentationStyle = .pageSheet
-                vc.modalPresentationCapturesStatusBarAppearance = true
-                
-                self.present(nvc, animated: true, completion: nil)
-            } else {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-            
-        }
-    }
-    
     
     
     func presentSilenceMenu() {

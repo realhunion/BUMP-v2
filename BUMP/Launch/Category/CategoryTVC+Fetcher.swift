@@ -1,16 +1,14 @@
 //
-//  LaunchTVC+Fetcher.swift
+//  CategoryTVC+Fetcher.swift
 //  BUMP
 //
-//  Created by Hunain Ali on 1/10/20.
+//  Created by Hunain Ali on 2/12/20.
 //  Copyright © 2020 BUMP. All rights reserved.
 //
 
 import Foundation
 
-
-
-extension LaunchTVC : LaunchFetcherDelegate {
+extension CategoryTVC : CatCirclesFetcherDelegate {
     
     
     
@@ -42,10 +40,10 @@ extension LaunchTVC : LaunchFetcherDelegate {
     
     
     //MARK: - Internal Insertion Methods
-
+    
     func insertLaunchCircle(launchCircle : LaunchCircle) {
         var section = 0
-        if !launchCircle.amFollowing() {
+        if !launchCircle.amMember() {
             section = 1
         }
         
@@ -62,7 +60,7 @@ extension LaunchTVC : LaunchFetcherDelegate {
         }
     }
     
-
+    
     
     
 }

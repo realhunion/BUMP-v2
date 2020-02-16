@@ -49,6 +49,8 @@ extension LaunchTVC {
     
     @objc func sortButtonTapped() {
         
+        guard LoginManager.shared.isLoggedIn() else { return }
+        
         let alert = UIAlertController(title: "Sort by:", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "A to Z", style: .default, handler: { (action) in
             UserDefaults.standard.set(LaunchSortOption.aToZ.rawValue, forKey: defaultsKeys.launchSortOption)
@@ -58,16 +60,14 @@ extension LaunchTVC {
                 self.tableView.reloadData()
             }
         }))
-        if let myUID = Auth.auth().currentUser?.uid {
-            alert.addAction(UIAlertAction(title: "My Favorites", style: .default, handler: { (action) in
-                UserDefaults.standard.set(LaunchSortOption.myFav.rawValue, forKey: defaultsKeys.launchSortOption)
-                
-                DispatchQueue.main.async {
-                    self.sortCircleArray()
-                    self.tableView.reloadData()
-                }
-            }))
-        }
+        alert.addAction(UIAlertAction(title: "My Favorites", style: .default, handler: { (action) in
+            UserDefaults.standard.set(LaunchSortOption.myFav.rawValue, forKey: defaultsKeys.launchSortOption)
+            
+            DispatchQueue.main.async {
+                self.sortCircleArray()
+                self.tableView.reloadData()
+            }
+        }))
         alert.addAction(UIAlertAction(title: "Campus Favorites", style: .default, handler: { (action) in
             UserDefaults.standard.set(LaunchSortOption.campusFav.rawValue, forKey: defaultsKeys.launchSortOption)
             
@@ -89,11 +89,8 @@ extension LaunchTVC {
     
     func sortAToZ() {
         
-        for section in 0..<self.circleArray.count {
-            
-            self.circleArray[section].sort { (c1, c2) -> Bool in
-                return c1.circleName.lowercased() < c2.circleName.lowercased()
-            }
+        self.myCircleArray.sort { (c1, c2) -> Bool in
+            return c1.circleName.lowercased() < c2.circleName.lowercased()
         }
     }
     
@@ -101,28 +98,20 @@ extension LaunchTVC {
         
         let dict = UserDefaultsManager.shared.getMyFavLaunchCircles()
         
-        for section in 0..<self.circleArray.count {
-            
-            self.circleArray[section].sort { (c1, c2) -> Bool in
-                
-                if (dict[c1.circleID] ?? 0) != (dict[c2.circleID] ?? 0) {
-                    return (dict[c1.circleID] ?? 0) > (dict[c2.circleID] ?? 0)
-                }
-                else {
-                    return c1.circleName.lowercased() < c2.circleName.lowercased()
-                }
-                
+        self.myCircleArray.sort { (c1, c2) -> Bool in
+            if (dict[c1.circleID] ?? 0) != (dict[c2.circleID] ?? 0) {
+                return (dict[c1.circleID] ?? 0) > (dict[c2.circleID] ?? 0)
+            }
+            else {
+                return c1.circleName.lowercased() < c2.circleName.lowercased()
             }
         }
     }
     
     func sortCampusFav() {
         
-        for section in 0..<self.circleArray.count {
-            
-            self.circleArray[section].sort { (c1, c2) -> Bool in
-                return c1.memberArray.count > c2.memberArray.count
-            }
+        self.myCircleArray.sort { (c1, c2) -> Bool in
+            return c1.memberArray.count > c2.memberArray.count
         }
     }
     

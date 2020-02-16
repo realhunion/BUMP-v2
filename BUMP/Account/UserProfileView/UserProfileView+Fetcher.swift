@@ -20,7 +20,8 @@ extension UserProfileView : UserProfileFetcherDelegate {
         
         let imageRef = self.storageRef.reference(withPath: userProfile.userImage)
         let placeHolder = UIImage(color: Constant.oGray)
-        self.userImageView.sd_setImage(with: imageRef, placeholderImage: placeHolder)
+        self.userImageView.setImage(with: imageRef, placeholder: placeHolder)
+        
         
         self.userHandleLabel.text = userProfile.userHandle
         

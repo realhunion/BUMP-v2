@@ -17,7 +17,7 @@ extension ChatVC {
         
         //FIX: v View v View
 //        self.navigationController?.navigationBar.isHidden = true
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+//        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     
         
         self.view.addSubview(navBar)

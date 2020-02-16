@@ -19,7 +19,7 @@ protocol FeedChatFetcherDelegate : class {
 
 class FeedChatFetcher {
     
-    var delegate : FeedChatFetcherDelegate?
+    weak var delegate : FeedChatFetcherDelegate?
     
     var db = Firestore.firestore()
     
@@ -27,7 +27,7 @@ class FeedChatFetcher {
     var messageArray : [Message]? = nil
     
     var myUserListener : ListenerRegistration?
-    var userArray : [FeedUser]? = nil
+    var myUser : FeedUser? = nil
     
     var chatID : String
     var circleID : String
@@ -47,22 +47,26 @@ class FeedChatFetcher {
             listenr.remove()
         }
         self.messageFetcher?.shutDown()
+        
+        self.messageArray = nil
+        self.myUser = nil
     }
+    
     
     
     
     
     func startMonitor() {
-        self.fetchFeedUsers()
-        self.fetchFeedChatMessages()
+        self.monitorMyUser()
+        self.monitorFeedChatMessages()
     }
     
     func triggerUpdate() {
         
-        guard let uArray = self.userArray else { return }
+        guard let myFUser = self.myUser else { return }
         guard let msgArray = self.messageArray else { return }
         
-        let payload = FeedChat(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, userArray: uArray, messageArray: msgArray)
+        let payload = FeedChat(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji, myUser: myFUser, messageArray: msgArray)
         self.delegate?.feedChatUpdated(feedChat: payload)
         
     }
@@ -72,56 +76,45 @@ class FeedChatFetcher {
     //MARK:- Fetchers
     
     
-    func fetchFeedUsers() {
-        
-        db.collection("Feed").document(chatID).collection("Users").getDocuments { (snap, err) in
-            guard let docs = snap?.documents else { return }
+    func monitorMyUser() {
+    
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
+        self.myUserListener = self.db.collection("Feed").document(self.chatID).collection("Users").document(myUID).addSnapshotListener { (snap, err) in
             
-            var uArray : [FeedUser] = []
-            for doc in docs {
-                let uID = doc.documentID
-                var fUser = FeedUser(userID: uID)
-                if let lastSeen = doc.data()["lastSeen"] as? Timestamp {
-                    fUser.lastSeen = lastSeen
-                }
-                if let isFollowing = doc.data()["isFollowing"] as? Bool {
-                    fUser.isFollowing = isFollowing
-                }
-                uArray.append(fUser)
-            }
-        
-            self.userArray = uArray
+            guard let doc = snap else { return }
             
-            guard let myUID = Auth.auth().currentUser?.uid else { self.triggerUpdate(); return }
-            self.myUserListener = self.db.collection("Feed").document(self.chatID).collection("Users").document(myUID).addSnapshotListener { (snap, err) in
-                
-                guard let doc = snap else { return }
-                
-                let uID = doc.documentID
-                var myFUser = FeedUser(userID: uID)
-                if let lastSeen = doc.data()?["lastSeen"] as? Timestamp {
-                    myFUser.lastSeen = lastSeen
-                }
-                if let isFollowing = doc.data()?["isFollowing"] as? Bool {
-                    myFUser.isFollowing = isFollowing
-                }
-                
-                self.userArray?.removeAll(where: {$0.userID == myUID})
-                self.userArray?.append(myFUser)
-                self.triggerUpdate()
-                
+            let uID = doc.documentID
+            var myFUser = FeedUser(userID: uID)
+            if let lastSeen = doc.data()?["lastSeen"] as? Timestamp {
+                myFUser.lastSeen = lastSeen
             }
+            if let isFollowing = doc.data()?["isFollowing"] as? Bool {
+                myFUser.isFollowing = isFollowing
+            }
+            
+            self.myUser = myFUser
+            self.triggerUpdate()
             
         }
         
     }
     
-    func fetchFeedChatMessages() {
+    func monitorFeedChatMessages() {
         
         self.messageFetcher = MessageFetcher(chatID: chatID)
         self.messageFetcher?.delegate = self
         self.messageFetcher?.startMonitor()
         
+    }
+    
+    
+    //MARK: Tool -
+    
+    func refreshMsgFetcher() {
+        
+        self.messageArray = nil
+        self.messageFetcher?.shutDown()
+        self.monitorFeedChatMessages()
     }
     
     

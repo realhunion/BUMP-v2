@@ -52,8 +52,10 @@ extension UserProfileEditView {
         
         }
         
-        SDImageCache.shared.clearMemory()
-        SDImageCache.shared.clearDisk(onCompletion: nil)
+        
+        
+//        SDImageCache.shared.clearMemory()
+//        SDImageCache.shared.clearDisk(onCompletion: nil)
         //FIX: clear only userProfileImage not all
     }
     

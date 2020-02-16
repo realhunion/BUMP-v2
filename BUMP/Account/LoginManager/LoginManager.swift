@@ -35,11 +35,6 @@ class LoginManager {
             self.presentUserProfileEditView(userName: user.displayName, userHandle: user.email)
             return false
         }
-//        else if !UserDefaultsManager.shared.isPickCirclesShown() {
-//            UserDefaultsManager.shared.setPickCirclesShown(shown: true)
-//            self.presentPickCircles()
-//            return false
-//        }
         else if !UserDefaultsManager.shared.isIntroInfoShown() {
             UserDefaultsManager.shared.setIntroInfoShown(shown: true)
             self.presentIntroInfo()
@@ -119,33 +114,6 @@ class LoginManager {
         
     }
     
-    
-    func presentPickCircles() {
-        
-//        let vc = PickCirclesTVC(style: .grouped)
-        let vc = PickCirclesTVC()
-        vc.title = "My Circles: Tap to Join"
-        let nvc = UINavigationController(rootViewController: vc)
-        
-        nvc.modalPresentationStyle = .pageSheet
-        nvc.presentationController?.delegate = vc
-        if #available(iOS 13.0, *) {
-            nvc.isModalInPresentation = true
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        vc.onDismissAction = { [unowned self] in
-            self.isLoggedIn()
-        }
-        
-        DispatchQueue.main.async {
-            UIApplication.topViewController()?.dismiss(animated: false) {}
-            UIApplication.topViewController()?.present(nvc, animated: true) {}
-        }
-        
-        
-    }
     
     
     func presentIntroInfo() {

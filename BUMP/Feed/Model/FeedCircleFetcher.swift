@@ -23,7 +23,7 @@ class FeedCircleFetcher {
     
     var listener : ListenerRegistration?
     
-    var delegate : FeedCircleFetcherDelegate?
+    weak var delegate : FeedCircleFetcherDelegate?
     
     var feedChatFetcherArray : [FeedChatFetcher] = []
     

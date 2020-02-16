@@ -8,6 +8,67 @@
 
 import UIKit
 import SwiftEntryKit
+import FirebaseUI
+
+
+//For when someone changes image. cache it then reload if different.
+extension UIImageView {
+    
+    func setImage(with reference: StorageReference, placeholder: UIImage? = nil) {
+        sd_setImage(with: reference, placeholderImage: placeholder) { [weak self] image, _, _, _ in
+            reference.getMetadata { metadata, _ in
+                if let url = NSURL.sd_URL(with: reference)?.absoluteString,
+                    let cachePath = SDImageCache.shared.cachePath(forKey: url),
+                    let attributes = try? FileManager.default.attributesOfItem(atPath: cachePath),
+                    let cacheDate = attributes[.creationDate] as? Date,
+                    let serverDate = metadata?.timeCreated,
+                    serverDate > cacheDate {
+                    
+                    SDImageCache.shared.removeImage(forKey: url) {
+                        self?.sd_setImage(with: reference, placeholderImage: image, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+
+class SubtitleTableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        self.textLabel?.textColor = UIColor.black
+        self.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        self.detailTextLabel?.textColor = UIColor.black
+        self.imageView?.image = nil
+        
+        self.textLabel?.text = ""
+        self.detailTextLabel?.text = ""
+        
+        self.accessoryView = nil
+        self.accessoryType = .none
+    }
+}
+
+class AccessoryTableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
 
 class IndexTapGestureRecognizer: UITapGestureRecognizer {

@@ -95,11 +95,10 @@ class AnnouncementsManager {
     
     func presentBanAlert(msgTitle : String, msgBody : String) {
         
-        //FIX: do logout thing
-        
+        (UIApplication.shared.delegate as! AppDelegate).bump?.logOut()
         let alert = MyAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-            (UIApplication.shared.delegate as! AppDelegate).bump?.logOut()
+            //
         }))
         
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)

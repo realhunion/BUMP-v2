@@ -22,7 +22,7 @@ protocol FeedFetcherDelegate : class {
 
 class FeedFetcher {
     
-    var delegate : FeedFetcherDelegate?
+    weak var delegate : FeedFetcherDelegate?
     
     var db = Firestore.firestore()
     
@@ -42,6 +42,7 @@ class FeedFetcher {
         for fetcher in self.feedCircleFetcherArray {
             fetcher.shutDown()
         }
+        feedCircleFetcherArray.removeAll()
         
     }
     
@@ -92,6 +93,20 @@ class FeedFetcher {
         
         self.feedCircleFetcherArray.removeAll(where: {$0.circleID == circleID})
 
+        
+    }
+    
+    
+    //MARK: - Tool
+    
+    //So if 100 msgs sent between time off app, doesnt refresh tableView 100 times incrementally.
+    func refreshFeedChats() {
+        
+        for circFetcher in self.feedCircleFetcherArray {
+            for chatFetcher in circFetcher.feedChatFetcherArray {
+                chatFetcher.refreshMsgFetcher()
+            }
+        }
         
     }
 

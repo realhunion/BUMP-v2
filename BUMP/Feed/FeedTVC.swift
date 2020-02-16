@@ -39,7 +39,7 @@ class FeedTVC: UITableViewController {
         let label = UILabel()
         label.textColor = UIColor.systemGray
         label.numberOfLines = 2
-        label.text = "Chats last 24h."
+        label.text = "Chats last 24h.\nConnections last forever."
         label.textAlignment = .center
         return label
     }()
@@ -55,12 +55,15 @@ class FeedTVC: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
         //FIX: pretty expensive, yes. without, it overlaps cells.
+//        self.feedFetcher?.refreshFeedChats()
     }
     
     func shutDown() {
         self.feedFetcher?.shutDown()
+//        self.feedChatArray.removeAll()
+//        self.tableView.reloadData()
     }
     
 

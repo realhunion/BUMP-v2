@@ -34,7 +34,7 @@ class LaunchCircle {
     
     
     
-    func amFollowing() -> Bool {
+    func amMember() -> Bool {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return false }
         

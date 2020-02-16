@@ -1,15 +1,15 @@
 //
-//  LaunchTVC+Follow.swift
+//  CategoryTVC+Select.swift
 //  BUMP
 //
-//  Created by Hunain Ali on 1/10/20.
+//  Created by Hunain Ali on 2/12/20.
 //  Copyright © 2020 BUMP. All rights reserved.
 //
 
 import Foundation
 import Firebase
 
-extension LaunchTVC {
+extension CategoryTVC {
     
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
@@ -42,16 +42,17 @@ extension LaunchTVC {
         
         let circle = self.circleArray[indexPath.section][indexPath.row]
         
-        if !circle.amFollowing() {
+        if !circle.amMember() {
             CircleFollower.shared.followCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
         } else {
-            self.tableView(self.tableView, didSelectRowAt: indexPath)
+            CircleFollower.shared.unFollowCircle(circleID: circle.circleID)
+//            self.tableView(self.tableView, didSelectRowAt: indexPath)
         }
         //FIX: currently only does for not joined in. join em.
     }
     
     
-
+    
     
     
 }

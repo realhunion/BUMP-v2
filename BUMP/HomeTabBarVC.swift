@@ -62,7 +62,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         
         feedTVC.title = "My Chats"
         launchVC.title = "Start chat"
-        hubVC.title = "Bump"
+        hubVC.title = "Bump Grinnell"
         
         
         let feedNC = UINavigationController(rootViewController: feedTVC)
@@ -107,7 +107,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var currentIndex : Int = Tabs.launch.rawValue
+    var currentIndex : Int = Tabs.feed.rawValue
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         currentIndex = selectedIndex
     }

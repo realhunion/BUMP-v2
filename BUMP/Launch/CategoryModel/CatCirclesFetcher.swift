@@ -9,12 +9,12 @@
 import Foundation
 import Firebase
 
-protocol LaunchFetcherDelegate:class {
+protocol CatCirclesFetcherDelegate:class {
     func launchCircleUpdated(circleID : String, launchCircle : LaunchCircle)
     func launchCircleRemoved(circleID : String)
 }
 
-class LaunchFetcher {
+class CatCirclesFetcher {
     
     deinit {
         print("deinited launchFetcher")
@@ -22,20 +22,18 @@ class LaunchFetcher {
     
     var db = Firestore.firestore()
     
-    var campusListener : ListenerRegistration?
+    weak var delegate : CatCirclesFetcherDelegate?
     
-    weak var delegate : LaunchFetcherDelegate?
+    var launchCircleFetcherDict : [String : CategoryCircleFetcher] = [:]
     
-    var launchCircleFetcherDict : [String : LaunchCircleFetcher] = [:]
     
-    init() {
+    var categoryID : String
+    init(categoryID : String) {
+        self.categoryID = categoryID
     }
     
     func shutDown() {
         self.delegate = nil
-        if let listenr = campusListener {
-            listenr.remove()
-        }
         
         launchCircleFetcherDict.forEach({$0.value.shutDown()})
         launchCircleFetcherDict.removeAll()
@@ -44,9 +42,9 @@ class LaunchFetcher {
     
     //MARK:- MAIN
     
-    func monitorLaunchCircles() {
+    func monitorCategoryCircles() {
         
-        self.campusListener = db.collection("LaunchCircles").addSnapshotListener { (snap, err) in
+        db.collection("LaunchCircles").whereField("category", isEqualTo: self.categoryID).addSnapshotListener { (snap, err) in
             guard let docChanges = snap?.documentChanges else { return }
             
             docChanges.forEach { (diff) in
@@ -82,7 +80,7 @@ class LaunchFetcher {
     
     func monitorLaunchCircle(circleID : String, circleName : String, circleEmoji : String, circleDescription : String) {
         
-        let launchCircleFetcher = LaunchCircleFetcher(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, circleDescription: circleDescription)
+        let launchCircleFetcher = CategoryCircleFetcher(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, circleDescription: circleDescription)
         self.launchCircleFetcherDict[circleID] = launchCircleFetcher
         
         launchCircleFetcher.delegate = self
@@ -110,7 +108,7 @@ class LaunchFetcher {
 
 
 
-extension LaunchFetcher : LaunchCircleFetcherDelegate {
+extension CatCirclesFetcher : CategoryCircleFetcherDelegate {
     
     
     func launchCircleUpdated(circleID: String, launchCircle: LaunchCircle) {

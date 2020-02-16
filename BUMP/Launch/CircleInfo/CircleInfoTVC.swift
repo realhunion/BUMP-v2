@@ -116,7 +116,7 @@ class CircleInfoTVC: UITableViewController {
             if self.circleMemberArray.isEmpty {
                 return nil
             } else {
-                return self.sections[section].rawValue + " (\(self.circleMemberArray.count))"
+                return self.sections[section].rawValue
             }
         }
         else {

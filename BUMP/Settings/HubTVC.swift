@@ -23,9 +23,10 @@ class HubTVC: UITableViewController {
         
         [SettingsCell(title: Constant.missionStatement, image: nil, disclosureIndicator: false)],
         
-         [SettingsCell(title: "My Profile", image: nil, disclosureIndicator: true),
-          SettingsCell(title: "My Circles", image: nil, disclosureIndicator: true),
-         SettingsCell(title: "Silence Mode", image: nil, disclosureIndicator: true)],
+        [SettingsCell(title: "Silence Mode", image: nil, disclosureIndicator: true)],
+        
+         [SettingsCell(title: "My Profile", image: nil, disclosureIndicator: true)],
+         
         
         [SettingsCell(title: "What is Bump?", image: nil, disclosureIndicator: true),
          SettingsCell(title: "How To Use", image: nil, disclosureIndicator: true)],
@@ -67,16 +68,16 @@ class HubTVC: UITableViewController {
         if section == 0 {
             return "The Mission"
         }
-        else if section == 1 {
+        else if section == 2 {
             return "Account"
         }
-        else if section == 2 {
+        else if section == 3 {
             return "THIS THING"
         }
-        else if section == 3 {
+        else if section == 4 {
             return "info"
         }
-        else if section == 4 {
+        else if section == 5 {
             return "shall you choose"
         }
         else {
@@ -128,9 +129,6 @@ class HubTVC: UITableViewController {
             
         case "My Profile":
             self.presentMyProfile()
-            
-        case "My Circles":
-            self.presentMyCircles()
             
         case "Silence Mode":
             self.presentSilenceMenu()

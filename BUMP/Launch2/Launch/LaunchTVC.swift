@@ -10,31 +10,46 @@ import UIKit
 import QuickLayout
 import SwiftEntryKit
 
+
+struct CircleCategory {
+    var categoryName : String
+    var categoryID : String
+    var numCircles : Int
+}
+
+
 class LaunchTVC: UITableViewController {
     
     
-    var launchFetcher : LaunchFetcher?
+    var myCirclesFetcher : MyCirclesFetcher?
+    var categoriesFetcher : CategoriesFetcher?
     
-    var circleArray : [[LaunchCircle]] = [[],[]]
+    var myCircleArray : [LaunchCircle] = []
+    var categoryArray : [CircleCategory] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupBarButtons()
         self.setupLaunchFetcher()
+        self.setupCategoriesFetcher()
         
         self.setupRefreshControl()
         
         self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "launchCell")
+        self.tableView.register(AccessoryTableViewCell.classForCoder(), forCellReuseIdentifier: "categoryCell")
     }
     
     func shutDown() {
-        self.launchFetcher?.shutDown()
-        self.circleArray = [[], []]
+        self.categoriesFetcher?.shutDown()
+        self.myCirclesFetcher?.shutDown()
+        self.myCircleArray = []
+        self.categoryArray = []
 
         NotificationCenter.default.removeObserver(self)
         
         self.tableView.reloadData()
+        //FIX: move to Bump file
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -47,9 +62,6 @@ class LaunchTVC: UITableViewController {
     //MARK: - Setup
     
     func setupRefreshControl() {
-//        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh", attributes: [:])
-//        self.tableView.refreshControl = self.refreshControl
-//        let rControl = UIRefreshControl()
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action:  #selector(didRefreshControl), for: .valueChanged)
 
@@ -58,6 +70,26 @@ class LaunchTVC: UITableViewController {
     @objc func didRefreshControl() {
         
         self.refreshLaunchFetcher()
+    }
+    
+    func setupCategoriesFetcher() {
+        self.categoriesFetcher = CategoriesFetcher()
+        self.categoriesFetcher?.delegate = self
+        self.categoriesFetcher?.fetchCategories()
+    }
+    
+    func setupLaunchFetcher() {
+        
+        self.myCirclesFetcher = MyCirclesFetcher()
+        self.myCirclesFetcher?.delegate = self
+        self.myCirclesFetcher?.monitorMyCircles()
+    }
+    
+    func refreshLaunchFetcher() {
+        self.myCirclesFetcher?.shutDown()
+        self.categoriesFetcher?.shutDown()
+        self.setupLaunchFetcher()
+        self.setupCategoriesFetcher()
     }
     
     func setupBarButtons() {
@@ -87,62 +119,53 @@ class LaunchTVC: UITableViewController {
         
     }
     
-    func setupLaunchFetcher() {
-        
-        self.launchFetcher = LaunchFetcher()
-        self.launchFetcher?.delegate = self
-        self.launchFetcher?.monitorLaunchCircles()
-    }
-    
-    func refreshLaunchFetcher() {
-        self.launchFetcher?.shutDown()
-        self.setupLaunchFetcher()
-    }
-    
     
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return circleArray.count
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return circleArray[section].count
+        if section == 0 {
+            return self.myCircleArray.count
+        }
+        else if section == 1 {
+            return self.categoryArray.count
+        }
+        else {
+            return 0
+        }
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
-        cell.accessoryType = .detailButton
-        cell.selectionStyle = .none
+        let section = indexPath.section
+        let row = indexPath.row
         
-        let c = circleArray[indexPath.section][indexPath.row]
-        
-        cell.imageView?.image = self.imageWith(string: c.circleEmoji)
-        cell.textLabel?.text = c.circleName
-        
-        
-        var followString = "· Join"
-        if c.amFollowing() {
-            followString = ""
+        if section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
+            cell.textLabel?.text = self.categoryArray[row].categoryName
+//            cell.detailTextLabel?.text = "\(self.categoryArray[row].numCircles)"
+            
+            cell.accessoryType = .disclosureIndicator
+            
+            return cell
         }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
+            cell.accessoryType = .detailButton
+            cell.selectionStyle = .none
+            
+            let c = self.myCircleArray[row]
+            
+            cell.imageView?.image = self.imageWith(string: c.circleEmoji)
+            cell.textLabel?.text = c.circleName
+            cell.detailTextLabel?.text = "\(c.memberArray.count) members"
         
-        let subString = "\(c.memberArray.count) members \(followString)"
-        let fullRange = (subString as NSString).range(of: subString)
-        let followRange = (subString as NSString).range(of: followString)
-        let attributedString = NSMutableAttributedString(string: subString)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.darkGray, range: fullRange)
-        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: Constant.oBlue, range: followRange)
-
-        cell.detailTextLabel?.attributedText = attributedString
-        
-        let tapGesture = IndexTapGestureRecognizer(target: self, action: #selector(joinButtonTapped))
-        tapGesture.indexPath = indexPath
-        cell.detailTextLabel?.isUserInteractionEnabled = true
-        cell.detailTextLabel?.addGestureRecognizer(tapGesture)
-        
-        return cell
+            return cell
+        }
     }
     
 
@@ -168,17 +191,13 @@ class LaunchTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            if self.circleArray[0].isEmpty {
-                return nil
-            } else {
-                return "My Group Chats"
-            }
-        } else {
-            if self.circleArray[1].isEmpty {
-                return nil
-            } else {
-                return "All"
-            }
+            return "My Group Chats"
+        }
+        else if section == 1 {
+            return "All"
+        }
+        else {
+            return nil
         }
     }
     
@@ -186,26 +205,3 @@ class LaunchTVC: UITableViewController {
 }
 
 
-class SubtitleTableViewCell: UITableViewCell {
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func prepareForReuse() {
-        self.textLabel?.textColor = UIColor.black
-        self.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        self.detailTextLabel?.textColor = UIColor.black
-        self.imageView?.image = nil
-        
-        self.textLabel?.text = ""
-        self.detailTextLabel?.text = ""
-        
-        self.accessoryView = nil
-        self.accessoryType = .none
-    }
-}

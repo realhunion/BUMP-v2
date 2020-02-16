@@ -9,10 +9,10 @@
 import Foundation
 import Firebase
 
-struct CircleMember {
-    var userID : String
-    var isFollowing : Bool?
-}
+//struct CircleMember {
+//    var userID : String
+//    var isFollowing : Bool?
+//}
 
 protocol CircleMembersFetcherDelegate : class {
     func circleMembersFetched(profileArray : [UserProfile])
@@ -22,7 +22,7 @@ class CircleMembersFetcher {
     
     var db = Firestore.firestore()
     
-    var delegate : CircleMembersFetcherDelegate?
+    weak var delegate : CircleMembersFetcherDelegate?
     
     var fetchedMembersDict : [String:Bool] = [:] //userID : fetched or not
     var memberProfileArray : [UserProfile] = []

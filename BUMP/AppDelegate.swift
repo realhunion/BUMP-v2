@@ -49,6 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
     
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        self.bump?.appWillEnterForeground()
+    }
+    
     
     
     

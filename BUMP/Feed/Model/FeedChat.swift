@@ -22,16 +22,16 @@ class FeedChat {
     var circleName : String
     var circleEmoji : String
     
-    var userArray : [FeedUser]
+    var myUser : FeedUser
     var messageArray : [Message]
     
-    init(chatID : String, circleID : String, circleName : String, circleEmoji : String, userArray : [FeedUser], messageArray : [Message]) {
+    init(chatID : String, circleID : String, circleName : String, circleEmoji : String, myUser : FeedUser, messageArray : [Message]) {
         
         self.chatID = chatID
         self.circleID = circleID
         self.circleName = circleName
         self.circleEmoji = circleEmoji
-        self.userArray = userArray
+        self.myUser = myUser
         self.messageArray = messageArray
         
     }
@@ -91,23 +91,10 @@ class FeedChat {
     
     // MARK: - MY STUFF
     
-    func getMyUser() -> FeedUser? {
-        
-        guard let myUID = Auth.auth().currentUser?.uid else { return nil }
-        
-        if let myUser = self.userArray.first(where: {$0.userID == myUID}) {
-            return myUser
-        } else {
-            return nil
-        }
-        
-    }
-    
     func getMyUserUnreadMsgs() -> Int {
         
         let allMsgCount = self.messageArray.count - 1
         
-        guard let myUser = self.getMyUser() else { return allMsgCount }
         guard let myLastSeen = myUser.lastSeen else { return allMsgCount }
         
         
@@ -120,8 +107,6 @@ class FeedChat {
 
     
     func isMyUserFollowing() -> Bool {
-        
-        guard let myUser = self.getMyUser() else { return false }
         
         guard let isFollowing = myUser.isFollowing else { return false }
         

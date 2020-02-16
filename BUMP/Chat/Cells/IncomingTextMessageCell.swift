@@ -65,7 +65,7 @@ class IncomingTextMessageCell: BaseMessageCell {
             let imageRef = Storage.storage().reference(withPath: "User-Profile-Images/\(message.userID).jpg")
             
             let placeHolder = UIImage(color: MsgCellConfig.inBubbleColor)
-            self.imageView.sd_setImage(with: imageRef, placeholderImage: placeHolder)
+            self.imageView.setImage(with: imageRef, placeholder: placeHolder)
             
             let tap = StringTapGestureRecognizer(target: self, action: #selector(self.userImageTapped))
             tap.stringTag = message.userID

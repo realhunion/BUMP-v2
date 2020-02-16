@@ -25,12 +25,12 @@ class UserDefaultsManager {
     func clearAllData() {
         
         let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: "intro1Shown")
-        defaults.removeObject(forKey: "intro2Shown")
-        defaults.removeObject(forKey: "intro3Shown")
+//        defaults.removeObject(forKey: "intro1Shown")
+//        defaults.removeObject(forKey: "intro2Shown")
         defaults.removeObject(forKey: "myFavLaunchCircles")
         
-        defaults.removeObject(forKey: "lastLaunchTimes")
+//        defaults.removeObject(forKey: "lastLaunchTimes")
+        //FIX: decide what is what
     }
     
     
@@ -48,31 +48,18 @@ class UserDefaultsManager {
     }
     
     
+    
     //MARK: - INTRO 2
     
-    func setPickCirclesShown(shown : Bool) {
+    func setIntroInfoShown(shown : Bool) {
         let defaults = UserDefaults.standard
         defaults.set(shown, forKey: "intro2Shown")
         
     }
     
-    func isPickCirclesShown() -> Bool {
-        let defaults = UserDefaults.standard
-        return defaults.bool(forKey: "intro2Shown")
-    }
-    
-    
-    //MARK: - INTRO 3
-    
-    func setIntroInfoShown(shown : Bool) {
-        let defaults = UserDefaults.standard
-        defaults.set(shown, forKey: "intro3Shown")
-        
-    }
-    
     func isIntroInfoShown() -> Bool {
         let defaults = UserDefaults.standard
-        return defaults.bool(forKey: "intro3Shown")
+        return defaults.bool(forKey: "intro2Shown")
     }
     
     

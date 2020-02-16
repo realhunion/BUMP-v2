@@ -124,6 +124,21 @@ class CircleManager {
         
     }
     
+    func presentCategoryCircles(categoryID : String, categoryName : String) {
+        
+        let vc = CategoryTVC(style: .grouped)
+        vc.categoryID = categoryID
+        vc.title = categoryName
+        
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.dismiss(animated: true)
+            
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+        }
+            
+        
+    }
+    
     
     
     

@@ -19,7 +19,7 @@ class MyChatFollowFetcher {
     
     var followListener : ListenerRegistration?
     
-    var delegate : MyChatFollowFetcherDelegate?
+    weak var delegate : MyChatFollowFetcherDelegate?
     
     //
     

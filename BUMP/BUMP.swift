@@ -17,6 +17,9 @@ class BUMP {
     var homeTabBarVC : HomeTabBarVC
     init() {
         self.homeTabBarVC = HomeTabBarVC()
+        
+        let v = AllCirclesFetcher()
+        v.fetchAllCircles()
     }
     
     
@@ -32,9 +35,13 @@ class BUMP {
     
         homeTabBarVC.launchVC.shutDown()
         homeTabBarVC.launchVC.setupLaunchFetcher()
+        homeTabBarVC.launchVC.setupCategoriesFetcher()
         
         homeTabBarVC.feedTVC.shutDown()
         homeTabBarVC.feedTVC.setupFeedFetcher()
+        
+        AnnouncementsManager.shared.shutDown()
+        AnnouncementsManager.shared.startMonitors()
         
         
         homeTabBarVC.selectedIndex = 1
@@ -102,8 +109,22 @@ class BUMP {
     
     func appDidEnterForeground() {
         UpdateManager.shared.checkForUpdates()
-        AnnouncementsManager.shared.startMonitors()
+        
+//        AnnouncementsManager.shared.shutDown()
+//        AnnouncementsManager.shared.startMonitors()
+        //FIX: when to start this
+//        AnnouncementsManager.shared.fetchAllAnnouncements()
+//        AnnouncementsManager.shared.startMonitors()
 //        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
+        
+        
+    }
+    
+    func appWillEnterForeground() {
+//        self.homeTabBarVC.feedTVC.feedFetcher?.refreshFeedChats()
+        
+//        let v = AllCirclesFetcher()
+//        v.fetchAllCircles()
     }
     
     
