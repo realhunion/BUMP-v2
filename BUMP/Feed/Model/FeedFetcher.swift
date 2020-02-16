@@ -53,6 +53,8 @@ class FeedFetcher {
         self.listener = db.collection("User-Profile").document(myUID).collection("Following").addSnapshotListener { (snap, err) in
             guard let docChanges = snap?.documentChanges else { return }
             
+            print("joker 1.1")
+            
             for diff in docChanges {
                 
                 if diff.type == .added {

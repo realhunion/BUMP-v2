@@ -20,76 +20,66 @@ struct CircleCategory {
 
 class LaunchTVC: UITableViewController {
     
+    let myFavLaunchCircles = UserDefaultsManager.shared.getMyFavLaunchCircles()
     
-    var myCirclesFetcher : MyCirclesFetcher?
-    var categoriesFetcher : CategoriesFetcher?
+    var allCirclesFetcher : AllCirclesFetcher?
     
-    var myCircleArray : [LaunchCircle] = []
-    var categoryArray : [CircleCategory] = []
+    var circleArray : [LaunchCircle] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupBarButtons()
-        self.setupLaunchFetcher()
-        self.setupCategoriesFetcher()
-        
+        self.setupSpinner()
         self.setupRefreshControl()
+        self.setupBarButtons()
+        
+        self.setupLaunchFetcher()
         
         self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "launchCell")
         self.tableView.register(AccessoryTableViewCell.classForCoder(), forCellReuseIdentifier: "categoryCell")
+        
+//        self.refreshControl?.beginRefreshingManually()
     }
     
     func shutDown() {
-        self.categoriesFetcher?.shutDown()
-        self.myCirclesFetcher?.shutDown()
-        self.myCircleArray = []
-        self.categoryArray = []
+        self.allCirclesFetcher?.shutDown()
 
         NotificationCenter.default.removeObserver(self)
-        
-        self.tableView.reloadData()
-        //FIX: move to Bump file
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        self.refreshLaunchFetcher()
     }
     
     
     
     //MARK: - Setup
     
+    func setupSpinner() {
+        
+        let spinner = UIActivityIndicatorView(style: .gray)
+        self.tableView.backgroundView = spinner
+        spinner.startAnimating()
+    }
+    
     func setupRefreshControl() {
+        
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action:  #selector(didRefreshControl), for: .valueChanged)
 
     }
     
     @objc func didRefreshControl() {
-        
         self.refreshLaunchFetcher()
-    }
-    
-    func setupCategoriesFetcher() {
-        self.categoriesFetcher = CategoriesFetcher()
-        self.categoriesFetcher?.delegate = self
-        self.categoriesFetcher?.fetchCategories()
     }
     
     func setupLaunchFetcher() {
         
-        self.myCirclesFetcher = MyCirclesFetcher()
-        self.myCirclesFetcher?.delegate = self
-        self.myCirclesFetcher?.monitorMyCircles()
+        self.allCirclesFetcher = AllCirclesFetcher()
+        self.allCirclesFetcher?.delegate = self
+        self.allCirclesFetcher?.fetchAllCircles()
     }
     
     func refreshLaunchFetcher() {
-        self.myCirclesFetcher?.shutDown()
-        self.categoriesFetcher?.shutDown()
+        
+        self.allCirclesFetcher?.shutDown()
         self.setupLaunchFetcher()
-        self.setupCategoriesFetcher()
     }
     
     func setupBarButtons() {
@@ -129,10 +119,10 @@ class LaunchTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return self.myCircleArray.count
+            return self.getMyCircles().count
         }
         else if section == 1 {
-            return self.categoryArray.count
+            return self.getCategoryArray().count
         }
         else {
             return 0
@@ -144,10 +134,24 @@ class LaunchTVC: UITableViewController {
         let section = indexPath.section
         let row = indexPath.row
         
-        if section == 1 {
+        if section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
+            cell.accessoryType = .detailButton
+            cell.selectionStyle = .none
+            
+            let c = self.getMyCircles()[row]
+            
+            cell.imageView?.image = self.imageWith(string: c.circleEmoji)
+            cell.textLabel?.text = c.circleName
+            cell.detailTextLabel?.text = "\(c.memberArray.count) members"
+            
+            return cell
+        }
+        else if section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
-            cell.textLabel?.text = self.categoryArray[row].categoryName
-//            cell.detailTextLabel?.text = "\(self.categoryArray[row].numCircles)"
+            let category = self.getCategoryArray()[row]
+            cell.textLabel?.text = category
+            cell.detailTextLabel?.text = "\(self.getCategoryCircleArray(category: category).count)"
             
             cell.accessoryType = .disclosureIndicator
             
@@ -155,14 +159,6 @@ class LaunchTVC: UITableViewController {
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
-            cell.accessoryType = .detailButton
-            cell.selectionStyle = .none
-            
-            let c = self.myCircleArray[row]
-            
-            cell.imageView?.image = self.imageWith(string: c.circleEmoji)
-            cell.textLabel?.text = c.circleName
-            cell.detailTextLabel?.text = "\(c.memberArray.count) members"
         
             return cell
         }
@@ -201,7 +197,19 @@ class LaunchTVC: UITableViewController {
         }
     }
     
+    
+    
+    var selectedVC : CategoryTVC? = nil
 
 }
 
 
+
+extension UIRefreshControl {
+    func beginRefreshingManually() {
+        if let scrollView = superview as? UIScrollView {
+            scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y - frame.height), animated: false)
+        }
+        beginRefreshing()
+    }
+}

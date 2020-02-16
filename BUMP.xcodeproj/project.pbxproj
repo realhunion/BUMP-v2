@@ -23,7 +23,6 @@
 		7B3E23AD2373909E008DB53F /* UserProfileView+Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3E23AC2373909E008DB53F /* UserProfileView+Button.swift */; };
 		7B3E23B0237390F7008DB53F /* UserReporterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3E23AF237390F7008DB53F /* UserReporterView.swift */; };
 		7B3E23B223739243008DB53F /* UserReporterView+Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3E23B123739243008DB53F /* UserReporterView+Button.swift */; };
-		7B40076123624A46009A9702 /* CatCirclesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B40076023624A46009A9702 /* CatCirclesFetcher.swift */; };
 		7B41FE832398C51C00630D6F /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B41FE822398C51C00630D6F /* FeedCell.swift */; };
 		7B41FE852398C74E00630D6F /* FeedTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B41FE842398C74E00630D6F /* FeedTVC.swift */; };
 		7B485C1F23EF5A0F00E756CC /* TermsInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B485C1E23EF5A0F00E756CC /* TermsInfoVC.swift */; };
@@ -50,14 +49,9 @@
 		7B7ACA72235D2E1000D3E901 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7ACA70235D2E1000D3E901 /* LaunchScreen.storyboard */; };
 		7B7FA84823BBD899000507D2 /* LaunchMsgSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7FA84723BBD899000507D2 /* LaunchMsgSender.swift */; };
 		7B8D388F23610CBE00A3FCA3 /* MsgCellConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D388E23610CBE00A3FCA3 /* MsgCellConfig.swift */; };
-		7B8D3891236148DC00A3FCA3 /* CatCircleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D3890236148DB00A3FCA3 /* CatCircleFetcher.swift */; };
 		7B8ED69C23F49EA800E12913 /* CategoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED69B23F49EA800E12913 /* CategoryTVC.swift */; };
 		7B8ED69E23F4ADC200E12913 /* CategoryTVC+Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED69D23F4ADC200E12913 /* CategoryTVC+Fetcher.swift */; };
 		7B8ED6A023F4ADE700E12913 /* CategoryTVC+Select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED69F23F4ADE700E12913 /* CategoryTVC+Select.swift */; };
-		7B8ED6A223F4AE1E00E12913 /* CategoryTVC+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED6A123F4AE1E00E12913 /* CategoryTVC+Sort.swift */; };
-		7B8ED6A423F4B36E00E12913 /* MyCirclesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED6A323F4B36E00E12913 /* MyCirclesFetcher.swift */; };
-		7B8ED6A623F4B56300E12913 /* CircleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED6A523F4B56300E12913 /* CircleFetcher.swift */; };
-		7B8ED6A823F4BB8400E12913 /* CategoriesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED6A723F4BB8400E12913 /* CategoriesFetcher.swift */; };
 		7B987EA423A80A980040D578 /* LaunchChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B987EA323A80A980040D578 /* LaunchChatVC.swift */; };
 		7B9D467B23C55BB5003C95EA /* ChatVC+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D467A23C55BB5003C95EA /* ChatVC+Follow.swift */; };
 		7B9D467D23C55C0B003C95EA /* MyChatFollowFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D467C23C55C0B003C95EA /* MyChatFollowFetcher.swift */; };
@@ -117,7 +111,6 @@
 		7B3E23AC2373909E008DB53F /* UserProfileView+Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfileView+Button.swift"; sourceTree = "<group>"; };
 		7B3E23AF237390F7008DB53F /* UserReporterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReporterView.swift; sourceTree = "<group>"; };
 		7B3E23B123739243008DB53F /* UserReporterView+Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserReporterView+Button.swift"; sourceTree = "<group>"; };
-		7B40076023624A46009A9702 /* CatCirclesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatCirclesFetcher.swift; sourceTree = "<group>"; };
 		7B41FE822398C51C00630D6F /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		7B41FE842398C74E00630D6F /* FeedTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTVC.swift; sourceTree = "<group>"; };
 		7B485C1E23EF5A0F00E756CC /* TermsInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsInfoVC.swift; sourceTree = "<group>"; };
@@ -146,14 +139,9 @@
 		7B7ACA71235D2E1000D3E901 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B7FA84723BBD899000507D2 /* LaunchMsgSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchMsgSender.swift; sourceTree = "<group>"; };
 		7B8D388E23610CBE00A3FCA3 /* MsgCellConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgCellConfig.swift; sourceTree = "<group>"; };
-		7B8D3890236148DB00A3FCA3 /* CatCircleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatCircleFetcher.swift; sourceTree = "<group>"; };
 		7B8ED69B23F49EA800E12913 /* CategoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTVC.swift; sourceTree = "<group>"; };
 		7B8ED69D23F4ADC200E12913 /* CategoryTVC+Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryTVC+Fetcher.swift"; sourceTree = "<group>"; };
 		7B8ED69F23F4ADE700E12913 /* CategoryTVC+Select.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryTVC+Select.swift"; sourceTree = "<group>"; };
-		7B8ED6A123F4AE1E00E12913 /* CategoryTVC+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryTVC+Sort.swift"; sourceTree = "<group>"; };
-		7B8ED6A323F4B36E00E12913 /* MyCirclesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCirclesFetcher.swift; sourceTree = "<group>"; };
-		7B8ED6A523F4B56300E12913 /* CircleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleFetcher.swift; sourceTree = "<group>"; };
-		7B8ED6A723F4BB8400E12913 /* CategoriesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesFetcher.swift; sourceTree = "<group>"; };
 		7B987EA323A80A980040D578 /* LaunchChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchChatVC.swift; sourceTree = "<group>"; };
 		7B9D467A23C55BB5003C95EA /* ChatVC+Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+Follow.swift"; sourceTree = "<group>"; };
 		7B9D467C23C55C0B003C95EA /* MyChatFollowFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChatFollowFetcher.swift; sourceTree = "<group>"; };
@@ -247,13 +235,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		7B23F6EB23F8C27300C5118F /* Launch2 */ = {
+		7B23F6EE23F8F4D300C5118F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7BAC1B7223BAF808001B57D9 /* LaunchCircle.swift */,
 				7B23F6EC23F8C2CA00C5118F /* AllCirclesFetcher.swift */,
-				7B55C97123F7ABCA009AFFBB /* Launch */,
 			);
-			path = Launch2;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		7B27C2BC23CFD0EB00045415 /* CircleInfo */ = {
@@ -317,16 +305,6 @@
 			path = Launch;
 			sourceTree = "<group>";
 		};
-		7B55C97223F7AC2C009AFFBB /* LaunchModel */ = {
-			isa = PBXGroup;
-			children = (
-				7B8ED6A323F4B36E00E12913 /* MyCirclesFetcher.swift */,
-				7B8ED6A523F4B56300E12913 /* CircleFetcher.swift */,
-				7BAC1B7223BAF808001B57D9 /* LaunchCircle.swift */,
-			);
-			path = LaunchModel;
-			sourceTree = "<group>";
-		};
 		7B581AD12379079900196797 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,7 +355,6 @@
 				7B0D653523777D7700489C37 /* Account */,
 				7B41FE7F2398C31900630D6F /* Feed */,
 				7BC7C2C8235FC68E009D77BF /* Launch */,
-				7B23F6EB23F8C27300C5118F /* Launch2 */,
 				7BC7C2CB235FC94B009D77BF /* Chat */,
 				7B3E23AE237390EA008DB53F /* UserReporterView */,
 				7B2E9810237BB43D00D5AD67 /* SendSuggestionView */,
@@ -403,22 +380,12 @@
 			path = LoginManager;
 			sourceTree = "<group>";
 		};
-		7B8D389223614A8500A3FCA3 /* CategoryModel */ = {
-			isa = PBXGroup;
-			children = (
-				7B40076023624A46009A9702 /* CatCirclesFetcher.swift */,
-				7B8D3890236148DB00A3FCA3 /* CatCircleFetcher.swift */,
-			);
-			path = CategoryModel;
-			sourceTree = "<group>";
-		};
 		7B8ED69A23F49DE500E12913 /* Category */ = {
 			isa = PBXGroup;
 			children = (
 				7B8ED69B23F49EA800E12913 /* CategoryTVC.swift */,
 				7B8ED69D23F4ADC200E12913 /* CategoryTVC+Fetcher.swift */,
 				7B8ED69F23F4ADE700E12913 /* CategoryTVC+Select.swift */,
-				7B8ED6A123F4AE1E00E12913 /* CategoryTVC+Sort.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -437,9 +404,8 @@
 		7BC7C2C8235FC68E009D77BF /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				7B8ED6A723F4BB8400E12913 /* CategoriesFetcher.swift */,
-				7B55C97223F7AC2C009AFFBB /* LaunchModel */,
-				7B8D389223614A8500A3FCA3 /* CategoryModel */,
+				7B23F6EE23F8F4D300C5118F /* Model */,
+				7B55C97123F7ABCA009AFFBB /* Launch */,
 				7B8ED69A23F49DE500E12913 /* Category */,
 				7B27C2BC23CFD0EB00045415 /* CircleInfo */,
 			);
@@ -644,7 +610,6 @@
 				7B03507123D77DDF0094AF3D /* UserDefaultsManager.swift in Sources */,
 				7B2E9812237BB68D00D5AD67 /* SendSuggestionView.swift in Sources */,
 				7BAC1B7323BAF808001B57D9 /* LaunchCircle.swift in Sources */,
-				7B8ED6A223F4AE1E00E12913 /* CategoryTVC+Sort.swift in Sources */,
 				7BB9377323DCD8CD00741F3F /* ChatVC+Hey.swift in Sources */,
 				7BF983A123DF817600884F96 /* MyAlertManager.swift in Sources */,
 				7B3E23AB2373902C008DB53F /* UserProfileView+Fetcher.swift in Sources */,
@@ -664,15 +629,12 @@
 				7BA1F58923C8FCAF0053E799 /* LaunchTVC+Fetcher.swift in Sources */,
 				7B5EFE4823C94A2C000D6B89 /* CircleFollower.swift in Sources */,
 				7B77BF2E2376455600AD59B1 /* LoginView.swift in Sources */,
-				7B8ED6A823F4BB8400E12913 /* CategoriesFetcher.swift in Sources */,
 				7B3E23B0237390F7008DB53F /* UserReporterView.swift in Sources */,
 				7BC7C2ED235FC94B009D77BF /* OutgoingTextMessageCell.swift in Sources */,
 				7B8ED69E23F4ADC200E12913 /* CategoryTVC+Fetcher.swift in Sources */,
 				7BCD74E623EA22EF00E55E48 /* HubTVC+Present.swift in Sources */,
-				7B8D3891236148DC00A3FCA3 /* CatCircleFetcher.swift in Sources */,
 				7B41FE852398C74E00630D6F /* FeedTVC.swift in Sources */,
 				7B03507523D7D7870094AF3D /* IntroInfoVC.swift in Sources */,
-				7B8ED6A623F4B56300E12913 /* CircleFetcher.swift in Sources */,
 				7B0D65372377860500489C37 /* LoginView+Button.swift in Sources */,
 				7B4E1F7123F2276D003CDA41 /* CreditsInfoVC.swift in Sources */,
 				7BC7C2EE235FC94B009D77BF /* IncomingTextMessageCell.swift in Sources */,
@@ -691,11 +653,9 @@
 				7B77BF23237642B500AD59B1 /* NotificationManager.swift in Sources */,
 				7BEA973223B9B4360083C8B7 /* SwipeRightToPopCVC.swift in Sources */,
 				7B7ACA66235D2E0E00D3E901 /* AppDelegate.swift in Sources */,
-				7B40076123624A46009A9702 /* CatCirclesFetcher.swift in Sources */,
 				7BC7C2F4235FC94B009D77BF /* ChatVC+InputBar.swift in Sources */,
 				7BB807B52376CA8100EDBAFD /* UserProfileEditView+TextFields.swift in Sources */,
 				7B5EFE4623C94810000D6B89 /* LaunchTVC+Select.swift in Sources */,
-				7B8ED6A423F4B36E00E12913 /* MyCirclesFetcher.swift in Sources */,
 				7BC7C2FE235FC94B009D77BF /* MessageFetcher.swift in Sources */,
 				7BCD74EA23EA293B00E55E48 /* InfoTextView.swift in Sources */,
 				7B9D467D23C55C0B003C95EA /* MyChatFollowFetcher.swift in Sources */,

@@ -59,7 +59,8 @@ class UpdateManager {
         alert.addAction(okAction)
         
         SwiftEntryKit.dismiss(.all)
-        MyAlertManager.shared.addToQueue(alert: alert)
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+//        MyAlertManager.shared.addToQueue(alert: alert)
         
         
     }

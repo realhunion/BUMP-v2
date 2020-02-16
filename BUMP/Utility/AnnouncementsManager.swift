@@ -145,8 +145,8 @@ class AnnouncementsManager {
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                     self.db.collection("AnnouncementsToAll").document(announcementID).collection("Users").document(myUID).setData(["seen":true], merge: true)
                     }))
-//                UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
-                MyAlertManager.shared.addToQueue(alert: alert)
+                UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+//                MyAlertManager.shared.addToQueue(alert: alert)
               
             }
         }

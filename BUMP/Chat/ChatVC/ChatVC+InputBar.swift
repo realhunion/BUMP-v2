@@ -16,7 +16,6 @@ extension ChatVC {
     
     @objc func handleSend() {
         
-        
         guard let text = inputBarView.inputTextView.text else { return }
         
         inputBarView.prepareForSend()

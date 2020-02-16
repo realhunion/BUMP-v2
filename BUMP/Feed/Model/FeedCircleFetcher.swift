@@ -48,17 +48,12 @@ class FeedCircleFetcher {
     
     func startMonitor() {
         
-        self.listener = db.collection("Feed").whereField("circleID", isEqualTo: self.circleID).addSnapshotListener({ (snap, err) in
-            guard var docChanges = snap?.documentChanges else { return }
-
-//            docChanges.sort { (d1, d2) -> Bool in
-//                if let tl1 = d1.document.data()["timeLaunched"] as? Timestamp, let tl2 = d2.document.data()["timeLaunched"] as? Timestamp {
-//                    return tl1.compare(tl2) == .orderedDescending
-//
-//                } else {
-//                    return true
-//                }
-//            }
+        DispatchQueue.main.async {
+        
+            self.listener = self.db.collection("Feed").whereField("circleID", isEqualTo: self.circleID).addSnapshotListener({ (snap, err) in
+            guard let docChanges = snap?.documentChanges else { return }
+            
+            print("joker 1.15")
             
             for diff in docChanges {
                 
@@ -77,7 +72,7 @@ class FeedCircleFetcher {
             }
         })
         
-    }
+        }}
     
     
     

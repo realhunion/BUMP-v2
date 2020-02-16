@@ -12,26 +12,14 @@ import QuickLayout
 
 class LaunchChatVC : ChatVC {
     
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setCircleUnLaunched()
     }
     
     
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.inputBarView.inputTextView.becomeFirstResponder()
-    }
     
     override func updateFeedMsgsRead() {
         guard let msgSndr = self.msgSender as? LaunchMessageSender else { return }
@@ -45,12 +33,6 @@ class LaunchChatVC : ChatVC {
     
     override func setupMessageSender() {
         self.msgSender = LaunchMessageSender(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji)
-    }
-    
-    override func setupCollectionView() {
-        super.setupCollectionView()
-        self.collectionView.isScrollEnabled = false
-        
     }
     
     
@@ -90,10 +72,6 @@ class LaunchChatVC : ChatVC {
     
     
     //MARK: - LAUNCH FLOW
-    
-    func setCircleUnLaunched() {
-        self.followChatButton.isHidden = true
-    }
     
     func setCircleLaunched() {
         ChatFollower.shared.followChat(chatID: self.chatID)

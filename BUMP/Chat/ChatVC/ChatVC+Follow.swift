@@ -18,6 +18,7 @@ extension ChatVC : MyChatFollowFetcherDelegate {
     
     func chatFollowUpdated(isFollowing: Bool) {
         
+        self.followChatButton.isHidden = false
         self.followChatButton.isSelected = isFollowing
         
         

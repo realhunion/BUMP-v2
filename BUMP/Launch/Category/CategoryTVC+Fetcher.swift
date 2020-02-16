@@ -8,59 +8,43 @@
 
 import Foundation
 
-extension CategoryTVC : CatCirclesFetcherDelegate {
+extension CategoryTVC : AllCirclesFetcherDelegate {
     
     
-    
-    //MARK: - Delegate Methods
-    
-    func launchCircleUpdated(circleID: String, launchCircle: LaunchCircle) {
+    //MARK: - Delegate
+
+    func allCirclesFetched(launchCircleArray: [LaunchCircle]) {
         
-        self.deleteLaunchCircle(circleID: circleID)
-        self.insertLaunchCircle(launchCircle: launchCircle)
         
-        DispatchQueue.main.async {
-            self.refreshControl?.endRefreshing()
-            self.tableView.reloadData()
-        }
+        self.circleArray = launchCircleArray.filter({$0.category == self.category})
+        tableView.reloadData()
     }
-    
-    func launchCircleRemoved(circleID: String) {
-        
-        self.deleteLaunchCircle(circleID: circleID)
-        
-        DispatchQueue.main.async {
-            self.refreshControl?.endRefreshing()
-            self.tableView.reloadData()
-        }
-        
-    }
-    
     
     
     
     //MARK: - Internal Insertion Methods
     
-    func insertLaunchCircle(launchCircle : LaunchCircle) {
-        var section = 0
-        if !launchCircle.amMember() {
-            section = 1
-        }
-        
-        self.circleArray[section].append(launchCircle)
-        
-        self.sortCircleArray()
+    func getMyCircles() -> [LaunchCircle] {
+        var array = self.circleArray.filter({$0.amMember()})
+        array = self.sortArray(array: array)
+        return array
     }
     
-    func deleteLaunchCircle(circleID : String) {
-        
-        for section in 0..<self.circleArray.count {
-            self.circleArray[section].removeAll(where: {$0.circleID == circleID})
-            
-        }
+    func getRestCircles() -> [LaunchCircle] {
+        var array = self.circleArray.filter({!$0.amMember()})
+        array = self.sortArray(array: array)
+        return array
     }
     
     
+    //mARK: - Sorting
+    
+    func sortArray(array : [LaunchCircle]) -> [LaunchCircle] {
+        let ary = array.sorted { (c1, c2) -> Bool in
+            return c1.circleName < c2.circleName
+        }
+        return ary
+    }
     
     
 }

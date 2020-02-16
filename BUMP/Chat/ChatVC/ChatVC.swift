@@ -49,13 +49,15 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
         button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .semibold)
         button.setTitleColor(Constant.oBlue, for: .normal)
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
-        button.setTitle("Follow chat", for: .normal)
-        button.setTitle("F✓", for: .selected)
+        button.setTitle("Enable Notifs", for: .normal)
+        button.setTitle("N✓", for: .selected)
 //        button.isHidden = true
         
         button.titleLabel?.numberOfLines = 1
         
         button.addTarget(self, action: #selector(followChatButtonTapped), for: .touchDown)
+        
+        button.isHidden = true
         
         return button
     }()
@@ -95,7 +97,10 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
         
         self.updateFeedMsgsRead()
         
-        self.inputBarView.inputTextView.becomeFirstResponder()
+        DispatchQueue.main.async {
+            self.inputBarView.inputTextView.becomeFirstResponder()
+        }
+//        self.inputBarView.inputTextView.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -49,9 +49,9 @@ class UnreadFeedCell : FeedCell {
         
         
         cardContentView.addSubview(circleTitleLabel)
-        circleTitleLabel.layout(.top, to: .bottom, of: followButton, offset: 2)
-        circleTitleLabel.layout(.top, to: .bottom, of: timeLabel, offset: 2)
-        circleTitleLabel.layout(.top, to: .bottom, of: newMessagesLabel, offset: 2)
+        circleTitleLabel.layout(.top, to: .bottom, of: followButton, offset: 3)
+        circleTitleLabel.layout(.top, to: .bottom, of: timeLabel, offset: 3)
+        circleTitleLabel.layout(.top, to: .bottom, of: newMessagesLabel, offset: 3)
         circleTitleLabel.layoutToSuperview(.left, offset: 0)
         circleTitleLabel.layoutToSuperview(.right, offset: 0)
         

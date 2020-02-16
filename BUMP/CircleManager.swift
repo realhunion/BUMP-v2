@@ -103,39 +103,12 @@ class CircleManager {
         
         chatVC.title = circleName
         
-        let transitionDelegate = SPStorkTransitioningDelegate()
-        transitionDelegate.showIndicator = false
-        transitionDelegate.translateForDismiss = 100
-        
-//        chatVC.transitioningDelegate = transitionDelegate
-//        chatVC.modalPresentationStyle = .custom
-//        chatVC.modalPresentationCapturesStatusBarAppearance = true
-        
         DispatchQueue.main.async {
             UIApplication.topViewController()?.dismiss(animated: true)
             
             chatVC.hidesBottomBarWhenPushed = true
-            //(UIApplication.shared.delegate as! AppDelegate).bump?.homeTabBarVC.selectedIndex = 0
             UIApplication.topViewController()?.navigationController?.pushViewController(chatVC, animated: true)
-            
-            //            UIApplication.topViewController()?.present(chatVC, animated: true) { }
-            
         }
-        
-    }
-    
-    func presentCategoryCircles(categoryID : String, categoryName : String) {
-        
-        let vc = CategoryTVC(style: .grouped)
-        vc.categoryID = categoryID
-        vc.title = categoryName
-        
-        DispatchQueue.main.async {
-            UIApplication.topViewController()?.dismiss(animated: true)
-            
-            UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
-        }
-            
         
     }
     

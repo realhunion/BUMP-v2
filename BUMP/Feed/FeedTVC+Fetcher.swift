@@ -12,6 +12,7 @@ extension FeedTVC : FeedFetcherDelegate {
     
     
     func setupFeedFetcher() {
+        print("joker 1")
         self.feedFetcher = FeedFetcher()
         self.feedFetcher?.startMonitor()
         self.feedFetcher?.delegate = self
@@ -19,7 +20,9 @@ extension FeedTVC : FeedFetcherDelegate {
     
     func feedChatUpdated(feedChat: FeedChat) {
         
-        self.backgroundLabel.isHidden = true
+        print("joker 2")
+        
+        self.tableView.backgroundView = nil
         
         self.tableView.performBatchUpdates({
             

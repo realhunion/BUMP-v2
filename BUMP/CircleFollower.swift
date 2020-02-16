@@ -54,7 +54,7 @@ class CircleFollower {
         
         
         batch.commit() { err in
-            //
+            
         }
         
     }

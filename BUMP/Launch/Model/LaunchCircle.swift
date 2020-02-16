@@ -12,7 +12,6 @@ import FirebaseAuth
 
 struct LaunchMember {
     var userID : String
-//    var userName : String
     var notifsOn : Bool
 }
 
@@ -23,12 +22,14 @@ class LaunchCircle {
     var circleName : String
     var circleEmoji : String
     var circleDescription : String
+    var category : String
     var memberArray : [LaunchMember]
-    init(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, memberArray : [LaunchMember]) {
+    init(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, category : String, memberArray : [LaunchMember]) {
         self.circleID = circleID
         self.circleName = circleName
         self.circleEmoji = circleEmoji
         self.circleDescription = circleDescription
+        self.category = category
         self.memberArray = memberArray
     }
     

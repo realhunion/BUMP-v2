@@ -21,24 +21,23 @@ struct LaunchSortOption: OptionSet {
 extension LaunchTVC {
     
     
-    func sortCircleArray() {
+    func sortArray(array : [LaunchCircle]) -> [LaunchCircle] {
         
         guard let option = UserDefaults.standard.value(forKey: defaultsKeys.launchSortOption) as? Int else {
-            self.sortMyFav()
-            return
+            return sortAToZ(array: array)
         }
         
         if option == LaunchSortOption.aToZ.rawValue {
-            self.sortAToZ()
+            return self.sortAToZ(array: array)
         }
         else if option == LaunchSortOption.myFav.rawValue {
-            self.sortMyFav()
+            return self.sortMyFav(array: array)
         }
         else if option == LaunchSortOption.campusFav.rawValue {
-            self.sortCampusFav()
+            return self.sortCampusFav(array: array)
         }
         else {
-            self.sortAToZ()
+            return self.sortAToZ(array: array)
         }
         
         
@@ -56,7 +55,6 @@ extension LaunchTVC {
             UserDefaults.standard.set(LaunchSortOption.aToZ.rawValue, forKey: defaultsKeys.launchSortOption)
             
             DispatchQueue.main.async {
-                self.sortCircleArray()
                 self.tableView.reloadData()
             }
         }))
@@ -64,7 +62,6 @@ extension LaunchTVC {
             UserDefaults.standard.set(LaunchSortOption.myFav.rawValue, forKey: defaultsKeys.launchSortOption)
             
             DispatchQueue.main.async {
-                self.sortCircleArray()
                 self.tableView.reloadData()
             }
         }))
@@ -72,7 +69,6 @@ extension LaunchTVC {
             UserDefaults.standard.set(LaunchSortOption.campusFav.rawValue, forKey: defaultsKeys.launchSortOption)
             
             DispatchQueue.main.async {
-                self.sortCircleArray()
                 self.tableView.reloadData()
             }
         }))
@@ -87,18 +83,19 @@ extension LaunchTVC {
     
     //MARK: - Different Sorts
     
-    func sortAToZ() {
+    func sortAToZ(array : [LaunchCircle]) -> [LaunchCircle] {
         
-        self.myCircleArray.sort { (c1, c2) -> Bool in
+        let ary = array.sorted { (c1, c2) -> Bool in
             return c1.circleName.lowercased() < c2.circleName.lowercased()
         }
+        return ary
     }
     
-    func sortMyFav() {
+    func sortMyFav(array : [LaunchCircle]) -> [LaunchCircle] {
         
-        let dict = UserDefaultsManager.shared.getMyFavLaunchCircles()
+        let dict = self.myFavLaunchCircles
         
-        self.myCircleArray.sort { (c1, c2) -> Bool in
+        let ary = array.sorted { (c1, c2) -> Bool in
             if (dict[c1.circleID] ?? 0) != (dict[c2.circleID] ?? 0) {
                 return (dict[c1.circleID] ?? 0) > (dict[c2.circleID] ?? 0)
             }
@@ -106,13 +103,17 @@ extension LaunchTVC {
                 return c1.circleName.lowercased() < c2.circleName.lowercased()
             }
         }
+        
+        return ary
+        
     }
     
-    func sortCampusFav() {
+    func sortCampusFav(array : [LaunchCircle]) -> [LaunchCircle] {
         
-        self.myCircleArray.sort { (c1, c2) -> Bool in
+        let ary = array.sorted { (c1, c2) -> Bool in
             return c1.memberArray.count > c2.memberArray.count
         }
+        return ary
     }
     
     

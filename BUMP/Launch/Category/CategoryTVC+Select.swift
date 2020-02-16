@@ -15,9 +15,15 @@ extension CategoryTVC {
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         guard LoginManager.shared.isLoggedIn() else { return }
         
-        let circle = self.circleArray[indexPath.section][indexPath.row]
+        if indexPath.section == 0 {
+            let circle = self.getMyCircles()[indexPath.row]
+            CircleManager.shared.presentCircleInfo(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji, circleDescription: circle.circleDescription, memberArray: circle.memberArray)
+        }
         
-        CircleManager.shared.presentCircleInfo(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji, circleDescription: circle.circleDescription, memberArray: circle.memberArray)
+        if indexPath.section == 1 {
+            let circle = self.getRestCircles()[indexPath.row]
+            CircleManager.shared.presentCircleInfo(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji, circleDescription: circle.circleDescription, memberArray: circle.memberArray)
+        }
     }
     
     
@@ -25,9 +31,15 @@ extension CategoryTVC {
         
         guard LoginManager.shared.isLoggedIn() else { return }
         
-        let circle = circleArray[indexPath.section][indexPath.row]
+        if indexPath.section == 0 {
+            let circle = self.getMyCircles()[indexPath.row]
+            CircleManager.shared.launchCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
+        }
         
-        CircleManager.shared.launchCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
+        if indexPath.section == 1 {
+            let circle = self.getRestCircles()[indexPath.row]
+            CircleManager.shared.launchCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
+        }
         
     }
     
@@ -40,14 +52,17 @@ extension CategoryTVC {
         
         guard let indexPath = sender.indexPath else { return }
         
-        let circle = self.circleArray[indexPath.section][indexPath.row]
-        
-        if !circle.amMember() {
-            CircleFollower.shared.followCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
-        } else {
+        if indexPath.section == 0 {
+            let circle = self.getMyCircles()[indexPath.row]
             CircleFollower.shared.unFollowCircle(circleID: circle.circleID)
-//            self.tableView(self.tableView, didSelectRowAt: indexPath)
         }
+        
+        if indexPath.section == 1 {
+            let circle = self.getRestCircles()[indexPath.row]
+            CircleFollower.shared.followCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
+        }
+        
+        
         //FIX: currently only does for not joined in. join em.
     }
     

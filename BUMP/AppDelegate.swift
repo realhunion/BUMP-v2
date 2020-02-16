@@ -81,13 +81,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     //Actionable Push Notification
     func registerNotificationActionButtons() {
         
-        let followAction = UNNotificationAction(identifier: "followAction", title: "Follow Chat", options: UNNotificationActionOptions.init())
+        let followAction = UNNotificationAction(identifier: "followAction", title: "Enable Chat Notifications", options: UNNotificationActionOptions.init())
         let silenceAction = UNNotificationAction(identifier: "silenceAction", title: "Silence for 1 hour", options: UNNotificationActionOptions.init())
         
         let launchNotifCategory = UNNotificationCategory(identifier: "launchNotif", actions: [followAction, silenceAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
         
         
-        let unFollowAction = UNNotificationAction(identifier: "unFollowAction", title: "Unfollow Chat", options: UNNotificationActionOptions.init())
+        let unFollowAction = UNNotificationAction(identifier: "unFollowAction", title: "Disable Chat Notifications", options: UNNotificationActionOptions.init())
         
         let replyNotifCategory = UNNotificationCategory(identifier: "replyNotif", actions: [unFollowAction, silenceAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
         

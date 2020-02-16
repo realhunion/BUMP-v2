@@ -18,8 +18,8 @@ class BUMP {
     init() {
         self.homeTabBarVC = HomeTabBarVC()
         
-        let v = AllCirclesFetcher()
-        v.fetchAllCircles()
+//        let v = AllCirclesFetcher()
+//        v.fetchAllCircles()
     }
     
     
@@ -33,9 +33,10 @@ class BUMP {
         homeTabBarVC.feedTVC.navigationController?.popToRootViewController(animated: false)
         homeTabBarVC.launchVC.navigationController?.popToRootViewController(animated: false)
     
-        homeTabBarVC.launchVC.shutDown()
-        homeTabBarVC.launchVC.setupLaunchFetcher()
-        homeTabBarVC.launchVC.setupCategoriesFetcher()
+//        homeTabBarVC.launchVC.refreshControl?.beginRefreshing()
+        homeTabBarVC.launchVC.tableView.reloadData()
+//        homeTabBarVC.launchVC.setupLaunchFetcher()
+//        homeTabBarVC.launchVC.setupCategoriesFetcher()
         
         homeTabBarVC.feedTVC.shutDown()
         homeTabBarVC.feedTVC.setupFeedFetcher()

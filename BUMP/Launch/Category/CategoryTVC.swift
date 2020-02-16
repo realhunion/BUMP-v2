@@ -12,82 +12,76 @@ import SwiftEntryKit
 
 class CategoryTVC: UITableViewController {
     
-    var categoryID : String!
-    
-    var launchFetcher : CatCirclesFetcher?
-    
-    var circleArray : [[LaunchCircle]] = [[],[]]
+    var category : String!
+    var circleArray : [LaunchCircle] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupLaunchFetcher()
-        
         self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "launchCell")
-        
-//        if categoryID == "Classes" {
-//        for i in 0...460 {
-//            self.circleArray[1].append(LaunchCircle(circleID: "circleID", circleName: "Circle # \(i)", circleEmoji: "😎", circleDescription: "circleDescr", memberArray: []))
-//        }
-//        }
+    }
+    
+    deinit {
+        print("sx categoryTVC")
     }
     
     func shutDown() {
-        self.launchFetcher?.shutDown()
-        self.circleArray = [[], []]
+//        self.launchFetcher?.shutDown()
+        self.circleArray = []
         
         NotificationCenter.default.removeObserver(self)
-        
-        self.tableView.reloadData()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        self.shutDown()
-        //        self.refreshLaunchFetcher()
     }
     
     
     
-    //MARK: - Setup
-    
-    func setupLaunchFetcher() {
-        
-        self.launchFetcher = CatCirclesFetcher(categoryID: self.categoryID)
-        self.launchFetcher?.delegate = self
-        self.launchFetcher?.monitorCategoryCircles()
-    }
     
     
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return circleArray.count
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return circleArray[section].count
+        if section == 0 {
+            return self.getMyCircles().count
+        }
+        else if section == 1 {
+            return self.getRestCircles().count
+        } else {
+            return 0
+        }
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
         cell.accessoryType = .detailButton
         cell.selectionStyle = .none
         
-        let c = circleArray[indexPath.section][indexPath.row]
-        
-        cell.imageView?.image = self.imageWith(string: c.circleEmoji)
-        cell.textLabel?.text = c.circleName
-        
-        
-        var followString = "· Join"
-        if c.amMember() {
+        var followString = ""
+        var subString = ""
+        if section == 0 {
+            let c = self.getMyCircles()[row]
+            cell.imageView?.image = self.imageWith(string: c.circleEmoji)
+            cell.textLabel?.text = c.circleName
             followString = "· J✓"
+            subString = "\(c.memberArray.count) members \(followString)"
+        }
+        if section == 1 {
+            let c = self.getRestCircles()[row]
+            cell.imageView?.image = self.imageWith(string: c.circleEmoji)
+            cell.textLabel?.text = c.circleName
+            followString = "· Join"
+            subString = "\(c.memberArray.count) members \(followString)"
         }
         
-        let subString = "\(c.memberArray.count) members \(followString)"
         let fullRange = (subString as NSString).range(of: subString)
         let followRange = (subString as NSString).range(of: followString)
         let attributedString = NSMutableAttributedString(string: subString)
@@ -127,13 +121,13 @@ class CategoryTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            if self.circleArray[0].isEmpty {
+            if self.getMyCircles().isEmpty {
                 return nil
             } else {
                 return "My Group Chats"
             }
         } else {
-            if self.circleArray[1].isEmpty {
+            if self.getRestCircles().isEmpty {
                 return nil
             } else {
                 return "All"

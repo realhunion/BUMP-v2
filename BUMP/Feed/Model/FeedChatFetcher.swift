@@ -81,6 +81,8 @@ class FeedChatFetcher {
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         self.myUserListener = self.db.collection("Feed").document(self.chatID).collection("Users").document(myUID).addSnapshotListener { (snap, err) in
             
+            print("joker 1.2")
+            
             guard let doc = snap else { return }
             
             let uID = doc.documentID
