@@ -50,20 +50,17 @@ class FeedTVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.tableView.reloadData()
-        //FIX: pretty expensive, yes. without, it overlaps cells.
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.tableView.reloadData()
-        //FIX: pretty expensive, yes. without, it overlaps cells.
-//        self.feedFetcher?.refreshFeedChats()
     }
     
     func shutDown() {
         self.feedFetcher?.shutDown()
-//        self.feedChatArray.removeAll()
-//        self.tableView.reloadData()
+        self.feedChatArray.removeAll()
+        
+        self.cellHeights.removeAll()
+        self.tableView.reloadData()
     }
     
 
@@ -88,9 +85,21 @@ class FeedTVC: UITableViewController {
         return self.feedChatArray.count
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    
+    //FIX: FUTURE experimental does it effective
+    var cellHeights = [IndexPath: CGFloat]()
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cellHeights[indexPath] = cell.frame.size.height
     }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeights[indexPath] ?? UITableView.automaticDimension
+    }
+    
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
     
 
     

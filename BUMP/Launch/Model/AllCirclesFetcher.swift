@@ -86,47 +86,11 @@ class AllCirclesFetcher {
             self.triggerUpdate()
 //            My Follow Listener
 
-            self.monitorAmMember(circleID: circleID)
-
         }
         
     }
     
     
-    
-    func monitorAmMember(circleID : String) {
-        
-        var firstFetchCompleted = false
-        
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
-        
-        let amMemberListener = self.db.collection("LaunchCircles").document(circleID).collection("Followers").document(myUID).addSnapshotListener { (snap, err) in
-            
-            guard firstFetchCompleted else { firstFetchCompleted = true; return }
-            
-            guard let doc = snap else { return }
-            
-            guard doc.exists else {
-                self.launchCircleArray.first(where: {$0.circleID == circleID})?.memberArray.removeAll(where: {$0.userID == myUID})
-                self.triggerUpdate()
-                return
-            }
-            
-            self.launchCircleArray.first(where: {$0.circleID == circleID})?.memberArray.removeAll(where: {$0.userID == myUID})
-            var notifsOn = false
-            if let notificationsOn = doc.data()?["notificationsOn"] as? Bool {
-                notifsOn = notificationsOn
-            }
-            let lm = LaunchMember(userID: myUID, notifsOn: notifsOn)
-            self.launchCircleArray.first(where: {$0.circleID == circleID})?.memberArray.append(lm)
-            
-            self.circleFetchedDict[circleID] = true
-            self.triggerUpdate()
-        }
-        
-        self.amMemberListenerArray.append(amMemberListener)
-        
-    }
     
     
     

@@ -15,7 +15,7 @@ class UnreadFeedCell : FeedCell {
     var newMessagesLabel : InsetLabel = {
         let label = InsetLabel()
         label.adjustsFontSizeToFitWidth = true
-        label.contentInsets = UIEdgeInsets(top: 3.0, left: 3.0, bottom: 3.0, right: 3.0)
+        label.contentInsets = UIEdgeInsets(top: 0.0, left: 3.0, bottom: 0.0, right: 3.0)
         label.backgroundColor = UIColor.systemPink
         label.font = UIFont.systemFont(ofSize: 12.0, weight: .medium)
         label.textColor = .white

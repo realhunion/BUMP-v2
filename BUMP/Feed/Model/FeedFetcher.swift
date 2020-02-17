@@ -88,7 +88,7 @@ class FeedFetcher {
         fetcher.shutDown()
         
         for fetcher in fetcher.feedChatFetcherArray {
-            //FIX: boom. tell jacob.
+            //FIX: boom. tell jacob. unfollow chat when u leave circle.
             ChatFollower.shared.unFollowChat(chatID: fetcher.chatID)
             self.delegate?.feedChatRemoved(chatID: fetcher.chatID)
         }
@@ -106,7 +106,9 @@ class FeedFetcher {
         
         for circFetcher in self.feedCircleFetcherArray {
             for chatFetcher in circFetcher.feedChatFetcherArray {
-                chatFetcher.refreshMsgFetcher()
+                chatFetcher.messageFetcher?.shutDown()
+                chatFetcher.messageArray = nil
+                chatFetcher.monitorFeedChatMessages()
             }
         }
         

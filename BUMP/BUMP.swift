@@ -33,14 +33,13 @@ class BUMP {
         homeTabBarVC.feedTVC.navigationController?.popToRootViewController(animated: false)
         homeTabBarVC.launchVC.navigationController?.popToRootViewController(animated: false)
     
-//        homeTabBarVC.launchVC.refreshControl?.beginRefreshing()
+        
         homeTabBarVC.launchVC.tableView.reloadData()
-//        homeTabBarVC.launchVC.setupLaunchFetcher()
-//        homeTabBarVC.launchVC.setupCategoriesFetcher()
         
         homeTabBarVC.feedTVC.shutDown()
         homeTabBarVC.feedTVC.setupFeedFetcher()
         
+        UpdateManager.shared.checkForUpdates()
         AnnouncementsManager.shared.shutDown()
         AnnouncementsManager.shared.startMonitors()
         
@@ -111,21 +110,22 @@ class BUMP {
     func appDidEnterForeground() {
         UpdateManager.shared.checkForUpdates()
         
-//        AnnouncementsManager.shared.shutDown()
-//        AnnouncementsManager.shared.startMonitors()
+        AnnouncementsManager.shared.shutDown()
+        AnnouncementsManager.shared.startMonitors()
         //FIX: when to start this
 //        AnnouncementsManager.shared.fetchAllAnnouncements()
 //        AnnouncementsManager.shared.startMonitors()
-//        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
+        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
         
+//        self.homeTabBarVC.feedTVC.feedFetcher?.refreshFeedChats()
         
     }
     
     func appWillEnterForeground() {
-//        self.homeTabBarVC.feedTVC.feedFetcher?.refreshFeedChats()
         
-//        let v = AllCirclesFetcher()
-//        v.fetchAllCircles()
+        //so doesn't spam reloadtableview increment chat messages received. freezes.
+//        self.homeTabBarVC.feedTVC.feedFetcher?.refreshFeedChats()
+        //FIX: do only when the feedTVC screen appears out of opening app.
     }
     
     

@@ -114,9 +114,7 @@ extension Date {
 enum Constant {
     
     
-    static let missionStatement = "We hope Bump can foster inclusive yet private communities where Grinnellians can find meaningful connections."
-    
-    static let howToUseStatement = "1. Join your Groupchats.\n2. 🤠 Starts Chat = Recieve an initial alert. \n3. Follow Chat = Recieve all message alerts.\n** All Chats last for one day."
+    static let missionStatement = "We hope this app can help Grinnellians come together in inclusive yet private communities where we can all find meaningful connections."
     
     static let oBlueLight = UIColor(red:0.10, green:0.68, blue:0.96, alpha:1.0)
     static let oBlue = UIColor(red:0.00, green:0.65, blue:1.00, alpha:1.0)

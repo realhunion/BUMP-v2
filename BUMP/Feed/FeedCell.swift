@@ -16,19 +16,16 @@ class FeedCell: UITableViewCell {
     var circleTitleLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .subheadline).pointSize, weight: .semibold)
-//        label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = false
         label.numberOfLines = 1
         label.textColor = UIColor.black
-//        label.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.3)
         return label
     }()
     
     var firstMessageLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .subheadline).pointSize, weight: .regular)
-//        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = false
         label.textColor = UIColor.black
@@ -49,7 +46,7 @@ class FeedCell: UITableViewCell {
         button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .semibold)
         button.setTitleColor(Constant.oBlue, for: .normal)
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
-        button.setTitle("Enable Notifs", for: .normal)
+        button.setTitle("Enable notifs", for: .normal)
         button.setTitle("N✓", for: .selected)
         
         button.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)

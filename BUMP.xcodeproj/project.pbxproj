@@ -833,7 +833,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.05;
+				MARKETING_VERSION = 2.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.theBumpInitiative.BUMP;
 				PRODUCT_NAME = Bump;
 				SWIFT_VERSION = 5.0;
@@ -856,7 +856,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.05;
+				MARKETING_VERSION = 2.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.theBumpInitiative.BUMP;
 				PRODUCT_NAME = Bump;
 				SWIFT_VERSION = 5.0;

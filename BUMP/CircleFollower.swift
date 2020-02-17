@@ -33,9 +33,25 @@ class CircleFollower {
             batch.setData(["circleName":circleName, "circleEmoji":circleEmoji], forDocument: profileRef)
             
             
-            batch.commit() { err in
-                //
+            batch.commit() { err in }
+                
+            
+            
+            //MANUALLY CHANGE DATASOURCE FOR LAUNCHTVC  (no listeners used)
+            //FIX: FUTURE
+            
+            DispatchQueue.main.async {
+                guard var circArray = (UIApplication.shared.delegate as! AppDelegate).bump?.homeTabBarVC.launchVC.circleArray else { return }
+                if let circ = circArray.first(where: {$0.circleID == circleID}) {
+                    circ.memberArray.removeAll(where: {$0.userID == myUID})
+                    circ.memberArray.append(LaunchMember(userID: myUID, notifsOn: notifsOn ?? true))
+                    circArray.removeAll(where: {$0.circleID == circleID})
+                    circArray.append(circ)
+                }
+                (UIApplication.shared.delegate as! AppDelegate).bump?.homeTabBarVC.launchVC.allCirclesFetched(launchCircleArray: circArray)
             }
+            
+            
             
         }
         
@@ -53,7 +69,20 @@ class CircleFollower {
         batch.deleteDocument(profileRef)
         
         
-        batch.commit() { err in
+        batch.commit() { err in }
+        
+        
+        //MANUALLY CHANGE DATASOURCE FOR LAUNCHTVC  (no listeners used)
+        //FIX: FUTURE
+        
+        DispatchQueue.main.async {
+            guard var circArray = (UIApplication.shared.delegate as! AppDelegate).bump?.homeTabBarVC.launchVC.circleArray else { return }
+            if let circ = circArray.first(where: {$0.circleID == circleID}) {
+                circ.memberArray.removeAll(where: {$0.userID == myUID})
+                circArray.removeAll(where: {$0.circleID == circleID})
+                circArray.append(circ)
+            }
+            (UIApplication.shared.delegate as! AppDelegate).bump?.homeTabBarVC.launchVC.allCirclesFetched(launchCircleArray: circArray)
             
         }
         

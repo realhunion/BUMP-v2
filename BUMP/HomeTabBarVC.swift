@@ -34,12 +34,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     func shutDown() {
         
         feedTVC.shutDown()
-//        feedVC.shutDown()
-//        launchVC.
-//        
-//        liveFriendsVC.shutDown()
-//        notificationVC.shutDown()
-//        circleManager.shutDown()
+//        HubTVC.shutDown()
         
     }
     
@@ -56,7 +51,6 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         
         //FIX: circle INFO large title adjustfonttoFItWidth do it.
         
-//        feedTabVC.view.backgroundColor = .white
         launchVC.view.backgroundColor = .white
         hubVC.view.backgroundColor = .white
         

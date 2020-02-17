@@ -109,15 +109,7 @@ class FeedChatFetcher {
         
     }
     
-    
-    //MARK: Tool -
-    
-    func refreshMsgFetcher() {
-        
-        self.messageArray = nil
-        self.messageFetcher?.shutDown()
-        self.monitorFeedChatMessages()
-    }
+
     
     
     

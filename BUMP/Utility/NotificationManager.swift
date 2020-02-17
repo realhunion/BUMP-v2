@@ -66,7 +66,7 @@ class NotificationManager {
     //FIX:
     func presentEnableSettingsNotifications() {
         
-        let alert = UIAlertController(title: "Please enable notifications to know when a Club goes Live!", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Please enable notifs to get the full experience of Grinnell group chats.", message: "", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in

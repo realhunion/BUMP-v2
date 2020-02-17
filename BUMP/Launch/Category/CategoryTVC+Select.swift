@@ -63,7 +63,8 @@ extension CategoryTVC {
         }
         
         
-        //FIX: currently only does for not joined in. join em.
+        
+        
     }
     
     

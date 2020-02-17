@@ -12,15 +12,12 @@ extension FeedTVC : FeedFetcherDelegate {
     
     
     func setupFeedFetcher() {
-        print("joker 1")
         self.feedFetcher = FeedFetcher()
         self.feedFetcher?.startMonitor()
         self.feedFetcher?.delegate = self
     }
     
     func feedChatUpdated(feedChat: FeedChat) {
-        
-        print("joker 2")
         
         self.tableView.backgroundView = nil
         

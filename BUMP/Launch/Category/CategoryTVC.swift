@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 import SwiftEntryKit
 
+
+protocol CategoryTVCDelegate : class {
+    func categoryCircleUpdated(circle : LaunchCircle)
+}
+
+
 class CategoryTVC: UITableViewController {
     
     var category : String!
@@ -26,8 +32,7 @@ class CategoryTVC: UITableViewController {
     }
     
     func shutDown() {
-//        self.launchFetcher?.shutDown()
-        self.circleArray = []
+//        self.circleArray = []
         
         NotificationCenter.default.removeObserver(self)
     }
