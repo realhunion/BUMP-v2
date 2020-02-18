@@ -53,8 +53,6 @@ class FeedFetcher {
         self.listener = db.collection("User-Profile").document(myUID).collection("Following").addSnapshotListener { (snap, err) in
             guard let docChanges = snap?.documentChanges else { return }
             
-            print("joker 1.1")
-            
             for diff in docChanges {
                 
                 if diff.type == .added {
@@ -97,23 +95,29 @@ class FeedFetcher {
 
         
     }
+
+
     
     
-    //MARK: - Tool
     
-    //So if 100 msgs sent between time off app, doesnt refresh tableView 100 times incrementally.
-    func refreshFeedChats() {
+    //MARK: - TOOLBOX
+    
+    func doesChatExist(chatIDArray : [String]) {
         
-        for circFetcher in self.feedCircleFetcherArray {
-            for chatFetcher in circFetcher.feedChatFetcherArray {
-                chatFetcher.messageFetcher?.shutDown()
-                chatFetcher.messageArray = nil
-                chatFetcher.monitorFeedChatMessages()
+        for chatID in chatIDArray {
+            
+            db.collection("Feed").document(chatID).getDocument { (snap, err) in
+                guard let doc = snap else { return }
+                if let circleID = doc.data()?["circleID"] as? String, let circleName = doc.data()?["circleName"] as? String, let circleEmoji = doc.data()?["circleEmoji"] as? String {
+                } else {
+                    self.feedChatRemoved(chatID: chatID)
+                }
             }
+            
         }
         
     }
-
+    
     
     
     

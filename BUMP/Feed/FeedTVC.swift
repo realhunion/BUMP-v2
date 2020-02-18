@@ -15,7 +15,17 @@ class FeedTVC: UITableViewController {
     
     var feedFetcher : FeedFetcher?
     
-    var feedChatArray : [FeedChat] = []
+    var feedChatArray : [FeedChat] = [] {
+        didSet {
+            if self.feedChatArray.isEmpty {
+                self.setupBackgroundView()
+            } else {
+                self.tableView.backgroundView = nil
+            }
+        }
+    }
+    
+    
     
     override init(style: UITableView.Style) {
         super.init(style: style)
@@ -32,7 +42,7 @@ class FeedTVC: UITableViewController {
         self.setupTableView()
         self.setupFeedFetcher()
         
-        self.setupBackgroundView()
+//        self.setupBackgroundView()
     }
     
     var backgroundLabel : UILabel = {
@@ -43,8 +53,18 @@ class FeedTVC: UITableViewController {
         label.textAlignment = .center
         return label
     }()
+    var spinner : UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .gray)
+        spinner.hidesWhenStopped = true
+        return spinner
+    }()
+    
     func setupBackgroundView() {
         self.tableView.backgroundView = self.backgroundLabel
+    }
+    func setupSpinner() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
+        self.spinner.startAnimating()
     }
     
     

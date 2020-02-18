@@ -17,9 +17,14 @@ class BUMP {
     var homeTabBarVC : HomeTabBarVC
     init() {
         self.homeTabBarVC = HomeTabBarVC()
+        if Auth.auth().currentUser == nil {
+            self.homeTabBarVC.currentIndex = 1
+            self.homeTabBarVC.selectedIndex = 1
+        }
         
-//        let v = AllCirclesFetcher()
-//        v.fetchAllCircles()
+        UpdateManager.shared.checkForUpdates()
+        AnnouncementsManager.shared.shutDown()
+        AnnouncementsManager.shared.startMonitors()
     }
     
     
@@ -33,7 +38,6 @@ class BUMP {
         homeTabBarVC.feedTVC.navigationController?.popToRootViewController(animated: false)
         homeTabBarVC.launchVC.navigationController?.popToRootViewController(animated: false)
     
-        
         homeTabBarVC.launchVC.tableView.reloadData()
         
         homeTabBarVC.feedTVC.shutDown()
@@ -44,8 +48,13 @@ class BUMP {
         AnnouncementsManager.shared.startMonitors()
         
         
-        homeTabBarVC.selectedIndex = 1
-        homeTabBarVC.currentIndex = 1
+        if Auth.auth().currentUser == nil {
+            self.homeTabBarVC.currentIndex = 1
+            self.homeTabBarVC.selectedIndex = 1
+        } else {
+            self.homeTabBarVC.currentIndex = 0
+            self.homeTabBarVC.selectedIndex = 0
+        }
         
     }
     
@@ -53,20 +62,26 @@ class BUMP {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("User-Base").document(myUID).updateData([
-            "fcmToken": FieldValue.delete(),
-        ]) { err in
+        let batch = db.batch()
+        
+        let ref = db.collection("User-Base").document(myUID)
+        
+        batch.setData(["fcmToken": FieldValue.delete()], forDocument: ref, merge: true)
+    
+        batch.setData(["favLaunchCircles":UserDefaultsManager.shared.getMyFavLaunchCircles()], forDocument: ref, merge: true)
+        
+        batch.commit { (err) in
             guard err == nil else { return }
+            
+            do {
+                try Auth.auth().signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+            
+            self.refreshControllers()
+            UserDefaultsManager.shared.clearAllData()
         }
-        
-        do {
-            try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-        
-        self.refreshControllers()
-        UserDefaultsManager.shared.clearAllData()
     }
     
     func logIn() {
@@ -102,20 +117,26 @@ class BUMP {
 
     
     func appDidEnterBackground() {
+        
         SwiftEntryKit.dismiss(.all)
         UIApplication.topViewController()?.dismiss(animated: false, completion: nil)
         UIApplication.topViewController()?.navigationController?.popToRootViewController(animated: false)
+        
+        self.homeTabBarVC.feedTVC.feedFetcher?.shutDown()
+        AnnouncementsManager.shared.shutDown()
+        
+//        UpdateManager.shared.checkForUpdates()
     }
     
     func appDidEnterForeground() {
-        UpdateManager.shared.checkForUpdates()
-        
-        AnnouncementsManager.shared.shutDown()
-        AnnouncementsManager.shared.startMonitors()
-        //FIX: when to start this
-//        AnnouncementsManager.shared.fetchAllAnnouncements()
+//        print("eff 0")
+//        UpdateManager.shared.checkForUpdates()
+//
+//        AnnouncementsManager.shared.shutDown()
 //        AnnouncementsManager.shared.startMonitors()
-        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
+        //FIX: when to start this
+        
+//        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
         
 //        self.homeTabBarVC.feedTVC.feedFetcher?.refreshFeedChats()
         
@@ -124,8 +145,11 @@ class BUMP {
     func appWillEnterForeground() {
         
         //so doesn't spam reloadtableview increment chat messages received. freezes.
-//        self.homeTabBarVC.feedTVC.feedFetcher?.refreshFeedChats()
-        //FIX: do only when the feedTVC screen appears out of opening app.
+        self.homeTabBarVC.feedTVC.refreshFeedFetcher()
+        
+        UpdateManager.shared.checkForUpdates()
+        AnnouncementsManager.shared.shutDown()
+        AnnouncementsManager.shared.startMonitors()
     }
     
     

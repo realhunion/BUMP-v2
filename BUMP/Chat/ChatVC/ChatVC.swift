@@ -51,13 +51,10 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
         button.setTitle("Enable notifs", for: .normal)
         button.setTitle("N✓", for: .selected)
-//        button.isHidden = true
         
         button.titleLabel?.numberOfLines = 1
         
         button.addTarget(self, action: #selector(followChatButtonTapped), for: .touchDown)
-        
-        button.isHidden = true
         
         return button
     }()
@@ -77,6 +74,7 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupSpinner()
         
         self.setupCollectionView()
         self.setupNavBar()
@@ -150,6 +148,12 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
     
     
     // MARK: - Set-Up
+    
+    func setupSpinner() {
+        let spinner = UIActivityIndicatorView(style: .gray)
+        self.collectionView.backgroundView = spinner
+        spinner.startAnimating()
+    }
     
     
     func setupInputBar() {

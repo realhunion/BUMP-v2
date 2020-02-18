@@ -123,21 +123,6 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         }
         
         
-        
-        
-//        if selectedIndex == Tabs.launch.rawValue {
-//            self.campusClubsVC.sortClubInfoArray()
-//            self.campusClubsVC.collectionView.reloadData()
-//            self.campusClubsVC.collectionView.scrollToTop(true)
-//
-//        }
-//
-//
-//        if selectedIndex == Tabs.hub.rawValue {
-//            self.categoriesVC.collectionView.scrollToTop(true)
-//
-//        }
-        
     }
     
     

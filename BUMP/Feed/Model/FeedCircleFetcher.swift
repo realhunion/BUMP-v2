@@ -60,7 +60,7 @@ class FeedCircleFetcher {
                 if diff.type == .added {
                     let doc = diff.document
                     let chatID = doc.documentID
-                    if let circleName = doc.data()["circleName"] as? String, let circleEmoji = doc.data()["circleEmoji"] as? String {
+                    if let circleID = doc.data()["circleID"] as? String, let circleName = doc.data()["circleName"] as? String, let circleEmoji = doc.data()["circleEmoji"] as? String {
                         self.monitorFeedChat(chatID: chatID, circleID: self.circleID, circleName: circleName, circleEmoji: circleEmoji)
                     }
                 }

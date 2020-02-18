@@ -81,13 +81,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
     //Actionable Push Notification
     func registerNotificationActionButtons() {
         
-        let followAction = UNNotificationAction(identifier: "followAction", title: "Enable Chat Notifications", options: UNNotificationActionOptions.init())
+        let followAction = UNNotificationAction(identifier: "followAction", title: "Enable Notifs for Chat", options: UNNotificationActionOptions.init())
         let silenceAction = UNNotificationAction(identifier: "silenceAction", title: "Silence for 1 hour", options: UNNotificationActionOptions.init())
         
         let launchNotifCategory = UNNotificationCategory(identifier: "launchNotif", actions: [followAction, silenceAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
         
         
-        let unFollowAction = UNNotificationAction(identifier: "unFollowAction", title: "Disable Chat Notifications", options: UNNotificationActionOptions.init())
+        let unFollowAction = UNNotificationAction(identifier: "unFollowAction", title: "Disable Notifs for Chat", options: UNNotificationActionOptions.init())
         
         let replyNotifCategory = UNNotificationCategory(identifier: "replyNotif", actions: [unFollowAction, silenceAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
         
@@ -156,6 +156,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
             
             guard let timeLaunchedDouble = Double(timeLaunched) else { completionHandler(); return }
             let timeLaunchedDate = Date(timeIntervalSince1970: (timeLaunchedDouble / 1000.0))
+            //FIX: past 3 am or not.
             guard CircleManager.shared.isLaunchedLast24h(timeLaunched: timeLaunchedDate) else {
                 CircleManager.shared.presentNotificationExpired(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
                 completionHandler(); return }

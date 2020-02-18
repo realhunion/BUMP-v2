@@ -15,7 +15,7 @@ extension ChatVC : MessageFetcherDelegate {
     
     func newMessagesAdded(messages: [Message]) {
         
-        self.inputBarView.isUserInteractionEnabled = true
+        self.collectionView.backgroundView = nil
         
         if messages.count > 1 {
             

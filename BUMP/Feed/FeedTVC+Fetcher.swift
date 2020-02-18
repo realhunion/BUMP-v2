@@ -7,11 +7,27 @@
 //
 
 import Foundation
+import UIKit
 
 extension FeedTVC : FeedFetcherDelegate {
     
     
+    func refreshFeedFetcher() {
+        
+        self.setupBackgroundView()
+        self.setupSpinner()
+        
+        self.feedFetcher?.shutDown()
+        self.setupFeedFetcher()
+        self.feedFetcher?.doesChatExist(chatIDArray: self.feedChatArray.map({$0.chatID}))
+    }
+    
     func setupFeedFetcher() {
+        
+        self.setupBackgroundView()
+        self.setupSpinner()
+        
+        self.feedFetcher?.shutDown()
         self.feedFetcher = FeedFetcher()
         self.feedFetcher?.startMonitor()
         self.feedFetcher?.delegate = self
@@ -19,7 +35,7 @@ extension FeedTVC : FeedFetcherDelegate {
     
     func feedChatUpdated(feedChat: FeedChat) {
         
-        self.tableView.backgroundView = nil
+        self.spinner.stopAnimating()
         
         self.tableView.performBatchUpdates({
             
@@ -40,6 +56,8 @@ extension FeedTVC : FeedFetcherDelegate {
     }
     
     func feedChatRemoved(chatID: String) {
+        
+        self.spinner.stopAnimating()
         
         self.tableView.performBatchUpdates({
             if let index = feedChatArray.firstIndex(where: {$0.chatID == chatID}) {

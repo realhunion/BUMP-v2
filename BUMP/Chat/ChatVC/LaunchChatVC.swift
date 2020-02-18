@@ -16,6 +16,7 @@ class LaunchChatVC : ChatVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setCircleUnlaunched()
     }
     
     
@@ -35,6 +36,9 @@ class LaunchChatVC : ChatVC {
         self.msgSender = LaunchMessageSender(chatID: self.chatID, circleID: self.circleID, circleName: self.circleName, circleEmoji: self.circleEmoji)
     }
     
+    override func setupSpinner() {
+        //
+    }
     
     
     
@@ -72,6 +76,10 @@ class LaunchChatVC : ChatVC {
     
     
     //MARK: - LAUNCH FLOW
+    
+    func setCircleUnlaunched() {
+        self.followChatButton.isHidden = true
+    }
     
     func setCircleLaunched() {
         ChatFollower.shared.followChat(chatID: self.chatID)
