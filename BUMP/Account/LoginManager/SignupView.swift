@@ -33,8 +33,8 @@ class SignupView: UIView {
         return label
     }()
     
-    lazy var nameTextField: TextField = {
-        let textField = TextField()
+    lazy var nameTextField: BaseTextField = {
+        let textField = BaseTextField()
         textField.layer.cornerRadius = 6
         textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left
@@ -56,8 +56,8 @@ class SignupView: UIView {
         return textField
     }()
     
-    lazy var emailTextField: TextField = {
-        let textField = TextField()
+    lazy var emailTextField: BaseTextField = {
+        let textField = BaseTextField()
         textField.layer.cornerRadius = 6
         textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left
@@ -79,8 +79,8 @@ class SignupView: UIView {
         return textField
     }()
     
-    lazy var passTextField: TextField = {
-        let textField = TextField()
+    lazy var passTextField: BaseTextField = {
+        let textField = BaseTextField()
         textField.layer.cornerRadius = 6
         textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left

@@ -52,7 +52,7 @@ public class UserProfileEditView : UIView {
     }()
     
     lazy var userNameTextField : UITextField = {
-        let textfield = TextField()
+        let textfield = BaseTextField()
         textfield.padding.top = 0
         textfield.padding.bottom = 0
         textfield.font = UIFont.systemFont(ofSize: 24.0, weight: .semibold)
@@ -82,7 +82,7 @@ public class UserProfileEditView : UIView {
     
     
     lazy var userHandleTextField : UITextField = {
-        var textfield = TextField()
+        var textfield = BaseTextField()
         textfield.padding.top = 4
         textfield.padding.bottom = 4
         

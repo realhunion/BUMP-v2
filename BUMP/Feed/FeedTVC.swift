@@ -42,7 +42,7 @@ class FeedTVC: UITableViewController {
         self.setupTableView()
         self.setupFeedFetcher()
         
-//        self.setupBackgroundView()
+        self.setupBackgroundView()
     }
     
     var backgroundLabel : UILabel = {
@@ -64,6 +64,7 @@ class FeedTVC: UITableViewController {
     }
     func setupSpinner() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: spinner)
+        spinner.isHidden = false
         self.spinner.startAnimating()
     }
     
@@ -76,11 +77,15 @@ class FeedTVC: UITableViewController {
     }
     
     func shutDown() {
+        NotificationCenter.default.removeObserver(self)
+        
         self.feedFetcher?.shutDown()
         self.feedChatArray.removeAll()
         
         self.cellHeights.removeAll()
         self.tableView.reloadData()
+        
+        self.spinner.stopAnimating()
     }
     
 

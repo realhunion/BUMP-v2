@@ -53,9 +53,9 @@ class LaunchMessageSender : MessageSender {
         
         let batch = db.batch()
         
-        let timestamp = generateUniqueTimestamp()
+        let msgID = "\(Date().millisecondsSince1970)"
         
-        let msgRef = db.collection("Feed").document(chatID).collection("Messages").document(timestamp)
+        let msgRef = db.collection("Feed").document(chatID).collection("Messages").document(msgID)
         let msgData = generateMsgDataStrip(text: text, userID: myUID, userName: myUsername)
         batch.setData(msgData, forDocument: msgRef)
         

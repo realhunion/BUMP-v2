@@ -14,7 +14,6 @@ extension FeedTVC : FeedFetcherDelegate {
     
     func refreshFeedFetcher() {
         
-        self.setupBackgroundView()
         self.setupSpinner()
         
         self.feedFetcher?.shutDown()
@@ -24,7 +23,6 @@ extension FeedTVC : FeedFetcherDelegate {
     
     func setupFeedFetcher() {
         
-        self.setupBackgroundView()
         self.setupSpinner()
         
         self.feedFetcher?.shutDown()

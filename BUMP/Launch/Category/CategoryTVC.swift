@@ -11,11 +11,6 @@ import UIKit
 import SwiftEntryKit
 
 
-protocol CategoryTVCDelegate : class {
-    func categoryCircleUpdated(circle : LaunchCircle)
-}
-
-
 class CategoryTVC: UITableViewController {
     
     var category : String!
@@ -24,7 +19,7 @@ class CategoryTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "launchCell")
+        self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "categoryCell")
     }
     
     deinit {
@@ -32,9 +27,9 @@ class CategoryTVC: UITableViewController {
     }
     
     func shutDown() {
-//        self.circleArray = []
         
         NotificationCenter.default.removeObserver(self)
+        
     }
     
     
@@ -66,7 +61,7 @@ class CategoryTVC: UITableViewController {
         let row = indexPath.row
         
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "launchCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         cell.accessoryType = .detailButton
         cell.selectionStyle = .none
         

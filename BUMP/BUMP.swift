@@ -120,36 +120,41 @@ class BUMP {
         
         SwiftEntryKit.dismiss(.all)
         UIApplication.topViewController()?.dismiss(animated: false, completion: nil)
-        UIApplication.topViewController()?.navigationController?.popToRootViewController(animated: false)
+//        UIApplication.topViewController()?.navigationController?.popToRootViewController(animated: false)
         
         self.homeTabBarVC.feedTVC.feedFetcher?.shutDown()
         AnnouncementsManager.shared.shutDown()
-        
-//        UpdateManager.shared.checkForUpdates()
     }
     
     func appDidEnterForeground() {
-//        print("eff 0")
-//        UpdateManager.shared.checkForUpdates()
-//
-//        AnnouncementsManager.shared.shutDown()
-//        AnnouncementsManager.shared.startMonitors()
-        //FIX: when to start this
-        
 //        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
-        
-//        self.homeTabBarVC.feedTVC.feedFetcher?.refreshFeedChats()
         
     }
     
     func appWillEnterForeground() {
         
-        //so doesn't spam reloadtableview increment chat messages received. freezes.
-        self.homeTabBarVC.feedTVC.refreshFeedFetcher()
+//        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
         
-        UpdateManager.shared.checkForUpdates()
-        AnnouncementsManager.shared.shutDown()
-        AnnouncementsManager.shared.startMonitors()
+        //so doesn't spam reloadtableview increment chat messages received. freezes.
+        DispatchQueue.main.async {
+            self.homeTabBarVC.feedTVC.refreshFeedFetcher()
+            
+            UpdateManager.shared.checkForUpdates()
+            AnnouncementsManager.shared.shutDown()
+            AnnouncementsManager.shared.startMonitors()
+        }
+        
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//            // your code here
+//            self.homeTabBarVC.launchVC.refreshLaunchFetcher()
+//        }
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+//            UpdateManager.shared.checkForUpdates()
+//            AnnouncementsManager.shared.shutDown()
+//            AnnouncementsManager.shared.startMonitors()
+//        }
     }
     
     

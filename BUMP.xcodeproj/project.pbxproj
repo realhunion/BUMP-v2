@@ -17,6 +17,7 @@
 		7B27C2BE23CFDA1100045415 /* CircleInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B27C2BD23CFDA1100045415 /* CircleInfoTVC.swift */; };
 		7B2E9812237BB68D00D5AD67 /* SendSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E9811237BB68D00D5AD67 /* SendSuggestionView.swift */; };
 		7B39A36723E2070C0090A284 /* CircleInfoTVC+Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39A36623E2070C0090A284 /* CircleInfoTVC+Fetcher.swift */; };
+		7B3CFB6923FF079D00EFB0A4 /* CircleInfoTVC+Select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3CFB6823FF079D00EFB0A4 /* CircleInfoTVC+Select.swift */; };
 		7B3E23A723738F5E008DB53F /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3E23A623738F5E008DB53F /* UserProfileView.swift */; };
 		7B3E23A923738F92008DB53F /* UserProfileFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3E23A823738F92008DB53F /* UserProfileFetcher.swift */; };
 		7B3E23AB2373902C008DB53F /* UserProfileView+Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3E23AA2373902C008DB53F /* UserProfileView+Fetcher.swift */; };
@@ -88,7 +89,6 @@
 		7BEA973223B9B4360083C8B7 /* SwipeRightToPopCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEA973123B9B4360083C8B7 /* SwipeRightToPopCVC.swift */; };
 		7BF6BF2623CD1DB000C10591 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF6BF2523CD1DB000C10591 /* UpdateManager.swift */; };
 		7BF9839D23DE391B00884F96 /* AnnouncementsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9839C23DE391B00884F96 /* AnnouncementsManager.swift */; };
-		7BF983A123DF817600884F96 /* MyAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF983A023DF817500884F96 /* MyAlertManager.swift */; };
 		7BF9FCA2239C8C1A00296903 /* FeedTVC+Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9FCA1239C8C1A00296903 /* FeedTVC+Fetcher.swift */; };
 		7BF9FCA4239CD42500296903 /* FeedChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9FCA3239CD42500296903 /* FeedChat.swift */; };
 /* End PBXBuildFile section */
@@ -105,6 +105,7 @@
 		7B27C2BD23CFDA1100045415 /* CircleInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleInfoTVC.swift; sourceTree = "<group>"; };
 		7B2E9811237BB68D00D5AD67 /* SendSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSuggestionView.swift; sourceTree = "<group>"; };
 		7B39A36623E2070C0090A284 /* CircleInfoTVC+Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircleInfoTVC+Fetcher.swift"; sourceTree = "<group>"; };
+		7B3CFB6823FF079D00EFB0A4 /* CircleInfoTVC+Select.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircleInfoTVC+Select.swift"; sourceTree = "<group>"; };
 		7B3E23A623738F5E008DB53F /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		7B3E23A823738F92008DB53F /* UserProfileFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileFetcher.swift; sourceTree = "<group>"; };
 		7B3E23AA2373902C008DB53F /* UserProfileView+Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfileView+Fetcher.swift"; sourceTree = "<group>"; };
@@ -179,7 +180,6 @@
 		7BEA973123B9B4360083C8B7 /* SwipeRightToPopCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeRightToPopCVC.swift; sourceTree = "<group>"; };
 		7BF6BF2523CD1DB000C10591 /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateManager.swift; sourceTree = "<group>"; };
 		7BF9839C23DE391B00884F96 /* AnnouncementsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementsManager.swift; sourceTree = "<group>"; };
-		7BF983A023DF817500884F96 /* MyAlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAlertManager.swift; sourceTree = "<group>"; };
 		7BF9FCA1239C8C1A00296903 /* FeedTVC+Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedTVC+Fetcher.swift"; sourceTree = "<group>"; };
 		7BF9FCA3239CD42500296903 /* FeedChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedChat.swift; sourceTree = "<group>"; };
 		7C67870F4061021A61E909A6 /* Pods-BUMP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BUMP.release.xcconfig"; path = "Target Support Files/Pods-BUMP/Pods-BUMP.release.xcconfig"; sourceTree = "<group>"; };
@@ -247,9 +247,10 @@
 		7B27C2BC23CFD0EB00045415 /* CircleInfo */ = {
 			isa = PBXGroup;
 			children = (
+				7BB9377023DCBDC700741F3F /* CircleMembersFetcher.swift */,
 				7B27C2BD23CFDA1100045415 /* CircleInfoTVC.swift */,
 				7B39A36623E2070C0090A284 /* CircleInfoTVC+Fetcher.swift */,
-				7BB9377023DCBDC700741F3F /* CircleMembersFetcher.swift */,
+				7B3CFB6823FF079D00EFB0A4 /* CircleInfoTVC+Select.swift */,
 			);
 			path = CircleInfo;
 			sourceTree = "<group>";
@@ -479,7 +480,6 @@
 				7B03507023D77DDF0094AF3D /* UserDefaultsManager.swift */,
 				7BF6BF2523CD1DB000C10591 /* UpdateManager.swift */,
 				7BF9839C23DE391B00884F96 /* AnnouncementsManager.swift */,
-				7BF983A023DF817500884F96 /* MyAlertManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -611,7 +611,6 @@
 				7B2E9812237BB68D00D5AD67 /* SendSuggestionView.swift in Sources */,
 				7BAC1B7323BAF808001B57D9 /* LaunchCircle.swift in Sources */,
 				7BB9377323DCD8CD00741F3F /* ChatVC+Hey.swift in Sources */,
-				7BF983A123DF817600884F96 /* MyAlertManager.swift in Sources */,
 				7B3E23AB2373902C008DB53F /* UserProfileView+Fetcher.swift in Sources */,
 				7BB807B22376CA8100EDBAFD /* UserProfileEditView+Button.swift in Sources */,
 				7BC7C2F3235FC94B009D77BF /* ChatVC+SubNavBar.swift in Sources */,
@@ -661,6 +660,7 @@
 				7B9D467D23C55C0B003C95EA /* MyChatFollowFetcher.swift in Sources */,
 				7B3E23A723738F5E008DB53F /* UserProfileView.swift in Sources */,
 				7BC7C30723602F36009D77BF /* CircleManager.swift in Sources */,
+				7B3CFB6923FF079D00EFB0A4 /* CircleInfoTVC+Select.swift in Sources */,
 				7BA1F58723C8F3980053E799 /* LaunchTVC.swift in Sources */,
 				7BC7C2F7235FC94B009D77BF /* ChatVC+NavBar.swift in Sources */,
 				7B7FA84823BBD899000507D2 /* LaunchMsgSender.swift in Sources */,

@@ -83,26 +83,24 @@ class AnnouncementsManager {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         
-        let alert = MyAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
+        let alert = UIAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
             print("seen 3")
             self.db.collection("AnnouncementsToUser").document(myUID).collection("Announcements").document(announcementID).setData(["seen":true], merge: true)
         }))
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
-//        MyAlertManager.shared.addToQueue(alert: alert)
         
     }
     
     func presentBanAlert(msgTitle : String, msgBody : String) {
         
         (UIApplication.shared.delegate as! AppDelegate).bump?.logOut()
-        let alert = MyAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
+        let alert = UIAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
             //
         }))
         
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
-//        MyAlertManager.shared.addToQueue(alert: alert)
         
     }
         
@@ -141,12 +139,11 @@ class AnnouncementsManager {
                 if let seen = doc.data()?["seen"] as? Bool, seen { return }
                 
                 
-                let alert = MyAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
+                let alert = UIAlertController(title: msgTitle, message: msgBody, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                     self.db.collection("AnnouncementsToAll").document(announcementID).collection("Users").document(myUID).setData(["seen":true], merge: true)
                     }))
                 UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
-//                MyAlertManager.shared.addToQueue(alert: alert)
               
             }
         }

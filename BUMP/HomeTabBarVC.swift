@@ -33,8 +33,6 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     func shutDown() {
         
-        feedTVC.shutDown()
-//        HubTVC.shutDown()
         
     }
     
@@ -63,12 +61,12 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
         let launchNC = UINavigationController(rootViewController: launchVC)
         let hubNC = UINavigationController(rootViewController: hubVC)
 
-        feedTVC.navigationController?.navigationBar.prefersLargeTitles = true
-        feedTVC.navigationController?.navigationBar.layoutMargins.left = 36
-        launchVC.navigationController?.navigationBar.prefersLargeTitles = true
-        launchVC.navigationController?.navigationBar.layoutMargins.left = 36
-        hubVC.navigationController?.navigationBar.prefersLargeTitles = true
-        hubVC.navigationController?.navigationBar.layoutMargins.left = 36
+        feedNC.navigationBar.prefersLargeTitles = true
+        feedNC.navigationBar.layoutMargins.left = 36
+        launchNC.navigationBar.prefersLargeTitles = true
+        launchNC.navigationBar.layoutMargins.left = 36
+        hubNC.navigationBar.prefersLargeTitles = true
+        hubNC.navigationBar.layoutMargins.left = 36
         
         feedNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]
         launchNC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkText]

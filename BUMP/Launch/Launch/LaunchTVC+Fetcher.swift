@@ -17,17 +17,21 @@ extension LaunchTVC : AllCirclesFetcherDelegate {
     
     func allCirclesFetched(launchCircleArray: [LaunchCircle]) {
         
-        self.circleArray = launchCircleArray
-        tableView.reloadData()
+        self.tableView.backgroundView = nil
         if refreshControl?.isRefreshing == true {
             DispatchQueue.main.async {
                 self.refreshControl?.endRefreshing()
             }
         }
-        self.tableView.backgroundView = nil
         
-        if let cVC = UIApplication.topViewController() as? CategoryTVC {
-            cVC.allCirclesFetched(launchCircleArray: launchCircleArray)
+        self.circleArray = launchCircleArray
+        tableView.reloadData()
+        
+        //push data up to categoryVC if on top
+        for vc in self.navigationController?.viewControllers ?? [] {
+            if let categoryVC = vc as? CategoryTVC {
+                categoryVC.allCirclesFetched(launchCircleArray: launchCircleArray)
+            }
         }
         
     }

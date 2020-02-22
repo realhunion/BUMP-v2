@@ -151,6 +151,7 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
     
     func setupSpinner() {
         let spinner = UIActivityIndicatorView(style: .gray)
+        spinner.hidesWhenStopped = true
         self.collectionView.backgroundView = spinner
         spinner.startAnimating()
     }

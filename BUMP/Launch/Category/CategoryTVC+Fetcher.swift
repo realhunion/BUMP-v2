@@ -15,7 +15,6 @@ extension CategoryTVC : AllCirclesFetcherDelegate {
 
     func allCirclesFetched(launchCircleArray: [LaunchCircle]) {
         
-        
         self.circleArray = launchCircleArray.filter({$0.category == self.category})
         tableView.reloadData()
     }

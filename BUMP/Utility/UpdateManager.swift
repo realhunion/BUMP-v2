@@ -46,7 +46,7 @@ class UpdateManager {
     
     func presentForceUpdate(forceVersion : String, appStoreLink : String) {
         
-        let alert = MyAlertController(title: "Critical Update Available", message:"It's a make or break type of situation", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Critical Update Available", message:"It's a make or break type of situation", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
             
             if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
@@ -60,7 +60,6 @@ class UpdateManager {
         
         SwiftEntryKit.dismiss(.all)
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
-//        MyAlertManager.shared.addToQueue(alert: alert)
         
         
     }

@@ -16,8 +16,8 @@ class UserReporterView: UIView {
     var db = Firestore.firestore()
     
     
-    lazy var textField: TextField = {
-        let textField = TextField()
+    lazy var textField: BaseTextField = {
+        let textField = BaseTextField()
         textField.layer.cornerRadius = 6
         textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.center

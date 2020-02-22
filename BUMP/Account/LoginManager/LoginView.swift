@@ -29,8 +29,8 @@ class LoginView: UIView {
         return label
     }()
     
-    lazy var emailTextField: TextField = {
-        let textField = TextField()
+    lazy var emailTextField: BaseTextField = {
+        let textField = BaseTextField()
         textField.layer.cornerRadius = 6
         textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left
@@ -53,8 +53,8 @@ class LoginView: UIView {
         return textField
     }()
     
-    lazy var passTextField: TextField = {
-        let textField = TextField()
+    lazy var passTextField: BaseTextField = {
+        let textField = BaseTextField()
         textField.layer.cornerRadius = 6
         textField.backgroundColor = Constant.oGrayLight
         textField.textAlignment = NSTextAlignment.left

@@ -119,7 +119,7 @@ class CircleManager {
     
     func canLaunchCircle() -> Bool { // based off last launches
         
-        let maxPerHour = 999
+        let maxPerHour = 99
         //FIX:
         
         let lastLaunchTimesArray = UserDefaultsManager.shared.getLastLaunchTimesArray()
@@ -127,18 +127,17 @@ class CircleManager {
         if lastLaunchTimesArray.count < maxPerHour {
             return true
         } else {
-            print("juice \(lastLaunchTimesArray[0].timeIntervalSinceNow)")
-            if lastLaunchTimesArray[maxPerHour-1].timeIntervalSinceNow < -3600 {
+            if lastLaunchTimesArray[maxPerHour-1].timeIntervalSinceNow < -(60*20) {
                 return true
             } else {
-                self.presentLaunchLimitReached(limitPerHour : 3)
+                self.presentLaunchLimitReached(limitPerHour : maxPerHour)
                 return false
             }
         }
     }
     
     func presentLaunchLimitReached(limitPerHour : Int) {
-        let alert = UIAlertController(title: "Sorry, can only create \(limitPerHour) new chats per hour.", message: "This is to hedge against spam from the bad actors.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Sorry, can only start \(limitPerHour) new chats every 20 min.", message: "This is to hedge against spam from the bad actors.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alert.addAction(okAction)
         DispatchQueue.main.async {

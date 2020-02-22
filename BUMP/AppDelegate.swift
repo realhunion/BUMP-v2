@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
+        print("wef 000")
         self.bump?.appWillEnterForeground()
     }
     

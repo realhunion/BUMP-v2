@@ -29,8 +29,8 @@ class SendSuggestionView: UIView {
         return titleLabel
     }()
     
-    lazy var textField: TextField = {
-        let textField = TextField()
+    lazy var textField: BaseTextField = {
+        let textField = BaseTextField()
         textField.layer.cornerRadius = 6
         
         textField.backgroundColor = Constant.oGrayLight

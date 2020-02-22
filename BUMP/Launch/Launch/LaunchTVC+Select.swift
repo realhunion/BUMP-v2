@@ -41,12 +41,12 @@ extension LaunchTVC {
             let categoryCircleArray = self.getCategoryCircleArray(category: category)
             
             let vc = CategoryTVC(style: .grouped)
+            vc.title = category.stringByRemovingEmoji()
             vc.circleArray = categoryCircleArray
             vc.category = category
-            vc.title = category
             
             DispatchQueue.main.async {
-                UIApplication.topViewController()?.navigationController?.pushViewController(vc, animated: true)
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
         

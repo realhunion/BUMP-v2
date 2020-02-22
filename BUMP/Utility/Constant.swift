@@ -11,6 +11,22 @@ import SwiftEntryKit
 import FirebaseUI
 
 
+
+
+extension String {
+    func stringByRemovingEmoji() -> String {
+        return String(self.filter { !$0.isEmoji() })
+    }
+}
+
+extension Character {
+    fileprivate func isEmoji() -> Bool {
+        return Character(UnicodeScalar(UInt32(0x1d000))!) <= self && self <= Character(UnicodeScalar(UInt32(0x1f77f))!)
+            || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
+    }
+}
+
+
 //For when someone changes image. cache it then reload if different.
 extension UIImageView {
     
@@ -114,7 +130,7 @@ extension Date {
 enum Constant {
     
     
-    static let missionStatement = "We hope this app can help Grinnellians come together in inclusive yet private communities where we can all find meaningful connections."
+    static let missionStatement = "We hope this app can make it easier for all Grinnellians to come together in intimate communities where we can all find meaningful connections."
     
     static let oBlueLight = UIColor(red:0.10, green:0.68, blue:0.96, alpha:1.0)
     static let oBlue = UIColor(red:0.00, green:0.65, blue:1.00, alpha:1.0)
@@ -263,7 +279,7 @@ extension UIApplication {
 
 
 
-class TextField: UITextField {
+class BaseTextField: UITextField {
     
     var padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     

@@ -44,7 +44,6 @@ class MessageSender {
         }
         
         
-        let timestamp = generateUniqueTimestamp()
         let msgID = "\(Date().millisecondsSince1970)"
         
         let data = generateMsgDataStrip(text: text, userID: myUID, userName: userName)
@@ -68,33 +67,6 @@ class MessageSender {
             ] as [String : Any]
         //FIX: what if date local different figure uot
         return data
-    }
-    
-    func generateUniqueTimestamp() -> String {
-        let d = Date()
-        let df = DateFormatter()
-        df.dateFormat = "MMddHHmmssSSS"
-        let timestamp = df.string(from: d)
-        df.timeStyle = .medium
-        let timestamp2 = df.string(from: d)
-        let finalTimestamp = numCharConversion(theString: timestamp) + " " + timestamp2
-        // -> zxysyxuuzvusw 12:55:04 PM
-        return finalTimestamp
-    }
-    
-    func numCharConversion(theString : String) -> String {
-        var s = theString
-        s = s.replacingOccurrences(of: "0", with: "z")
-        s = s.replacingOccurrences(of: "1", with: "y")
-        s = s.replacingOccurrences(of: "2", with: "x")
-        s = s.replacingOccurrences(of: "3", with: "w")
-        s = s.replacingOccurrences(of: "4", with: "v")
-        s = s.replacingOccurrences(of: "5", with: "u")
-        s = s.replacingOccurrences(of: "6", with: "t")
-        s = s.replacingOccurrences(of: "7", with: "s")
-        s = s.replacingOccurrences(of: "8", with: "r")
-        s = s.replacingOccurrences(of: "9", with: "q")
-        return s
     }
     
     

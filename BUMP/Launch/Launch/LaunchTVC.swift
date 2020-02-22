@@ -42,9 +42,13 @@ class LaunchTVC: UITableViewController {
     }
     
     func shutDown() {
-        self.allCirclesFetcher?.shutDown()
-
         NotificationCenter.default.removeObserver(self)
+        
+        self.allCirclesFetcher?.shutDown()
+        self.circleArray.removeAll()
+        self.tableView.reloadData()
+        
+        self.tableView.backgroundView = nil
     }
     
     
@@ -54,6 +58,7 @@ class LaunchTVC: UITableViewController {
     func setupSpinner() {
         
         let spinner = UIActivityIndicatorView(style: .gray)
+        spinner.hidesWhenStopped = true
         self.tableView.backgroundView = spinner
         spinner.startAnimating()
     }

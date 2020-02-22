@@ -38,7 +38,8 @@ extension CategoryTVC {
         
         if indexPath.section == 1 {
             let circle = self.getRestCircles()[indexPath.row]
-            CircleManager.shared.launchCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
+//            CircleManager.shared.launchCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
+            self.presentJoinAlert(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
         }
         
     }
@@ -62,11 +63,27 @@ extension CategoryTVC {
             CircleFollower.shared.followCircle(circleID: circle.circleID, circleName: circle.circleName, circleEmoji: circle.circleEmoji)
         }
         
-        
-        
-        
     }
     
+    
+    //MARK: Tool
+    
+    
+    func presentJoinAlert(circleID : String, circleName : String, circleEmoji : String) {
+        
+        let alert = UIAlertController(title: "Members only", message: "Join to be able to start, view, and send messages in chats.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let joinAction = UIAlertAction(title: "Join Groupchat", style: .default) { (action) in
+            CircleFollower.shared.followCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
+        }
+        
+        alert.addAction(joinAction)
+        alert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     
     
