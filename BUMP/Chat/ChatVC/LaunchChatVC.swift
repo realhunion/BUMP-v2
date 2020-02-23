@@ -83,7 +83,6 @@ class LaunchChatVC : ChatVC {
     
     func setCircleLaunched() {
         ChatFollower.shared.followChat(chatID: self.chatID)
-        //dependsFIX: depedns if setting enabled in settings.
         
         self.followChatButton.isSelected = true
         self.followChatButton.isHidden = false

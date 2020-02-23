@@ -61,6 +61,17 @@ class FeedChatFetcher {
         self.monitorFeedChatMessages()
     }
     
+    
+    
+    
+    //MARK: - Tool
+    
+    func fetchComplete() -> Bool {
+        guard let myFUser = self.myUser else { return false }
+        guard let msgArray = self.messageArray else { return false }
+        return true
+    }
+    
     func triggerUpdate() {
         
         guard let myFUser = self.myUser else { return }

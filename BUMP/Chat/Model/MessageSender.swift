@@ -65,7 +65,6 @@ class MessageSender {
             "userName": userName,
             "timestamp": Date(),
             ] as [String : Any]
-        //FIX: what if date local different figure uot
         return data
     }
     

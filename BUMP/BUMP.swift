@@ -17,10 +17,6 @@ class BUMP {
     var homeTabBarVC : HomeTabBarVC
     init() {
         self.homeTabBarVC = HomeTabBarVC()
-        if Auth.auth().currentUser == nil {
-            self.homeTabBarVC.currentIndex = 1
-            self.homeTabBarVC.selectedIndex = 1
-        }
         
         UpdateManager.shared.checkForUpdates()
         AnnouncementsManager.shared.shutDown()
@@ -48,13 +44,8 @@ class BUMP {
         AnnouncementsManager.shared.startMonitors()
         
         
-        if Auth.auth().currentUser == nil {
             self.homeTabBarVC.currentIndex = 1
             self.homeTabBarVC.selectedIndex = 1
-        } else {
-            self.homeTabBarVC.currentIndex = 0
-            self.homeTabBarVC.selectedIndex = 0
-        }
         
     }
     
@@ -120,14 +111,14 @@ class BUMP {
         
         SwiftEntryKit.dismiss(.all)
         UIApplication.topViewController()?.dismiss(animated: false, completion: nil)
-//        UIApplication.topViewController()?.navigationController?.popToRootViewController(animated: false)
+        UIApplication.topViewController()?.navigationController?.popToRootViewController(animated: false)
         
         self.homeTabBarVC.feedTVC.feedFetcher?.shutDown()
         AnnouncementsManager.shared.shutDown()
     }
     
     func appDidEnterForeground() {
-//        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
+        
         
     }
     
@@ -143,18 +134,6 @@ class BUMP {
             AnnouncementsManager.shared.shutDown()
             AnnouncementsManager.shared.startMonitors()
         }
-        
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//            // your code here
-//            self.homeTabBarVC.launchVC.refreshLaunchFetcher()
-//        }
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-//            UpdateManager.shared.checkForUpdates()
-//            AnnouncementsManager.shared.shutDown()
-//            AnnouncementsManager.shared.startMonitors()
-//        }
     }
     
     

@@ -25,12 +25,12 @@ class UserDefaultsManager {
     func clearAllData() {
         
         let defaults = UserDefaults.standard
-//        defaults.removeObject(forKey: "intro1Shown")
-//        defaults.removeObject(forKey: "intro2Shown")
+        defaults.removeObject(forKey: "intro1Shown")
+        defaults.removeObject(forKey: "intro2Shown")
         defaults.removeObject(forKey: "myFavLaunchCircles")
         
 //        defaults.removeObject(forKey: "lastLaunchTimes")
-        //FIX: decide what is what
+        //FIX: FUTURE decide what is what
     }
     
     

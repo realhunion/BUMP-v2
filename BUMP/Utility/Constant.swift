@@ -31,6 +31,7 @@ extension Character {
 extension UIImageView {
     
     func setImage(with reference: StorageReference, placeholder: UIImage? = nil) {
+//        sd_setImage(with: reference)
         sd_setImage(with: reference, placeholderImage: placeholder) { [weak self] image, _, _, _ in
             reference.getMetadata { metadata, _ in
                 if let url = NSURL.sd_URL(with: reference)?.absoluteString,
@@ -39,7 +40,7 @@ extension UIImageView {
                     let cacheDate = attributes[.creationDate] as? Date,
                     let serverDate = metadata?.timeCreated,
                     serverDate > cacheDate {
-                    
+
                     SDImageCache.shared.removeImage(forKey: url) {
                         self?.sd_setImage(with: reference, placeholderImage: image, completion: nil)
                     }
@@ -106,7 +107,6 @@ extension UILabel {
 }
 
 
-//FIX: UIBUTTON INCREASED TAP RADIUS
 extension UIButton {
     override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         let relativeFrame = self.bounds
@@ -130,7 +130,7 @@ extension Date {
 enum Constant {
     
     
-    static let missionStatement = "We hope this app can make it easier for all Grinnellians to come together in intimate communities where we can all find meaningful connections."
+    static let missionStatement = "We hope this app can make it easier to come together around the things we care about & find real, meaningful connections."
     
     static let oBlueLight = UIColor(red:0.10, green:0.68, blue:0.96, alpha:1.0)
     static let oBlue = UIColor(red:0.00, green:0.65, blue:1.00, alpha:1.0)

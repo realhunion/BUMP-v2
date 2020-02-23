@@ -43,8 +43,8 @@ class NotificationManager {
     
     func presentEnableNotificationsView() {
         
-        //FIX: Better wording.
-        let alert = UIAlertController(title: "Join to get notified when someone wants to connect!", message: "You can silence certain group chats too.", preferredStyle: .alert)
+        //FIX Temp: Better wording.
+        let alert = UIAlertController(title: "Turn on notifs to recieve group chat messages!", message: "You can always silence group chats", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -63,10 +63,10 @@ class NotificationManager {
             UIApplication.topViewController()?.present(alert, animated: true)
         }
     }
-    //FIX:
+    
     func presentEnableSettingsNotifications() {
         
-        let alert = UIAlertController(title: "Please enable notifs to get the full experience of Grinnell group chats.", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Turn on notifs to recieve group chat messages!", message: "You can always silence group chats", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in

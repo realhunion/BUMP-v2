@@ -15,6 +15,7 @@
 		7B11654B2399C936006F3D07 /* FeedChatFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B11654A2399C936006F3D07 /* FeedChatFetcher.swift */; };
 		7B23F6ED23F8C2CA00C5118F /* AllCirclesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B23F6EC23F8C2CA00C5118F /* AllCirclesFetcher.swift */; };
 		7B27C2BE23CFDA1100045415 /* CircleInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B27C2BD23CFDA1100045415 /* CircleInfoTVC.swift */; };
+		7B2C75D52401ED1B00C0EDE9 /* MyAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C75D42401ED1B00C0EDE9 /* MyAlertManager.swift */; };
 		7B2E9812237BB68D00D5AD67 /* SendSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E9811237BB68D00D5AD67 /* SendSuggestionView.swift */; };
 		7B39A36723E2070C0090A284 /* CircleInfoTVC+Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39A36623E2070C0090A284 /* CircleInfoTVC+Fetcher.swift */; };
 		7B3CFB6923FF079D00EFB0A4 /* CircleInfoTVC+Select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3CFB6823FF079D00EFB0A4 /* CircleInfoTVC+Select.swift */; };
@@ -72,7 +73,6 @@
 		7BC7C2EE235FC94B009D77BF /* IncomingTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7C2D4235FC94B009D77BF /* IncomingTextMessageCell.swift */; };
 		7BC7C2EF235FC94B009D77BF /* BaseMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7C2D5235FC94B009D77BF /* BaseMessageCell.swift */; };
 		7BC7C2F0235FC94B009D77BF /* ChatVC+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7C2D7235FC94B009D77BF /* ChatVC+DataSource.swift */; };
-		7BC7C2F3235FC94B009D77BF /* ChatVC+SubNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7C2DA235FC94B009D77BF /* ChatVC+SubNavBar.swift */; };
 		7BC7C2F4235FC94B009D77BF /* ChatVC+InputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7C2DB235FC94B009D77BF /* ChatVC+InputBar.swift */; };
 		7BC7C2F5235FC94B009D77BF /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7C2DC235FC94B009D77BF /* ChatVC.swift */; };
 		7BC7C2F6235FC94B009D77BF /* ChatVC+MsgFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7C2DD235FC94B009D77BF /* ChatVC+MsgFetcher.swift */; };
@@ -85,6 +85,7 @@
 		7BC7C30723602F36009D77BF /* CircleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7C30623602F36009D77BF /* CircleManager.swift */; };
 		7BCD74E623EA22EF00E55E48 /* HubTVC+Present.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD74E523EA22EF00E55E48 /* HubTVC+Present.swift */; };
 		7BCD74EA23EA293B00E55E48 /* InfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD74E923EA293B00E55E48 /* InfoTextView.swift */; };
+		7BD0BD222400CBD600C4DFD0 /* LimitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD0BD212400CBD600C4DFD0 /* LimitManager.swift */; };
 		7BE66A9723B1617500978411 /* UnreadFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE66A9623B1617500978411 /* UnreadFeedCell.swift */; };
 		7BEA973223B9B4360083C8B7 /* SwipeRightToPopCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEA973123B9B4360083C8B7 /* SwipeRightToPopCVC.swift */; };
 		7BF6BF2623CD1DB000C10591 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF6BF2523CD1DB000C10591 /* UpdateManager.swift */; };
@@ -103,6 +104,7 @@
 		7B11654A2399C936006F3D07 /* FeedChatFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedChatFetcher.swift; sourceTree = "<group>"; };
 		7B23F6EC23F8C2CA00C5118F /* AllCirclesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCirclesFetcher.swift; sourceTree = "<group>"; };
 		7B27C2BD23CFDA1100045415 /* CircleInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleInfoTVC.swift; sourceTree = "<group>"; };
+		7B2C75D42401ED1B00C0EDE9 /* MyAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlertManager.swift; sourceTree = "<group>"; };
 		7B2E9811237BB68D00D5AD67 /* SendSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSuggestionView.swift; sourceTree = "<group>"; };
 		7B39A36623E2070C0090A284 /* CircleInfoTVC+Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircleInfoTVC+Fetcher.swift"; sourceTree = "<group>"; };
 		7B3CFB6823FF079D00EFB0A4 /* CircleInfoTVC+Select.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircleInfoTVC+Select.swift"; sourceTree = "<group>"; };
@@ -162,7 +164,6 @@
 		7BC7C2D4235FC94B009D77BF /* IncomingTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingTextMessageCell.swift; sourceTree = "<group>"; };
 		7BC7C2D5235FC94B009D77BF /* BaseMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMessageCell.swift; sourceTree = "<group>"; };
 		7BC7C2D7235FC94B009D77BF /* ChatVC+DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+DataSource.swift"; sourceTree = "<group>"; };
-		7BC7C2DA235FC94B009D77BF /* ChatVC+SubNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+SubNavBar.swift"; sourceTree = "<group>"; };
 		7BC7C2DB235FC94B009D77BF /* ChatVC+InputBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+InputBar.swift"; sourceTree = "<group>"; };
 		7BC7C2DC235FC94B009D77BF /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		7BC7C2DD235FC94B009D77BF /* ChatVC+MsgFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+MsgFetcher.swift"; sourceTree = "<group>"; };
@@ -175,6 +176,7 @@
 		7BC7C30623602F36009D77BF /* CircleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleManager.swift; sourceTree = "<group>"; };
 		7BCD74E523EA22EF00E55E48 /* HubTVC+Present.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HubTVC+Present.swift"; sourceTree = "<group>"; };
 		7BCD74E923EA293B00E55E48 /* InfoTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTextView.swift; sourceTree = "<group>"; };
+		7BD0BD212400CBD600C4DFD0 /* LimitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitManager.swift; sourceTree = "<group>"; };
 		7BDFADF023CF0400009E4B8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7BE66A9623B1617500978411 /* UnreadFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadFeedCell.swift; sourceTree = "<group>"; };
 		7BEA973123B9B4360083C8B7 /* SwipeRightToPopCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeRightToPopCVC.swift; sourceTree = "<group>"; };
@@ -452,7 +454,6 @@
 				7BC7C2DD235FC94B009D77BF /* ChatVC+MsgFetcher.swift */,
 				7B9D467A23C55BB5003C95EA /* ChatVC+Follow.swift */,
 				7BC7C2DE235FC94B009D77BF /* ChatVC+NavBar.swift */,
-				7BC7C2DA235FC94B009D77BF /* ChatVC+SubNavBar.swift */,
 				7BC7C2DB235FC94B009D77BF /* ChatVC+InputBar.swift */,
 				7BB9377223DCD8CD00741F3F /* ChatVC+Hey.swift */,
 			);
@@ -480,6 +481,8 @@
 				7B03507023D77DDF0094AF3D /* UserDefaultsManager.swift */,
 				7BF6BF2523CD1DB000C10591 /* UpdateManager.swift */,
 				7BF9839C23DE391B00884F96 /* AnnouncementsManager.swift */,
+				7BD0BD212400CBD600C4DFD0 /* LimitManager.swift */,
+				7B2C75D42401ED1B00C0EDE9 /* MyAlertManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -613,10 +616,10 @@
 				7BB9377323DCD8CD00741F3F /* ChatVC+Hey.swift in Sources */,
 				7B3E23AB2373902C008DB53F /* UserProfileView+Fetcher.swift in Sources */,
 				7BB807B22376CA8100EDBAFD /* UserProfileEditView+Button.swift in Sources */,
-				7BC7C2F3235FC94B009D77BF /* ChatVC+SubNavBar.swift in Sources */,
 				7B3E23A923738F92008DB53F /* UserProfileFetcher.swift in Sources */,
 				7B5EFE4A23C98523000D6B89 /* LaunchTVC+Sort.swift in Sources */,
 				7B1165492399C11E006F3D07 /* FeedFetcher.swift in Sources */,
+				7B2C75D52401ED1B00C0EDE9 /* MyAlertManager.swift in Sources */,
 				7BC7C30523602859009D77BF /* BUMP.swift in Sources */,
 				7B11654B2399C936006F3D07 /* FeedChatFetcher.swift in Sources */,
 				7BE66A9723B1617500978411 /* UnreadFeedCell.swift in Sources */,
@@ -633,6 +636,7 @@
 				7B8ED69E23F4ADC200E12913 /* CategoryTVC+Fetcher.swift in Sources */,
 				7BCD74E623EA22EF00E55E48 /* HubTVC+Present.swift in Sources */,
 				7B41FE852398C74E00630D6F /* FeedTVC.swift in Sources */,
+				7BD0BD222400CBD600C4DFD0 /* LimitManager.swift in Sources */,
 				7B03507523D7D7870094AF3D /* IntroInfoVC.swift in Sources */,
 				7B0D65372377860500489C37 /* LoginView+Button.swift in Sources */,
 				7B4E1F7123F2276D003CDA41 /* CreditsInfoVC.swift in Sources */,

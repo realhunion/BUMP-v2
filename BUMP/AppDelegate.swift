@@ -157,11 +157,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate, MessagingDelegate {
             
             guard let timeLaunchedDouble = Double(timeLaunched) else { completionHandler(); return }
             let timeLaunchedDate = Date(timeIntervalSince1970: (timeLaunchedDouble / 1000.0))
-            //FIX: past 3 am or not.
-            guard CircleManager.shared.isLaunchedLast24h(timeLaunched: timeLaunchedDate) else {
-                CircleManager.shared.presentNotificationExpired(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
-                completionHandler(); return }
             
+            guard LimitManager.shared.isChatActive(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, timeLaunched: timeLaunchedDate) else {
+                completionHandler(); return }
             
             CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsgText, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
             

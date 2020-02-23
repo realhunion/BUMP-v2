@@ -87,7 +87,6 @@ extension ChatVC {
         let bubbleHeight = msgFrame.height + (MsgCellConfig.verticalBubblePadding * 2)
         
         guard let myUID = Auth.auth().currentUser?.uid else { return (msg, 0.0, false, false) }
-        //FIX: security Auth
 
         if myUID == msg.userID {
             let cellHeight = bubbleHeight
@@ -105,7 +104,6 @@ extension ChatVC {
         }
         
         if isUserNameEnabled {
-            //FIX: msgFont works best
             let usernameFrame = estimateFrameForText(msg.userName, textFont: MsgCellConfig.msgFont, maxWidth: MsgCellConfig.maxBubbleWidth)
             let nameLabelHeight = usernameFrame.height + 0.0
             let cellHeight = nameLabelHeight + bubbleHeight

@@ -37,8 +37,6 @@ class LaunchTVC: UITableViewController {
         
         self.tableView.register(SubtitleTableViewCell.classForCoder(), forCellReuseIdentifier: "launchCell")
         self.tableView.register(AccessoryTableViewCell.classForCoder(), forCellReuseIdentifier: "categoryCell")
-        
-//        self.refreshControl?.beginRefreshingManually()
     }
     
     func shutDown() {
@@ -192,7 +190,11 @@ class LaunchTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "My Group Chats"
+            if self.getMyCircles().isEmpty {
+                return nil
+            } else {
+                return "My Group Chats"
+            }
         }
         else if section == 1 {
             return "All"
@@ -201,20 +203,6 @@ class LaunchTVC: UITableViewController {
             return nil
         }
     }
-    
-    
-    
-    var selectedVC : CategoryTVC? = nil
 
 }
-
-
-
-extension UIRefreshControl {
-    func beginRefreshingManually() {
-        if let scrollView = superview as? UIScrollView {
-            scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y - frame.height), animated: false)
-        }
-        beginRefreshing()
-    }
-}
+ 

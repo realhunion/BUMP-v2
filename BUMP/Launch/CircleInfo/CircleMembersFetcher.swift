@@ -84,7 +84,7 @@ class CircleMembersFetcher {
                 let userImage = "User-Profile-Images/\(userID).jpg"
                 
                 let uProfile = UserProfile(userID: userID, userName: userName, userHandle: userHandle, userImage: userImage, userDescription: "")
-                //FIX:
+                //FIX: FUTURE
                 
                 self.fetchedMembersDict[userID] = true
                 self.memberProfileArray.append(uProfile)
@@ -107,7 +107,6 @@ class CircleMembersFetcher {
     //MARK: - Trigger Update
     
     func triggerUpdate() {
-        //FIX: Make sager dangerous
         guard !self.fetchedMembersDict.values.contains(where: {$0 == false}) else { return }
         
         self.delegate?.circleMembersFetched(profileArray: self.memberProfileArray)

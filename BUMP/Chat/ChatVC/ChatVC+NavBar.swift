@@ -14,10 +14,6 @@ extension ChatVC {
     
 
     @objc func setupNavBar() {
-        
-        //FIX: v View v View
-//        self.navigationController?.navigationBar.isHidden = true
-//        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     
         
         self.view.addSubview(navBar)
@@ -34,8 +30,6 @@ extension ChatVC {
         self.navBar.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44)
         self.navBar.barTintColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
         self.navBar.isTranslucent = false
-//        self.navBar.setValue(true, forKey: "hidesShadow")
-        //FIX
         
         let navItem = UINavigationItem(title: "")
         

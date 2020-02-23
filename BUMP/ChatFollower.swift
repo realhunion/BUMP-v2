@@ -22,11 +22,16 @@ class ChatFollower {
     
     func followChat(chatID : String) {
         
-        guard let myUID = Auth.auth().currentUser?.uid else { return }
-        
-        let payload = ["isFollowing" : true, "lastSeen":Timestamp(date: Date()), "unreadMsgs": 0] as [String:Any]
-        
-        db.collection("Feed").document(chatID).collection("Users").document(myUID).setData(payload, merge: true)
+        NotificationManager.shared.isEnabled { (isEnabled) in
+            guard isEnabled else { return }
+            
+            guard let myUID = Auth.auth().currentUser?.uid else { return }
+            
+            let payload = ["isFollowing" : true, "lastSeen":Timestamp(date: Date()), "unreadMsgs": 0] as [String:Any]
+            
+            self.db.collection("Feed").document(chatID).collection("Users").document(myUID).setData(payload, merge: true)
+            
+        }
     }
     
     func unFollowChat(chatID : String) {

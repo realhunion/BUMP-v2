@@ -21,6 +21,9 @@ extension UserProfileEditView {
         
         
         var attributes = Constant.bottomPopUpAttributes
+        attributes.entryInteraction = .absorbTouches
+        attributes.screenInteraction = .absorbTouches
+        attributes.scroll = .disabled
         attributes.precedence = .enqueue(priority: .normal)
         let offset = EKAttributes.PositionConstraints.KeyboardRelation.Offset(bottom: 10, screenEdgeResistance: nil)
         let keyboardRelation = EKAttributes.PositionConstraints.KeyboardRelation.bind(offset: offset)
@@ -53,6 +56,13 @@ extension UserProfileEditView {
         }
         
         
+//        let filePath = "User-Profile-Images/\(myUID).jpg"
+//        if let url = NSURL.sd_URL(with: self.storageRef.reference(withPath: filePath))?.absoluteString {
+//            SDImageCache.shared.removeImage(forKey: url) {}
+//        } else {
+//            SDImageCache.shared.clearMemory()
+//            SDImageCache.shared.clearDisk(onCompletion: nil)
+//        }
         
 //        SDImageCache.shared.clearMemory()
 //        SDImageCache.shared.clearDisk(onCompletion: nil)

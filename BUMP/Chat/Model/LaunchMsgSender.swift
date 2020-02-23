@@ -42,7 +42,6 @@ class LaunchMessageSender : MessageSender {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         guard var myUsername = Auth.auth().currentUser?.displayName else { return }
-        //FIX: do some if not accepted
         
         
         // Submit only first name-

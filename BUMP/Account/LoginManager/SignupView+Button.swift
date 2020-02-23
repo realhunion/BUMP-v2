@@ -42,7 +42,7 @@ extension SignupView {
             let dispatchGroup = DispatchGroup()
             
             dispatchGroup.enter()
-            self.db.collection("User-Profile").document(user.uid).setData(["userName":name, "userHandle":email, "userDescription":email], completion: { (err) in
+            self.db.collection("User-Profile").document(user.uid).setData(["userName":name, "userHandle":email, "userDescription":""], completion: { (err) in
                 dispatchGroup.leave()
             })
             
@@ -83,7 +83,10 @@ extension SignupView {
         
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        UIApplication.topViewController()?.present(alert, animated: true)
+        
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+        }
         
     }
     
@@ -173,7 +176,6 @@ extension SignupView {
     }
     
     func isSchoolEmail(emailID:String) -> Bool {
-        //FIX:
         let emailRegEx = "[A-Z0-9a-z._%+-]+@grinnell.edu"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: emailID)

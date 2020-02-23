@@ -111,7 +111,7 @@ class FeedTVC: UITableViewController {
     }
     
     
-    //FIX: FUTURE experimental does it effective
+    
     var cellHeights = [IndexPath: CGFloat]()
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -122,9 +122,6 @@ class FeedTVC: UITableViewController {
         return cellHeights[indexPath] ?? UITableView.automaticDimension
     }
     
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
     
 
     
@@ -173,7 +170,6 @@ class FeedTVC: UITableViewController {
         let circleName = feedChat.circleName
         let circleID = feedChat.circleID
         let firstMsg = feedChat.getFirstMessage()?.text ?? "🤙"
-        //FIX: make safer
         
         CircleManager.shared.enterCircle(chatID: chatID, firstMsg: firstMsg, circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
         

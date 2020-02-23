@@ -34,11 +34,12 @@ extension UserProfileView {
         
         guard let uProfile = self.userProfile else { return }
         
-        print("oprah")
-        
         if self.userID == myUID {
             let v = UserProfileEditView(userID: uProfile.userID, userImage: self.userImageView.image, userName: uProfile.userName, userHandle: uProfile.userHandle, userDescription: uProfile.userDescription)
             var atr = Constant.bottomPopUpAttributes
+            atr.entryInteraction = .absorbTouches
+            atr.screenInteraction = .absorbTouches
+            atr.scroll = .disabled
             let offset = EKAttributes.PositionConstraints.KeyboardRelation.Offset(bottom: 10, screenEdgeResistance: nil)
             let keyboardRelation = EKAttributes.PositionConstraints.KeyboardRelation.bind(offset: offset)
             atr.positionConstraints.keyboardRelation = keyboardRelation

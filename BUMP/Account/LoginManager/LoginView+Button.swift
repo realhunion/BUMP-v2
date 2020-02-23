@@ -27,8 +27,6 @@ extension LoginView {
         
         Auth.auth().signIn(withEmail: email, password: pass) { (authResult, err) in
             
-            print("stuff fone error \(authResult?.user.isEmailVerified)")
-            
             guard let user = authResult?.user else {
                 
                 self.loginButton.setTitle("Log In", for: .normal)
@@ -81,7 +79,10 @@ extension LoginView {
         
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: completionBlock))
-        UIApplication.topViewController()?.present(alert, animated: true)
+        
+        DispatchQueue.main.async {
+            UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+        }
         
     }
     

@@ -21,7 +21,6 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
     let incomingTextMessageCellID = "incomingTextMessageCellID"
     let outgoingTextMessageCellID = "outgoingTextMessageCellID"
     
-    //FIX: better solution??
     var msgFetcher : MessageFetcher?
     var msgSender : MessageSender?
     var myChatFollowFetcher : MyChatFollowFetcher?
@@ -38,12 +37,7 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
     let navBarHeight : CGFloat = 44.0
     lazy var navBar: UINavigationBar = UINavigationBar()
     
-    let subNavBarHeight : CGFloat = 34.0 //0.092 * self.view.bounds.width //36.0
-    lazy var subNavBar : UIView = UIView()
-    
     lazy var followChatButton : UIButton = {
-        
-        //FIX: when F chec, make go to the left. align to the left
         
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .semibold)
@@ -78,7 +72,6 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
         
         self.setupCollectionView()
         self.setupNavBar()
-        self.setupSubNavBar()
         
         self.setupInputBar()
 
@@ -125,7 +118,6 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
     
     
     func updateFeedMsgsRead() {
-        //FIX: what other progression
         CircleManager.shared.updateFeedLastSeen(chatID: chatID)
     }
     

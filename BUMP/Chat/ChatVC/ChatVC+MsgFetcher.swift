@@ -31,7 +31,6 @@ extension ChatVC : MessageFetcherDelegate {
                 let _ = self.insertMsgIntoMsgArray(message: m)
             }
             DispatchQueue.main.async {
-                //FIX: speed it up
                 UIView.transition(with: self.collectionView,
                                   duration: 0.4,
                                   options: .transitionCrossDissolve,

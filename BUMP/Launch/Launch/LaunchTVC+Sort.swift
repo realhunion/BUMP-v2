@@ -20,11 +20,10 @@ struct LaunchSortOption: OptionSet {
 
 extension LaunchTVC {
     
-    
     func sortArray(array : [LaunchCircle]) -> [LaunchCircle] {
         
         guard let option = UserDefaults.standard.value(forKey: defaultsKeys.launchSortOption) as? Int else {
-            return sortAToZ(array: array)
+            return sortMyFav(array: array)
         }
         
         if option == LaunchSortOption.aToZ.rawValue {

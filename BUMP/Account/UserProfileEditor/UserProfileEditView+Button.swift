@@ -42,8 +42,9 @@ extension UserProfileEditView {
                         return
                     }
                     
+                    //SUCCESS
+                    UserDefaultsManager.shared.setMyProfileShown(shown: true)
                     SwiftEntryKit.dismiss {
-                        print("borer 2")
                         self.onDismissAction?()
                     }
                     
@@ -79,7 +80,8 @@ extension UserProfileEditView {
             dbBatch.commit { (err) in
                 guard err == nil else { completion(nil); return }
                 
-                let uProfile = UserProfile(userID: self.userID, userName: userName, userHandle: userHandle, userImage: "nil", userDescription: userDescription)
+                let userImage = "User-Profile-Images/\(self.userID).jpg"
+                let uProfile = UserProfile(userID: self.userID, userName: userName, userHandle: userHandle, userImage: userImage, userDescription: userDescription)
                 completion(uProfile)
             }
             return
@@ -104,8 +106,6 @@ extension UserProfileEditView {
     
     func checkAllFieldsCorrect() -> Bool {
         
-        print("cool")
-        
         guard let userName = self.userNameTextField.text else { return false }
 //        guard let userHandle = self.userHandleTextField.text else { return false }
 //        guard let userDescription = self.userDescriptionTextView.text else { return false }
@@ -122,10 +122,10 @@ extension UserProfileEditView {
         
         var allGood = true
         
-//        if self.userImageView.image == nil {
-//            self.animateImageViewError(imageView: self.userImageView)
-//            allGood = false
-//        }
+        if self.userImageView.image == nil {
+            self.animateImageViewError(imageView: self.userImageView)
+            allGood = false
+        }
         
         if userName == "" {
             self.animateTextFieldError(textField: self.userNameTextField, errorText: self.namePlaceholder)
@@ -136,8 +136,6 @@ extension UserProfileEditView {
             self.animateTextFieldError(textField: self.userNameTextField, errorText: "Enter a valid name.")
             allGood = false
         }
-        
-        print("cool2 \(allGood)")
         
         return allGood
         

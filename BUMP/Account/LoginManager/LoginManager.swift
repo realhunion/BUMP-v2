@@ -31,7 +31,7 @@ class LoginManager {
             return false
         }
         else if !UserDefaultsManager.shared.isMyProfileShown() {
-            UserDefaultsManager.shared.setMyProfileShown(shown: true)
+//            UserDefaultsManager.shared.setMyProfileShown(shown: true)
             self.presentUserProfileEditView(userName: user.displayName, userHandle: user.email)
             return false
         }
@@ -135,7 +135,6 @@ class LoginManager {
         }
         
         DispatchQueue.main.async {
-            UIApplication.topViewController()?.dismiss(animated: false) {}
             UIApplication.topViewController()?.present(nvc, animated: true) {}
         }
         

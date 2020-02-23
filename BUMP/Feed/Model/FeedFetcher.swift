@@ -16,7 +16,6 @@ protocol FeedFetcherDelegate : class {
     func feedChatUpdated(feedChat : FeedChat)
     
     func feedChatRemoved(chatID : String)
-    
 }
 
 
@@ -86,7 +85,6 @@ class FeedFetcher {
         fetcher.shutDown()
         
         for fetcher in fetcher.feedChatFetcherArray {
-            //FIX: boom. tell jacob. unfollow chat when u leave circle.
             ChatFollower.shared.unFollowChat(chatID: fetcher.chatID)
             self.delegate?.feedChatRemoved(chatID: fetcher.chatID)
         }

@@ -110,8 +110,8 @@ extension HubTVC {
         }
         
         DispatchQueue.main.async {
-            UIApplication.topViewController()?.dismiss(animated: false) {}
-            UIApplication.topViewController()?.present(nvc, animated: true) {}
+            self.dismiss(animated: false) {}
+            self.present(nvc, animated: true) {}
         }
         
     }
@@ -132,8 +132,8 @@ extension HubTVC {
         }
         
         DispatchQueue.main.async {
-            UIApplication.topViewController()?.dismiss(animated: false) {}
-            UIApplication.topViewController()?.present(nvc, animated: true) {}
+            self.dismiss(animated: false) {}
+            self.present(nvc, animated: true) {}
         }
     }
     
@@ -153,8 +153,8 @@ extension HubTVC {
         }
         
         DispatchQueue.main.async {
-            UIApplication.topViewController()?.dismiss(animated: false) {}
-            UIApplication.topViewController()?.present(nvc, animated: true) {}
+            self.dismiss(animated: false) {}
+            self.present(nvc, animated: true) {}
         }
     }
     
@@ -174,8 +174,24 @@ extension HubTVC {
         }
         
         DispatchQueue.main.async {
-            UIApplication.topViewController()?.dismiss(animated: false) {}
-            UIApplication.topViewController()?.present(nvc, animated: true) {}
+            self.dismiss(animated: false) {}
+            self.present(nvc, animated: true) {}
+        }
+    }
+    
+    func presentSendASuggestion() {
+        
+        let c = SendSuggestionView()
+        
+        var atr = Constant.centerPopUpAttributes
+        
+        let offset = EKAttributes.PositionConstraints.KeyboardRelation.Offset(bottom: 10, screenEdgeResistance: nil)
+        let keyboardRelation = EKAttributes.PositionConstraints.KeyboardRelation.bind(offset: offset)
+        atr.positionConstraints.keyboardRelation = keyboardRelation
+        
+        DispatchQueue.main.async {
+            
+            SwiftEntryKit.display(entry: c, using: atr)
         }
     }
     

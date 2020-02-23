@@ -47,7 +47,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     func setupTabBar() {
         
-        //FIX: circle INFO large title adjustfonttoFItWidth do it.
+        //FIX: FUTURE circle INFO large title adjustfonttoFItWidth do it.
         
         launchVC.view.backgroundColor = .white
         hubVC.view.backgroundColor = .white
@@ -99,7 +99,7 @@ class HomeTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     
     
-    var currentIndex : Int = Tabs.feed.rawValue
+    var currentIndex : Int = Tabs.launch.rawValue
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         currentIndex = selectedIndex
     }

@@ -29,7 +29,8 @@ class HubTVC: UITableViewController {
          
         
         [SettingsCell(title: "What is Bump?", image: nil, disclosureIndicator: true),
-         SettingsCell(title: "How To Use", image: nil, disclosureIndicator: true)],
+         SettingsCell(title: "How To Use", image: nil, disclosureIndicator: true),
+        SettingsCell(title: "Send a Suggestion", image: nil, disclosureIndicator: true)],
         
         [SettingsCell(title: "Helpline", image: nil, disclosureIndicator: true),
          SettingsCell(title: "Rules of Bumpland", image: nil, disclosureIndicator: true),
@@ -138,6 +139,9 @@ class HubTVC: UITableViewController {
             
         case "How To Use":
             self.presentHowToUse()
+            
+        case "Send a Suggestion":
+            self.presentSendASuggestion()
             
         case "Helpline":
             self.presentHelpline()

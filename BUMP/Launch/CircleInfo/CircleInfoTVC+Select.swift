@@ -40,8 +40,6 @@ extension CircleInfoTVC {
                     
                 }
                 
-                //FIX: make more simple
-                
             }
             else if self.tableView(tableView, cellForRowAt: indexPath).textLabel?.text == "Leave" {
                 
