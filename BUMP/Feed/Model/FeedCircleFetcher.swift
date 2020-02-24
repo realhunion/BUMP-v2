@@ -40,6 +40,7 @@ class FeedCircleFetcher {
         for fetcher in self.feedChatFetcherArray {
             fetcher.shutDown()
         }
+        self.feedChatFetcherArray.removeAll()
     }
     
     
@@ -49,29 +50,27 @@ class FeedCircleFetcher {
     func startMonitor() {
         
         DispatchQueue.main.async {
-        
+            
             self.listener = self.db.collection("Feed").whereField("circleID", isEqualTo: self.circleID).addSnapshotListener({ (snap, err) in
-            guard let docChanges = snap?.documentChanges else { return }
-            
-            print("joker 1.15")
-            
-            for diff in docChanges {
+                guard let docChanges = snap?.documentChanges else { return }
                 
-                if diff.type == .added {
-                    let doc = diff.document
-                    let chatID = doc.documentID
-                    if let circleID = doc.data()["circleID"] as? String, let circleName = doc.data()["circleName"] as? String, let circleEmoji = doc.data()["circleEmoji"] as? String {
-                        self.monitorFeedChat(chatID: chatID, circleID: self.circleID, circleName: circleName, circleEmoji: circleEmoji)
+                for diff in docChanges {
+                    
+                    if diff.type == .added {
+                        let doc = diff.document
+                        let chatID = doc.documentID
+                        if let circleID = doc.data()["circleID"] as? String, let circleName = doc.data()["circleName"] as? String, let circleEmoji = doc.data()["circleEmoji"] as? String {
+                            self.monitorFeedChat(chatID: chatID, circleID: self.circleID, circleName: circleName, circleEmoji: circleEmoji)
+                        }
                     }
+                    if diff.type == .removed {
+                        let chatID = diff.document.documentID
+                        self.deMonitorFeedChat(chatID: chatID)
+                    }
+                    
                 }
-                if diff.type == .removed {
-                    let chatID = diff.document.documentID
-                    self.deMonitorFeedChat(chatID: chatID)
-                }
-                
-            }
-        })
-        
+            })
+            
         }}
     
     

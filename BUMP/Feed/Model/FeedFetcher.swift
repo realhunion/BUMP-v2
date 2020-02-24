@@ -82,12 +82,13 @@ class FeedFetcher {
     func deMonitorFeedCircle(circleID : String) {
         
         guard let fetcher = self.feedCircleFetcherArray.first(where: {$0.circleID == circleID}) else { return }
-        fetcher.shutDown()
         
         for fetcher in fetcher.feedChatFetcherArray {
             ChatFollower.shared.unFollowChat(chatID: fetcher.chatID)
             self.delegate?.feedChatRemoved(chatID: fetcher.chatID)
         }
+        
+        fetcher.shutDown()
         
         self.feedCircleFetcherArray.removeAll(where: {$0.circleID == circleID})
 
@@ -100,7 +101,7 @@ class FeedFetcher {
     
     //MARK: - TOOLBOX
     
-    func doesChatExist(chatIDArray : [String]) {
+    func doChatsExist(chatIDArray : [String]) {
         
         for chatID in chatIDArray {
             
@@ -111,11 +112,24 @@ class FeedFetcher {
                     self.feedChatRemoved(chatID: chatID)
                 }
             }
-            
         }
-        
     }
     
+    
+    
+//    func checkIfFeedChatsEmpty() {
+//        var allGood = true
+//        for fetcher in self.feedCircleFetcherArray {
+//            if let isEmpty = fetcher.isEmpty {
+//                if !isEmpty { allGood = false }
+//            } else {
+//                allGood = false
+//            }
+//        }
+//        if allGood {
+//            self.delegate?.feedChatsEmpty()
+//        }
+//    }
     
     
     

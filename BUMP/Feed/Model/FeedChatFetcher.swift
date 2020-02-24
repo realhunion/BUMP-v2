@@ -48,6 +48,7 @@ class FeedChatFetcher {
         }
         self.messageFetcher?.shutDown()
         
+        self.messageFetcher = nil
         self.messageArray = nil
         self.myUser = nil
     }
