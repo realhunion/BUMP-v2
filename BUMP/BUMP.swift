@@ -127,13 +127,15 @@ class BUMP {
 //        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
         
         //so doesn't spam reloadtableview increment chat messages received. freezes.
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.homeTabBarVC.feedTVC.refreshFeedFetcher()
             
             UpdateManager.shared.checkForUpdates()
             AnnouncementsManager.shared.shutDown()
             AnnouncementsManager.shared.startMonitors()
-        }
+        
+//        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
+//        }
     }
     
     

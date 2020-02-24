@@ -18,7 +18,7 @@ extension FeedTVC : FeedFetcherDelegate {
         
         self.feedFetcher?.shutDown()
         self.setupFeedFetcher()
-        self.feedFetcher?.doesChatExist(chatIDArray: self.feedChatArray.map({$0.chatID}))
+        self.feedFetcher?.doChatsExist(chatIDArray: self.feedChatArray.map({$0.chatID}))
     }
     
     func setupFeedFetcher() {
@@ -27,8 +27,8 @@ extension FeedTVC : FeedFetcherDelegate {
         
         self.feedFetcher?.shutDown()
         self.feedFetcher = FeedFetcher()
-        self.feedFetcher?.startMonitor()
         self.feedFetcher?.delegate = self
+        self.feedFetcher?.startMonitor()
     }
     
     func feedChatUpdated(feedChat: FeedChat) {
