@@ -93,7 +93,7 @@ class FeedChat {
     
     func getMyUserUnreadMsgs() -> Int {
         
-        let allMsgCount = self.messageArray.count - 1
+        let allMsgCount = self.messageArray.count
         
         guard let myLastSeen = myUser.lastSeen else { return allMsgCount }
         

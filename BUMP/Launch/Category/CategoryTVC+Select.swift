@@ -71,7 +71,7 @@ extension CategoryTVC {
     
     func presentJoinAlert(circleID : String, circleName : String, circleEmoji : String) {
         
-        let alert = UIAlertController(title: "Members only", message: "Join to be able to start, view, and send messages in chats.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "\(circleName)", message: "Join to be able to send & view messages in chats.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
         let joinAction = UIAlertAction(title: "Join Groupchat", style: .default) { (action) in
             CircleFollower.shared.followCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji)
