@@ -124,7 +124,7 @@ class CategoryTVC: UITableViewController {
             if self.getMyCircles().isEmpty {
                 return nil
             } else {
-                return "My Group Chats"
+                return "My Groups"
             }
         } else {
             if self.getRestCircles().isEmpty {

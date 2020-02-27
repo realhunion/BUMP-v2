@@ -27,7 +27,7 @@ class ChatFollower {
             
             guard let myUID = Auth.auth().currentUser?.uid else { return }
             
-            let payload = ["isFollowing" : true, "lastSeen":Timestamp(date: Date()), "unreadMsgs": 0] as [String:Any]
+            let payload = ["isFollowing" : true, "unreadMsgs": 0] as [String:Any]
             
             self.db.collection("Feed").document(chatID).collection("Users").document(myUID).setData(payload, merge: true)
             
@@ -38,7 +38,7 @@ class ChatFollower {
         
         guard let myUID = Auth.auth().currentUser?.uid else { return }
         
-        let payload = ["isFollowing" : false, "lastSeen":Timestamp(date: Date()), "unreadMsgs": 0] as [String:Any]
+        let payload = ["isFollowing" : false, "unreadMsgs": 0] as [String:Any]
         
         db.collection("Feed").document(chatID).collection("Users").document(myUID).setData(payload, merge: true)
         

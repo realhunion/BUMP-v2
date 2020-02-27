@@ -16,6 +16,8 @@ protocol FeedFetcherDelegate : class {
     func feedChatUpdated(feedChat : FeedChat)
     
     func feedChatRemoved(chatID : String)
+    
+    func feedEmpty()
 }
 
 
@@ -51,6 +53,11 @@ class FeedFetcher {
         
         self.listener = db.collection("User-Profile").document(myUID).collection("Following").addSnapshotListener { (snap, err) in
             guard let docChanges = snap?.documentChanges else { return }
+            guard let docs = snap?.documents else { return }
+            
+            if docs.isEmpty {
+                self.delegate?.feedEmpty()
+            }
             
             for diff in docChanges {
                 
@@ -81,14 +88,14 @@ class FeedFetcher {
     
     func deMonitorFeedCircle(circleID : String) {
         
-        guard let fetcher = self.feedCircleFetcherArray.first(where: {$0.circleID == circleID}) else { return }
+        guard let circleFetcher = self.feedCircleFetcherArray.first(where: {$0.circleID == circleID}) else { return }
         
-        for fetcher in fetcher.feedChatFetcherArray {
-            ChatFollower.shared.unFollowChat(chatID: fetcher.chatID)
-            self.delegate?.feedChatRemoved(chatID: fetcher.chatID)
+        for chatFetcher in circleFetcher.feedChatFetcherArray {
+            ChatFollower.shared.unFollowChat(chatID: chatFetcher.chatID)
+            self.delegate?.feedChatRemoved(chatID: chatFetcher.chatID)
         }
         
-        fetcher.shutDown()
+        circleFetcher.shutDown()
         
         self.feedCircleFetcherArray.removeAll(where: {$0.circleID == circleID})
 
@@ -149,5 +156,10 @@ extension FeedFetcher : FeedCircleFetcherDelegate {
         self.delegate?.feedChatRemoved(chatID: chatID)
     }
     
+    
+    func feedCircleEmpty(circleID: String) {
+        self.delegate?.feedEmpty()
+        //MORE FIX: FUTURE . Improve. Current only stops spinning when one of the feedCircles is Empty.
+    }
     
 }

@@ -20,17 +20,16 @@ class AllCirclesFetcher {
     weak var delegate : AllCirclesFetcherDelegate?
     
     var circleFetchedDict : [String:Bool] = [:]
-    var amMemberListenerArray : [ListenerRegistration] = []
     var launchCircleArray : [LaunchCircle] = []
     
+    deinit {
+        print("vlon deinit")
+    }
     
     func shutDown() {
         self.delegate = nil
-        for listener in self.amMemberListenerArray {
-            listener.remove()
-        }
+        
         self.circleFetchedDict.removeAll()
-        self.amMemberListenerArray.removeAll()
         self.launchCircleArray.removeAll()
     }
     

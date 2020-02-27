@@ -66,7 +66,7 @@ extension UserProfileEditView {
         
 //        SDImageCache.shared.clearMemory()
 //        SDImageCache.shared.clearDisk(onCompletion: nil)
-        //FIX: clear only userProfileImage not all
+        //FIX: FUTURE clear only userProfileImage not all
     }
     
     func userImageSelected(image : UIImage?) {

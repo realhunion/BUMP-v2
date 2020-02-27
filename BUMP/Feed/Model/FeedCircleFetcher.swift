@@ -15,6 +15,7 @@ protocol FeedCircleFetcherDelegate : class {
     
     func feedChatRemoved(chatID : String)
     
+    func feedCircleEmpty(circleID : String)
 }
 
 class FeedCircleFetcher {
@@ -53,6 +54,11 @@ class FeedCircleFetcher {
             
             self.listener = self.db.collection("Feed").whereField("circleID", isEqualTo: self.circleID).addSnapshotListener({ (snap, err) in
                 guard let docChanges = snap?.documentChanges else { return }
+                guard let docs = snap?.documents else { return }
+                
+                if docs.isEmpty {
+                    self.delegate?.feedCircleEmpty(circleID: self.circleID)
+                }
                 
                 for diff in docChanges {
                     

@@ -27,10 +27,11 @@ class CreditsInfoVC : TermsInfoVC {
     
 }
 
+//FIX: Future currently IntroInfo
 class WhatisBumpInfoVC : TermsInfoVC {
     
     override func setupTextView() {
-        if let rtfPath = Bundle.main.url(forResource: "WhatIsBump", withExtension: "rtf") {
+        if let rtfPath = Bundle.main.url(forResource: "IntroInfo", withExtension: "rtf") {
             do {
                 let attributedStringWithRtf: NSAttributedString = try NSAttributedString(url: rtfPath, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.rtf], documentAttributes: nil)
                 
@@ -47,7 +48,7 @@ class WhatisBumpInfoVC : TermsInfoVC {
 class HowToUseInfoVC : TermsInfoVC {
     
     override func setupTextView() {
-        if let rtfPath = Bundle.main.url(forResource: "WhatIsBump", withExtension: "rtf") {
+        if let rtfPath = Bundle.main.url(forResource: "HowToUse", withExtension: "rtf") {
             do {
                 let attributedStringWithRtf: NSAttributedString = try NSAttributedString(url: rtfPath, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.rtf], documentAttributes: nil)
                 

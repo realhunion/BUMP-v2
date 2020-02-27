@@ -44,8 +44,8 @@ class BUMP {
         AnnouncementsManager.shared.startMonitors()
         
         
-            self.homeTabBarVC.currentIndex = 1
-            self.homeTabBarVC.selectedIndex = 1
+        self.homeTabBarVC.currentIndex = 1
+        self.homeTabBarVC.selectedIndex = 1
         
     }
     
@@ -114,6 +114,9 @@ class BUMP {
         UIApplication.topViewController()?.navigationController?.popToRootViewController(animated: false)
         
         self.homeTabBarVC.feedTVC.feedFetcher?.shutDown()
+        self.homeTabBarVC.launchVC.allCirclesFetcher?.shutDown()
+        self.launchRefreshTimer?.invalidate()
+        
         AnnouncementsManager.shared.shutDown()
     }
     
@@ -122,20 +125,18 @@ class BUMP {
         
     }
     
+    var launchRefreshTimer : Timer?
     func appWillEnterForeground() {
         
-//        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
+        self.homeTabBarVC.feedTVC.refreshFeedFetcher()
         
-        //so doesn't spam reloadtableview increment chat messages received. freezes.
-//        DispatchQueue.main.async {
-            self.homeTabBarVC.feedTVC.refreshFeedFetcher()
-            
-            UpdateManager.shared.checkForUpdates()
-            AnnouncementsManager.shared.shutDown()
-            AnnouncementsManager.shared.startMonitors()
+        UpdateManager.shared.checkForUpdates()
+        AnnouncementsManager.shared.shutDown()
+        AnnouncementsManager.shared.startMonitors()
         
-//        self.homeTabBarVC.launchVC.refreshLaunchFetcher()
-//        }
+        self.launchRefreshTimer = Timer.scheduledTimer(withTimeInterval: 2.2, repeats: false) { [weak self] timer in
+            self?.homeTabBarVC.launchVC.refreshLaunchFetcher()
+        }
     }
     
     

@@ -66,4 +66,10 @@ extension FeedTVC : FeedFetcherDelegate {
     }
     
     
+    
+    func feedEmpty() {
+        print("feed Empty")
+        self.spinner.stopAnimating()
+    }
+    
 }

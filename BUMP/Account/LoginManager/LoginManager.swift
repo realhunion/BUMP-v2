@@ -20,8 +20,7 @@ class LoginManager {
     func isLoggedIn() -> Bool {
         
         guard let user = Auth.auth().currentUser else {
-            //self.presentSignupVC() //FIX: this
-            self.presentLoginVC(email: "alihunai@grinnell.edu", pass: "password")
+            self.presentSignupVC() //FIX: this
             return false
         }
         

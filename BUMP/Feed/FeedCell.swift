@@ -46,8 +46,8 @@ class FeedCell: UITableViewCell {
         button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .semibold)
         button.setTitleColor(Constant.oBlue, for: .normal)
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
-        button.setTitle("Enable notifs", for: .normal)
-        button.setTitle("N✓", for: .selected)
+        button.setTitle("Follow", for: .normal)
+        button.setTitle("F✓", for: .selected)
         
         button.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         

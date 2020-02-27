@@ -43,8 +43,8 @@ class ChatVC: SwipeRightToPopCVC, UIGestureRecognizerDelegate, SPStorkController
         button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .semibold)
         button.setTitleColor(Constant.oBlue, for: .normal)
         button.setTitleColor(Constant.oBlue.withAlphaComponent(0.8), for: .highlighted)
-        button.setTitle("Enable notifs", for: .normal)
-        button.setTitle("N✓", for: .selected)
+        button.setTitle("Follow", for: .normal)
+        button.setTitle("F✓", for: .selected)
         
         button.titleLabel?.numberOfLines = 1
         

@@ -74,10 +74,15 @@ extension HubTVC {
             }
         }
         
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
+            UIAlertAction in
+        }
+        
         alert.addAction(silence1h)
         alert.addAction(silence3h)
         alert.addAction(silence12h)
         alert.addAction(unsilence)
+        alert.addAction(cancel)
         
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
@@ -140,7 +145,7 @@ extension HubTVC {
     
     func presentWhatIsBump() {
         
-        let vc = WhatisBumpInfoVC()
+        let vc = IntroInfoVC()
         vc.title = "What is Bump?"
         let nvc = UINavigationController(rootViewController: vc)
         
@@ -161,7 +166,7 @@ extension HubTVC {
     
     func presentHowToUse() {
         
-        let vc = HowToUseInfoVC()
+        let vc = HowToUseInfoVC()//FIX: FUTURE custom whatisBump ting.
         vc.title = "How To Use"
         let nvc = UINavigationController(rootViewController: vc)
         

@@ -66,8 +66,8 @@ class CircleInfoTVC: UITableViewController {
         
         self.circleMembersFetcher = CircleMembersFetcher(circleID: self.circleID)
         self.circleMembersFetcher?.delegate = self
-                self.circleMembersFetcher?.fetchAllCircleMembers()
-//        self.circleMembersFetcher?.fetchCircleMembers(userIDArray: self.circleMemberArray.map({$0.userID}))
+//                self.circleMembersFetcher?.fetchAllCircleMembers()
+        self.circleMembersFetcher?.fetchCircleMembers(userIDArray: self.circleMemberArray.map({$0.userID}))
     }
     
     func refreshCircleMembersFetcher() {
@@ -155,7 +155,7 @@ class CircleInfoTVC: UITableViewController {
                 }
             } else {
                 cell.textLabel?.text = "Notifications"
-                cell.detailTextLabel?.text = "Know whenever this chat is started."
+                cell.detailTextLabel?.text = "Know whenever this group chat is started."
                 cell.accessoryView = self.notifsOnSwitcher
                 if let myMember = circleMemberArray.first(where: {$0.userID == Auth.auth().currentUser?.uid ?? "nil"}) {
                     self.notifsOnSwitcher.isOn = myMember.notifsOn

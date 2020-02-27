@@ -73,7 +73,7 @@ class HubTVC: UITableViewController {
             return "Account"
         }
         else if section == 3 {
-            return "THIS THING"
+            return "THIS Project"
         }
         else if section == 4 {
             return "info"

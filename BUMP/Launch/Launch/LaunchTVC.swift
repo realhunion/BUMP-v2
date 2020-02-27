@@ -64,6 +64,7 @@ class LaunchTVC: UITableViewController {
     func setupRefreshControl() {
         
         self.refreshControl = UIRefreshControl()
+//        self.refreshControl?.attributedTitle = NSAttributedString(string: "refresh", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray ])
         self.refreshControl?.addTarget(self, action:  #selector(didRefreshControl), for: .valueChanged)
 
     }
@@ -193,7 +194,7 @@ class LaunchTVC: UITableViewController {
             if self.getMyCircles().isEmpty {
                 return nil
             } else {
-                return "My Group Chats"
+                return "My Groups"
             }
         }
         else if section == 1 {
