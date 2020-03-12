@@ -124,22 +124,6 @@ class FeedFetcher {
     
     
     
-//    func checkIfFeedChatsEmpty() {
-//        var allGood = true
-//        for fetcher in self.feedCircleFetcherArray {
-//            if let isEmpty = fetcher.isEmpty {
-//                if !isEmpty { allGood = false }
-//            } else {
-//                allGood = false
-//            }
-//        }
-//        if allGood {
-//            self.delegate?.feedChatsEmpty()
-//        }
-//    }
-    
-    
-    
 }
 
 

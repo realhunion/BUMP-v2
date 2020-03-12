@@ -59,7 +59,7 @@ class AllCirclesFetcher {
         
     }
     
-    func fetchCircle(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, category : String) {
+    func fetchCircle(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, category : String, category2 : String? = nil) {
         
         db.collection("LaunchCircles").document(circleID).collection("Followers").getDocuments { (snap, err) in
             

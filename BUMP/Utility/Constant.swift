@@ -130,7 +130,7 @@ extension Date {
 enum Constant {
     
     
-    static let missionStatement = "We hope this app can make it easier to come together around the things we care about & find real, meaningful connections."
+    static let missionStatement = "We hope this app can make it easier to link with other students who share your interests & find real, meaningful connections."
     
     static let oBlueLight = UIColor(red:0.10, green:0.68, blue:0.96, alpha:1.0)
     static let oBlue = UIColor(red:0.00, green:0.65, blue:1.00, alpha:1.0)

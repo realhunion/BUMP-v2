@@ -49,7 +49,7 @@ class FeedTVC: UITableViewController {
         let label = UILabel()
         label.textColor = UIColor.systemGray
         label.numberOfLines = 2
-        label.text = "Chats last 24h.\nConnections last forever."
+        label.text = "Chats last 24h"
         label.textAlignment = .center
         return label
     }()

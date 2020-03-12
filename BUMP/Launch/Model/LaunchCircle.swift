@@ -23,13 +23,15 @@ class LaunchCircle {
     var circleEmoji : String
     var circleDescription : String
     var category : String
+    var category2 : String?
     var memberArray : [LaunchMember]
-    init(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, category : String, memberArray : [LaunchMember]) {
+    init(circleID : String, circleName : String, circleEmoji : String, circleDescription : String, category : String, category2 : String? = nil, memberArray : [LaunchMember]) {
         self.circleID = circleID
         self.circleName = circleName
         self.circleEmoji = circleEmoji
         self.circleDescription = circleDescription
         self.category = category
+        self.category2 = category2
         self.memberArray = memberArray
     }
     

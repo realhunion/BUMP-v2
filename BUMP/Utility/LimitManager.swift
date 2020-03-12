@@ -71,7 +71,7 @@ class LimitManager {
     // currently maxPer
     func canLaunchCircle() -> Bool { // based off last launches
         
-        let maxPerTime = 3
+        let maxPerTime = 3 //FIX: THIS
         
         let lastLaunchTimesArray = UserDefaultsManager.shared.getLastLaunchTimesArray()
         
