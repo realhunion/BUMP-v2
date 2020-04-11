@@ -204,6 +204,48 @@ class LaunchTVC: UITableViewController {
             return nil
         }
     }
+    
+    
+    
+    
+    
+    //MARK: - Internal Methods
+    
+    
+    func getMyCircles() -> [LaunchCircle] {
+        var array = self.circleArray.filter({$0.amMember()})
+        array = self.sortArray(array: array)
+        return array
+    }
+    
+    //
+    
+    func getCategoryArray() -> [String] {
+        var categoryArray : [String] = []
+        for circle in self.circleArray {
+            if !categoryArray.contains(where: {$0 == circle.category}) {
+                categoryArray.append(circle.category)
+            }
+        }
+        categoryArray.sort { (c1, c2) -> Bool in
+            return c1 < c2
+        }
+        return categoryArray
+    }
+    
+    func getCategoryCircleArray(category : String) -> [LaunchCircle] {
+        let filteredCategoryArray = self.circleArray.filter({$0.category == category})
+        return filteredCategoryArray
+    }
 
 }
  
+
+
+
+
+
+
+
+
+

@@ -49,6 +49,7 @@
 		7B7ACA6D235D2E0E00D3E901 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7ACA6B235D2E0E00D3E901 /* Main.storyboard */; };
 		7B7ACA6F235D2E1000D3E901 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B7ACA6E235D2E1000D3E901 /* Assets.xcassets */; };
 		7B7ACA72235D2E1000D3E901 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7ACA70235D2E1000D3E901 /* LaunchScreen.storyboard */; };
+		7B7DE5EF241A119B00209F0A /* SubLaunchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DE5EE241A119B00209F0A /* SubLaunchTVC.swift */; };
 		7B7FA84823BBD899000507D2 /* LaunchMsgSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7FA84723BBD899000507D2 /* LaunchMsgSender.swift */; };
 		7B8D388F23610CBE00A3FCA3 /* MsgCellConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D388E23610CBE00A3FCA3 /* MsgCellConfig.swift */; };
 		7B8ED69C23F49EA800E12913 /* CategoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED69B23F49EA800E12913 /* CategoryTVC.swift */; };
@@ -140,6 +141,7 @@
 		7B7ACA6C235D2E0E00D3E901 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B7ACA6E235D2E1000D3E901 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B7ACA71235D2E1000D3E901 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7B7DE5EE241A119B00209F0A /* SubLaunchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubLaunchTVC.swift; sourceTree = "<group>"; };
 		7B7FA84723BBD899000507D2 /* LaunchMsgSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchMsgSender.swift; sourceTree = "<group>"; };
 		7B8D388E23610CBE00A3FCA3 /* MsgCellConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgCellConfig.swift; sourceTree = "<group>"; };
 		7B8ED69B23F49EA800E12913 /* CategoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTVC.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 		7B8ED69A23F49DE500E12913 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				7B7DE5EE241A119B00209F0A /* SubLaunchTVC.swift */,
 				7B8ED69B23F49EA800E12913 /* CategoryTVC.swift */,
 				7B8ED69D23F4ADC200E12913 /* CategoryTVC+Fetcher.swift */,
 				7B8ED69F23F4ADE700E12913 /* CategoryTVC+Select.swift */,
@@ -667,6 +670,7 @@
 				7B3CFB6923FF079D00EFB0A4 /* CircleInfoTVC+Select.swift in Sources */,
 				7BA1F58723C8F3980053E799 /* LaunchTVC.swift in Sources */,
 				7BC7C2F7235FC94B009D77BF /* ChatVC+NavBar.swift in Sources */,
+				7B7DE5EF241A119B00209F0A /* SubLaunchTVC.swift in Sources */,
 				7B7FA84823BBD899000507D2 /* LaunchMsgSender.swift in Sources */,
 				7B23F6ED23F8C2CA00C5118F /* AllCirclesFetcher.swift in Sources */,
 				7BC7C2F6235FC94B009D77BF /* ChatVC+MsgFetcher.swift in Sources */,

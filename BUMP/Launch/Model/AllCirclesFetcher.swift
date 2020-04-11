@@ -50,7 +50,11 @@ class AllCirclesFetcher {
                 let circleID = doc.documentID
                 if let circleName = doc.data()["circleName"] as? String, let circleEmoji = doc.data()["circleEmoji"] as? String, let circleDescription = doc.data()["circleDescription"] as? String, let category = doc.data()["category"] as? String {
                     
-                    self.fetchCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, circleDescription: circleDescription, category : category)
+                    if let category2 = doc.data()["category2"] as? String {
+                        self.fetchCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, circleDescription: circleDescription, category : category, category2: category2)
+                    } else {
+                        self.fetchCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, circleDescription: circleDescription, category : category)
+                    }
                     
                     
                 }
@@ -77,7 +81,7 @@ class AllCirclesFetcher {
                 
             }
             
-            let lc = LaunchCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, circleDescription: circleDescription, category: category, memberArray: memberArray)
+            let lc = LaunchCircle(circleID: circleID, circleName: circleName, circleEmoji: circleEmoji, circleDescription: circleDescription, category: category, category2: category2, memberArray: memberArray)
             self.launchCircleArray.removeAll(where: {$0.circleID == circleID})
             self.launchCircleArray.append(lc)
             

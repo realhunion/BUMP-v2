@@ -37,17 +37,44 @@ extension LaunchTVC {
         }
         
         if indexPath.section == 1 {
+            
             let category = self.getCategoryArray()[indexPath.row]
             let categoryCircleArray = self.getCategoryCircleArray(category: category)
             
-            let vc = CategoryTVC(style: .grouped)
-            vc.title = category.stringByRemovingEmoji()
-            vc.circleArray = categoryCircleArray
-            vc.category = category
-            
-            DispatchQueue.main.async {
-                self.navigationController?.pushViewController(vc, animated: true)
+            let category2Array = categoryCircleArray.map({$0.category2})
+            var isAllCategory2 = true
+            for category2 in category2Array {
+//                print("category2 \(categoryCircleArray)")
+                print("category2 \(category2)")
+                if category2 == nil {
+                    isAllCategory2 = false
+                }
             }
+            print("is - \(isAllCategory2)")
+            //FIX: Hella Sketchy
+            if isAllCategory2 {
+                let vc = SubLaunchTVC(style: .grouped)
+                vc.title = category.stringByRemovingEmoji()
+                vc.circleArray = categoryCircleArray
+                
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            }
+            else {
+                let vc = CategoryTVC(style: .grouped)
+                vc.title = category.stringByRemovingEmoji()
+                vc.circleArray = categoryCircleArray
+                vc.category = category
+                
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            
+            
+            
         }
         
     }
